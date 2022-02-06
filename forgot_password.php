@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
@@ -59,7 +59,7 @@ Function ShowForm() {
 	</table>
 	</form>
 	</div>
-<?
+<?php
 	
 }
 

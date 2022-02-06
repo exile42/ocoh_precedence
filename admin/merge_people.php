@@ -1,11 +1,11 @@
-<?
+<?php
 include("../includes/constants.php");
 include("../includes/ez_sql.php");
 include("../includes/functions.php");
 include("../includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("../includes/footer.php");
         die;
 }
@@ -38,14 +38,14 @@ if ($results >=2) {
 	
 ?>
 
-<div class="bodyheader"><?=$Action?> Merge People</div>
+<div class="bodyheader"><?php=$Action?> Merge People</div>
 <br />
 <br />
-<?
+<?php
 if ($Action == "Merge") { //they've confirmed the merge
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
-    	?><p class="error"><?=$err?></p>"<?
+    	?><p class="error"><?php=$err?></p>"<?php
     	ShowForm();
 	} else { //no errors, insert or update as needed
 		$Accepting = SCANameFromPersonID($AcceptingPersonID, $db);
@@ -58,10 +58,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 				//echo $updatequeryruler;
 				//Do the update
 				if ($db->query($updatequeryruler) >= 0) {
-					?><p class="success">Reign for <?=$Merging?> (as Ruler) has been merged into <?=$Accepting?> (the name has not changed, only the ID number the name points to)</p><?
+					?><p class="success">Reign for <?php=$Merging?> (as Ruler) has been merged into <?php=$Accepting?> (the name has not changed, only the ID number the name points to)</p><?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'merged Reign as Ruler for $Merging into $Accepting u: $Username', '$IPAddress')");
 				} else {
-					?> <p>Attempted merge of reigns (as Ruler) failed. :( NOTE TO SYSADMIN: <?=$updatequeryruler?></p><?
+					?> <p>Attempted merge of reigns (as Ruler) failed. :( NOTE TO SYSADMIN: <?php=$updatequeryruler?></p><?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED merged Reign as Ruler for $Merging into $Accepting u: $Username', '$IPAddress')");
 				} // end if update query for reigns as ruler
 
@@ -71,10 +71,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 //				echo $updatequeryconsort;
 				//Do the update
 				if ($db->query($updatequeryconsort) >= 0) {
-					?><p class="success">Reigns for <?=$Merging?> (as Consort) have been merged into <?=$Accepting?> (the name has not changed, only the ID number the name points to)</p><?
+					?><p class="success">Reigns for <?php=$Merging?> (as Consort) have been merged into <?php=$Accepting?> (the name has not changed, only the ID number the name points to)</p><?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'merged Reign as Consort for $Merging into $Accepting u: $Username', '$IPAddress')");
 				} else {
-					?> <p>Attempted merge of reigns (as Consort) failed. :( NOTE TO SYSADMIN: <?=$updatequeryconsort?></p><?
+					?> <p>Attempted merge of reigns (as Consort) failed. :( NOTE TO SYSADMIN: <?php=$updatequeryconsort?></p><?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED merged Reign as Consort for $Merging into $Accepting u: $Username', '$IPAddress')");
 				} // end if update query for reigns as consort
 
@@ -87,10 +87,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 //					echo $updatequeryheraldry;
 					//Do the update
 					if ($db->query($updatequeryheraldry) >= 0) {
-						?><p class="success">Heraldry for <?=$Merging?> has been merged into <?=$Accepting?></p><?
+						?><p class="success">Heraldry for <?php=$Merging?> has been merged into <?php=$Accepting?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'merged Heraldry for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} else {
-						?> <p>Attempted merge of heraldry failed. :( NOTE TO SYSADMIN: <?=$updatequeryheraldry?></p><?
+						?> <p>Attempted merge of heraldry failed. :( NOTE TO SYSADMIN: <?php=$updatequeryheraldry?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED merged Heraldry for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} // end if update query for heraldry
 
@@ -102,10 +102,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 //					echo $updatequeryaliases;
 					//Do the update
 					if ($db->query($updatequeryaliases) >= 0) {
-						?><p class="success">Aliases for <?=$Merging?> have been merged into <?=$Accepting?></p><?
+						?><p class="success">Aliases for <?php=$Merging?> have been merged into <?php=$Accepting?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'merged Aliases for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} else {
-						?> <p>Attempted merge of <?=$Merging?>'s aliases failed. :( NOTE TO SYSADMIN: <?=$updatequeryaliases?></p><?
+						?> <p>Attempted merge of <?php=$Merging?>'s aliases failed. :( NOTE TO SYSADMIN: <?php=$updatequeryaliases?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED merged Aliases for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} // end if update query for aliases
 
@@ -117,10 +117,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 //					echo $updatequeryawards;
 					//Do the update
 					if ($db->query($updatequeryawards) >= 0) {
-						?><p class="success">AwardsGiven for <?=$Merging?> have been merged into <?=$Accepting?></p><?
+						?><p class="success">AwardsGiven for <?php=$Merging?> have been merged into <?php=$Accepting?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'merged AwardsGiven for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} else {
-						?> <p>Attempted merge of awards given failed. :( NOTE TO SYSADMIN: <?=$updatequeryawards?></p><?
+						?> <p>Attempted merge of awards given failed. :( NOTE TO SYSADMIN: <?php=$updatequeryawards?></p><?php
 						$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED merged AwardsGiven for $Merging into $Accepting u: $Username', '$IPAddress')");
 					} // end if update query for AwardsGiven
 
@@ -142,10 +142,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 		$addaliasquery = "INSERT INTO wAliases (PersonID, Alias, SearchAlias) VALUES ('$AcceptingPersonID', '$Merging', '$MergingSearchName')";
 //		echo $addaliasquery;
 		if ($results = $db->query($addaliasquery)) {
-			?><p class="success"><?=$Merging?> was added as an alias to <?=$Accepting?>.<?
+			?><p class="success"><?php=$Merging?> was added as an alias to <?php=$Accepting?>.<?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added adding $Merging as alias $Accepting u: $Username', '$IPAddress')");
 		} else {
-			?> Something went wrong and <?=$Merging?> FAILED to be added as an alias to <?=$Accepting?>. :( <?
+			?> Something went wrong and <?php=$Merging?> FAILED to be added as an alias to <?php=$Accepting?>. :( <?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED adding $Merging as alias $Accepting u: $Username', '$IPAddress')");
 		} // end if aliasquery
 
@@ -154,10 +154,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 		$deletequery = "DELETE QUICK FROM wPeople WHERE PersonID='$MergingPersonID'";
 //		echo $deletequery;
 		if ($results = $db->query($deletequery)) {
-			?><p class="success"><?=$Merging?>'s Person record was deleted.<?
+			?><p class="success"><?php=$Merging?>'s Person record was deleted.<?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'SUCCESS deleting $Merging Person record (merging into $Accepting) u: $Username', '$IPAddress')");
 		} else {
-			?> Something went wrong and <?=$Merging?>'s Person record FAILED to be deleted. :( <?
+			?> Something went wrong and <?php=$Merging?>'s Person record FAILED to be deleted. :( <?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED deleting $Merging Person record (merging into $Accepting) u: $Username', '$IPAddress')");
 		} // end if deletequery
 
@@ -166,7 +166,7 @@ if ($Action == "Merge") { //they've confirmed the merge
 } elseif ($Action == "Confirm") { //they've requested a merge, we need them to confirm
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
-    	?><p class="error"><?=$err?></p>"<?
+    	?><p class="error"><?php=$err?></p>"<?php
     	ShowForm();
 	} else { //no errors, but get them to confirm the merge
 		$Accepting = SCANameFromPersonID($AcceptingPersonID, $db);
@@ -175,9 +175,9 @@ if ($Action == "Merge") { //they've confirmed the merge
 		<div class="form">
 			<form action="merge_people.php" method="post">
 			<input type="hidden" name="Action" value="Merge">
-            <input type="hidden" name="AcceptingPersonID" value="<?=$AcceptingPersonID?>">
-            <input type="hidden" name="MergingPersonID" value="<?=$MergingPersonID?>">
-            Do you really want to merge all of (<?=$MergingPersonID?>) <?=$Merging?>'s records into (<?=$AcceptingPersonID?>) <?=$Accepting?> 's records?  (<?=$MergingPersonID?>) <?=$Merging?> will still show up as an alias for (<?=$AcceptingPersonID?>) <?=$Accepting?> (you can delete it manually later if absolutely necessary)?
+            <input type="hidden" name="AcceptingPersonID" value="<?php=$AcceptingPersonID?>">
+            <input type="hidden" name="MergingPersonID" value="<?php=$MergingPersonID?>">
+            Do you really want to merge all of (<?php=$MergingPersonID?>) <?php=$Merging?>'s records into (<?php=$AcceptingPersonID?>) <?php=$Accepting?> 's records?  (<?php=$MergingPersonID?>) <?php=$Merging?> will still show up as an alias for (<?php=$AcceptingPersonID?>) <?php=$Accepting?> (you can delete it manually later if absolutely necessary)?
             <strong>THIS CANNOT BE UNDONE.</strong>
             <br />
             <br />
@@ -186,7 +186,7 @@ if ($Action == "Merge") { //they've confirmed the merge
             </p>
 			</form>
 		</div>
-		<?
+		<?php
 	} //end if error
 
 } else { //they need to pick who is getting merged, show form
@@ -195,7 +195,7 @@ if ($Action == "Merge") { //they've confirmed the merge
 }//end if Action
 ?>
 
-<? function ShowForm() { 
+<?php function ShowForm() { 
 	global $db, $AcceptingPersonID, $MergingPersonID; 
 ?>
 	<div class="form">
@@ -204,12 +204,12 @@ if ($Action == "Merge") { //they've confirmed the merge
 		  <p><b>Person ACCEPTING the merge (all records will be pointed at THIS ONE):</b><br />
 		<select name="AcceptingPersonID">
 			<option value="BADDATA" selected>Select the Person</option>
-		<? $acceptingquery = "SELECT PersonID, SCAName, SearchName FROM wPeople ORDER BY SearchName";
+		<?php $acceptingquery = "SELECT PersonID, SCAName, SearchName FROM wPeople ORDER BY SearchName";
 		if ($results = $db->get_results($acceptingquery)) {
 			foreach($results as $a) { 
 				$aPersonID	= $a->PersonID;
 				$aSCAName		= $a->SCAName; 
-			  ?><option value="<?=$aPersonID?>"><?=$aPersonID?>: <?=$aSCAName?></option><?
+			  ?><option value="<?php=$aPersonID?>"><?php=$aPersonID?>: <?php=$aSCAName?></option><?php
 			};
 		};?>
     	</select>
@@ -218,12 +218,12 @@ if ($Action == "Merge") { //they've confirmed the merge
 		  <p><b>Person BEING merged (will disappear except as alias of other person):</b><br />
             <select name="MergingPersonID">
                 <option value="BADDATA" selected>Select the Person</option>
-            <? $mergingquery = "SELECT PersonID, SCAName, SearchName FROM wPeople ORDER BY SearchName";
+            <?php $mergingquery = "SELECT PersonID, SCAName, SearchName FROM wPeople ORDER BY SearchName";
             if ($results = $db->get_results($mergingquery)) {
                 foreach($results as $m) { 
                     $mPersonID	= $m->PersonID;
                     $mSCAName		= $m->SCAName; 
-                  ?><option value="<?=$mPersonID?>"><?=$mPersonID?>: <?=$mSCAName?></option><?
+                  ?><option value="<?php=$mPersonID?>"><?php=$mPersonID?>: <?php=$mSCAName?></option><?php
                 };
             };?>
             </select>
@@ -235,10 +235,10 @@ if ($Action == "Merge") { //they've confirmed the merge
 	        </p>
 	  </form>
 	</div>
-<?
+<?php
 }; //end funtion ShowForm();
 ?>
 
-<?
+<?php
 include("../includes/footer.php");
 ?>

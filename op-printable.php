@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -22,7 +22,7 @@ switch ($_REQUEST['style']){
 		?><div class="bodyheader">Outlands Order of Precedence</div><br /><br />
 		<p>Long Form (<a href="op-printable.php?style=long&start=0">Paginated</a> | <a href="op-printable.php?style=long">Non-Paginated)</a><br />
 		Short Form (<a href="op-printable.php?style=short&start=0">Paginated</a> | <a href="op-printable.php?style=short">Non-Paginated)</a></p>
-		<?
+		<?php
 }
 
 include("includes/footer.php");
@@ -49,18 +49,18 @@ function OPLong($kingdom = 17, $start=0, $paged=null){
 	array_pop($head);
 	
 	?><div class="bodyheader">Outlands Order of Precedence</div>
-	<div style="margin-left:10px;"><br/><br/><?=$nav?> <?
+	<div style="margin-left:10px;"><br/><br/><?php=$nav?> <?php
 	foreach ($head as $person){
 		$list_result=null;
 		$list = null;
-		?><strong><a href="individual_record.php?PersonID=<?=$person[ID]?>"><?=$person[SCAName]?></a></strong>  (<?=$person[Group]?>)<?
+		?><strong><a href="individual_record.php?PersonID=<?php=$person[ID]?>"><?php=$person[SCAName]?></a></strong>  (<?php=$person[Group]?>)<?php
 
 		if (isset($person['RegDevice']) && $person['RegName'] == 1) { 
-			?> -- Name And Device Registered<br/><?
+			?> -- Name And Device Registered<br/><?php
 		} else if ($person['RegName'] == 1) {
-			?> -- Name Registered<br/><?
+			?> -- Name Registered<br/><?php
 		} else {
-			?><br/><?
+			?><br/><?php
 		}
 	
 		$award_sql="SELECT A.AwardID, A.Name, Kingdoms.Name AS 'Kingdom', Groups.Name AS 'Group', A.RankID, AG.Date, DATE_FORMAT(AG.Date, '%Y-%m-%d') AS AGDate, AG.AwardedBy, AG.Resigned, AG.Visible, AG.ReignID, AG.Notes, A.GiverType FROM wAwardsGiven AG INNER JOIN wAwards A ON AG.AwardID = A.AwardID LEFT OUTER JOIN Kingdoms ON Kingdoms.KingdomID = A.KingdomID LEFT OUTER JOIN Groups ON Groups.GroupID = A.GroupID WHERE AG.PersonID = $person[ID] ORDER BY A.Rank, AG.Date";
@@ -68,33 +68,33 @@ function OPLong($kingdom = 17, $start=0, $paged=null){
 		$list_result = mysql_query($award_sql, $cstring) or die("MySQL Error (List)!! $award_sql ".mysql_error());
 		while ($list[] = mysql_fetch_assoc($list_result));
 	
-		?><table width="520" style="margin-left:2em;"><?
+		?><table width="520" style="margin-left:2em;"><?php
 		foreach ($list as $award){
 			if ($award['Visible'] && !$award['Resigned']){
 				if ($award['GiverType'] != 'B' && isset($award['AwardedBy'])){
-					?><tr><td><?=$award[Name]?> [<?=$award[AwardedBy]?>] -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php=$award[Name]?> [<?php=$award[AwardedBy]?>] -- (<?php=$award[Kingdom]?>)</td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 				} else if ($award['Kingdom'] != "Outlands"){
 					if ($award['Kingdom'] == "SCA"){
 						if ($award['AwardID'] == 3 || $award['AwardID'] == 257 || $award['AwardID'] == 7 || $award['AwardID'] == 275){
-							?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php=$award[Name]?></td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 						} else {
-							?><tr><td><?=$award[Name]?> -- <?=$award[Notes]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php=$award[Name]?> -- <?php=$award[Notes]?></td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 						}
 					} else {
-						?><tr><td><?=$award[Name]?> -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+						?><tr><td><?php=$award[Name]?> -- (<?php=$award[Kingdom]?>)</td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 					}
 				} else if (!isset($award['Group'])){
-					?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php=$award[Name]?></td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 				} else {
-					?><tr><td><?=$award[Name]?> -- (<?=$award[Group]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php=$award[Name]?> -- (<?php=$award[Group]?>)</td><td align="right"><?php=$award[AGDate]?></td></tr><?php
 				}
 			}
 		}
 			?></table><br/>
-			<hr/><?
+			<hr/><?php
 		}
 			echo $nav;
-			?></div><?
+			?></div><?php
 }
 
 function OPShort($kingdom = 17, $start= 0, $paged=null){

@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessPH != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -34,10 +34,10 @@ if ($Delete == "DeleteUser") {
 
 		$query = "DELETE QUICK FROM Users WHERE UserID='$WorkingUserID'";
 		if ($results=$db->query($query)) {
-			?><p class="success">You have successfully deleted <?=$User?>.</p><?
+			?><p class="success">You have successfully deleted <?php=$User?>.</p><?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'deleted user $User u: $Username', '$IPAddress')");
 		} else {
-			?><p class="failure">Something went wrong in deleting <?=$User?></p><?
+			?><p class="failure">Something went wrong in deleting <?php=$User?></p><?php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED deleted user $User u: $Username', '$IPAddress')");
 		}
 	}
@@ -52,7 +52,7 @@ if ($Delete == "DeleteUser") {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Username</td><td>Email</td><td>Last Login</td><td>Action</td></tr>
 
-	<? 
+	<?php 
 	
 	// Don't use Username or UserID, or it will override the ones we pulled from the session cookie!
 	
@@ -64,19 +64,19 @@ if ($Delete == "DeleteUser") {
 				$$name = $value;
 			};
 			?>
-			<tr><td><?=$User?></td>
-			<td><?=$Email?></td>
-			<td><?=$LastLoginDate?></td>
-			<td><a href="add_user.php?Action=Edit&WorkingUserID=<?=$WorkingUserID?>">EDIT</a> | <a href="list_users.php?Delete=DeleteUser&Action=Edit&WorkingUserID=<?=$WorkingUserID?>"	onClick="return confirm_delete('<?=$User?> entirely')">Delete?</a><br></td>
+			<tr><td><?php=$User?></td>
+			<td><?php=$Email?></td>
+			<td><?php=$LastLoginDate?></td>
+			<td><a href="add_user.php?Action=Edit&WorkingUserID=<?php=$WorkingUserID?>">EDIT</a> | <a href="list_users.php?Delete=DeleteUser&Action=Edit&WorkingUserID=<?php=$WorkingUserID?>"	onClick="return confirm_delete('<?php=$User?> entirely')">Delete?</a><br></td>
 
 			</tr>
-			<?
+			<?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
       Bigtime error: no users!
-    </td></tr> <?
+    </td></tr> <?php
 	} // end if results for usersquery
 
 	
@@ -84,6 +84,6 @@ if ($Delete == "DeleteUser") {
     <a href="add_user.php?Action=Add">ADD NEW USER</a>
   </td></tr></table></div>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

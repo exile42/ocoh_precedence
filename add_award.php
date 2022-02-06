@@ -138,12 +138,12 @@ if ($Action == "Submit") { //they've submitted the form
 	<div class="form">
 		<form action="add_award.php" method="post">
 		<input type="hidden" name="Action" value="Submit" />
-		<input type="hidden" name="AwardID" value="<?=$AwardID?>">
+		<input type="hidden" name="AwardID" value="<?php=$AwardID?>">
 		<b>Name of Award/Order:</b><br />
-		<input type="text" size="80" name="Name" class="formfield" value="<?=$Name?>" /><br />
+		<input type="text" size="80" name="Name" class="formfield" value="<?php=$Name?>" /><br />
         Do not include "Order of", "Award of", "Ordre de", etc. here.<br /><br />
 		<b>Initials:</b><br />
-		<input type="text" size="10" name="Initials" class="formfield" value="<?=$Initials?>" /><br /><br />
+		<input type="text" size="10" name="Initials" class="formfield" value="<?php=$Initials?>" /><br /><br />
 	  <b>Rank:</b><br />
 		<select name="RankID">
 		<?php $rankquery = "SELECT R.RankID, R.Rank, R.Description FROM wRanks R ORDER BY R.Rank DESC";
@@ -167,24 +167,24 @@ if ($Action == "Submit") { //they've submitted the form
 	<input name="GivenFor" type="text" class="formfield" size="80" maxlength="150"  value="<?php echo $GivenFor;?>" />
 	<br /><br />
 <b>Short form of the Given For (40 characters max):</b><br />
-	<input name="ShortFor" type="text" class="formfield" size="40" maxlength="40"  value="<?=$ShortFor?>" /> (for example, "A&S", "Service", "Fighting")
+	<input name="ShortFor" type="text" class="formfield" size="40" maxlength="40"  value="<?php=$ShortFor?>" /> (for example, "A&S", "Service", "Fighting")
 	<br /><br />
 <b>GiverType:</b><br />
 	<select name="GiverType">
-		<option value="B" <?=(($GiverType=='B')? 'selected': '') ?>> Both Ruler and Consort
-		<option value="R" <?=(($GiverType=='R')? 'selected': '') ?>> Ruler Only
-		<option value="C" <?=(($GiverType=='C')? 'selected': '') ?>> Consort Only
+		<option value="B" <?php=(($GiverType=='B')? 'selected': '') ?>> Both Ruler and Consort
+		<option value="R" <?php=(($GiverType=='R')? 'selected': '') ?>> Ruler Only
+		<option value="C" <?php=(($GiverType=='C')? 'selected': '') ?>> Consort Only
     </select><br /><br />
 		<b>Kingdom:</b><br />
 		<select name="KingdomID">
-			<option value="<?=$MYKINGDOMID?>" selected><?=$WEAREKINGDOM?></option>
+			<option value="<?php=$MYKINGDOMID?>" selected><?php=$WEAREKINGDOM?></option>
 		<?php $kingdomquery = "SELECT K.KingdomID, K.Name FROM Kingdoms K ORDER BY CreationOrder";
 		if ($results = $db->get_results($kingdomquery)) {
 			foreach($results as $k) { 
 				$kKingdomID	= $k->KingdomID;
 				$kName		= $k->Name;
 			  if ($kKingdomID == $KingdomID) { $s = "selected"; } else { $s = ""; }
-			  ?><option value="<?=$kKingdomID?>" <?=$s?>><?=$kName?></option><?
+			  ?><option value="<?php=$kKingdomID?>" <?php=$s?>><?php=$kName?></option><?php
 			};
 		};?>
     </select><br /><br />
@@ -197,7 +197,7 @@ if ($Action == "Submit") { //they've submitted the form
 				$gName		= $r->Name;
 				$kName		= KingdomNameFromGroupID($gGroupID, $db);
 			  if ($gGroupID == $GroupIDtrue) { $s = "selected"; } else { $s = ""; }
-			  ?><option value="<?=$gGroupID?>" <?=$s?>><?=$gName?> (<?=$kName?>)</option><?
+			  ?><option value="<?php=$gGroupID?>" <?php=$s?>><?php=$gName?> (<?php=$kName?>)</option><?php
 			};
 		};?>
 		<?php $groupsoutofkingdomquery = "SELECT G.GroupID, G.Name FROM Groups G WHERE G.KingdomID!=$MYKINGDOMID ORDER BY Name";
@@ -207,28 +207,28 @@ if ($Action == "Submit") { //they've submitted the form
 				$gName		= $r->Name;
 				$kName		= KingdomNameFromGroupID($gGroupID, $db);
 			  if ($gGroupID == $GroupIDtrue) { $s = "selected"; } else { $s = ""; }
-			  ?><option value="<?=$gGroupID?>" <?=$s;?>><?=$gName?> (<?=$kName?>)</option><?
+			  ?><option value="<?php=$gGroupID?>" <?php=$s;?>><?php=$gName?> (<?php=$kName?>)</option><?php
 			};
 		};?>
     </select><br /><br />
 		<b>Blazon:</b><br />
-		<input name="Blazon" type="text" class="formfield" size="80" maxlength="200" value="<?=$Blazon?>" /><br /><br />
+		<input name="Blazon" type="text" class="formfield" size="80" maxlength="200" value="<?php=$Blazon?>" /><br /><br />
 		<b>Filename (for badge):</b><br />
-		<input name="Filename" type="text" class="formfield" size="50" maxlength="60"  value="<?=$Filename?>" />
+		<input name="Filename" type="text" class="formfield" size="50" maxlength="60"  value="<?php=$Filename?>" />
 		<br /><br />
 		<b>Charter (filename thereof):</b><br />
-		<input name="Charter" type="text" class="formfield" size="50" maxlength="100"  value="<?=$Charter?>" />
+		<input name="Charter" type="text" class="formfield" size="50" maxlength="100"  value="<?php=$Charter?>" />
 		<br /><br />
 		<b>Charter Notes:</b><br />
-		<input name="Notes" type="text" class="formfield" size="80" maxlength="150"value="<?=$Notes?>" /><br /><br />
+		<input name="Notes" type="text" class="formfield" size="80" maxlength="150"value="<?php=$Notes?>" /><br /><br />
 
 		<input type="submit" class="button" value="Submit" />
 		</form>
 	</div>
-<?
+<?php
 }; //end funtion ShowForm();
 ?>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

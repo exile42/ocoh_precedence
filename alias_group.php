@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -53,11 +53,11 @@ if ($results_child_groups) {
 <a href="alias.php">Back to alpha/group page</a><br />
 </center>
 
-<div class="bodyheader"><? print "$Name"; ?> (including subgroups, if any)</div>
-<p>Sort: <? echo $by; ?> | <a href="alias_group.php?GroupID=<? echo $GroupID; ?>&by=<? echo $switchby; ?>"><? echo $switchby?></a></p>
+<div class="bodyheader"><?php print "$Name"; ?> (including subgroups, if any)</div>
+<p>Sort: <?php echo $by; ?> | <a href="alias_group.php?GroupID=<?php echo $GroupID; ?>&by=<?php echo $switchby; ?>"><?php echo $switchby?></a></p>
 
 <table border="0" cellpadding="3" cellspacing="3" width="515">
-<? 
+<?php 
 $db_query="SELECT a.Alias, p.SCAName, p.PersonID FROM wPeople p, wAliases a WHERE p.PersonID = a.PersonID AND (GroupID='$GroupID' $subgroups) ORDER BY $sortby";
 $results = $db->get_results($db_query);
 if ($results) {
@@ -67,24 +67,24 @@ if ($results) {
 		};
 		?>
 	<tr>
-	<? 
+	<?php 
 	if ($by=="alias") { ?>
-		<td align="left"><? echo $Alias; ?></td>
-		<td align="right"><a href="individual_record.php?PersonID=<? echo $PersonID ; ?>"><? echo $SCAName;?></a></td>
-	<? } else { ?>
-		<td align="left"><a href="individual_record.php?PersonID=<? echo $PersonID ; ?>"><? echo $SCAName;?></a></td>
-		<td align="right"><? echo $Alias; ?></td>
-	<? } ?>
+		<td align="left"><?php echo $Alias; ?></td>
+		<td align="right"><a href="individual_record.php?PersonID=<?php echo $PersonID ; ?>"><?php echo $SCAName;?></a></td>
+	<?php } else { ?>
+		<td align="left"><a href="individual_record.php?PersonID=<?php echo $PersonID ; ?>"><?php echo $SCAName;?></a></td>
+		<td align="right"><?php echo $Alias; ?></td>
+	<?php } ?>
 	</tr>
-	<? 
+	<?php 
 	};  //end foreach
 } else {
-	?><p>Nobody in <?=$Name?> has a known alias.</p><?
+	?><p>Nobody in <?php=$Name?> has a known alias.</p><?php
 }// end if
 ?>
 </table>
 
 
-<?
+<?php
 include("includes/footer.php");
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -6,7 +6,7 @@ include("includes/header.php");
 include("includes/converter.php");
 
 if ($accessPH != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -22,10 +22,10 @@ else
 
 ?>
 
-<div class="bodyheader"><?=$Action?> User</div>
+<div class="bodyheader"><?php=$Action?> User</div>
 <br />
 <br />
-<?
+<?php
 
 if ($Delete == "DeleteUser") {
 	if (isset($_REQUEST['WorkingUserID']))
@@ -41,7 +41,7 @@ if ($Delete == "DeleteUser") {
 
 		$query = "DELETE QUICK FROM Users WHERE UserID='$WorkingUserID'";
 		$db->query($query);
-		?><p class="success">You have successfully deleted <?=$Username?>.</p><?
+		?><p class="success">You have successfully deleted <?php=$Username?>.</p><?php
 		$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'deleted user $User u: $Username', '$IPAddress')");
 
 	}
@@ -76,7 +76,7 @@ if ($Action == "Submit") { //they've submitted the form
 
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
-		?><p class="error"><?=$err?></p><?
+		?><p class="error"><?php=$err?></p><?php
 		ShowForm();
 	} else { //no errors, insert or update as needed
 	
@@ -89,27 +89,27 @@ if ($Action == "Submit") { //they've submitted the form
 			//Do the update
 			if ($results = $db->query($insertquery)) {
 				// so we updated the user successfully
-				?><p class="success">You have successfully added <?=$User?> <?
+				?><p class="success">You have successfully added <?php=$User?> <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added User $User u: $Username', '$IPAddress')");
 				
 				// now update their permissions
 				$WorkingUserID = $db->get_var("SELECT MAX(UserID) FROM Users WHERE Username='$User'");
 				$insertpermissionsquery="INSERT INTO UserAccess (UserID, PrincipalHerald, Wimble, OPMinion, OPView, Wharrow) VALUES ('$WorkingUserID', '$OPHeraldPerm', '$OPHeraldPerm', '$OPMinionPerm', '$OPViewPerm', '$ROAHeraldPerm')";
 				if ($results = $db->query($insertpermissionsquery)) {
-					?> and the permissions were successfully updated.<?
+					?> and the permissions were successfully updated.<?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added permissions for User $User u: $Username', '$IPAddress')");
 				} else {
-					?> but something went wrong and the user permissions weren't added. :( <?
+					?> but something went wrong and the user permissions weren't added. :( <?php
 					$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED adding permissions for User $User u: $Username', '$IPAddress')");
 				} // end if updatequery
 			} else {
-				?> Something went wrong and the user info wasn't added (nor their permissions). :( <?
+				?> Something went wrong and the user info wasn't added (nor their permissions). :( <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED adding User $User u: $Username', '$IPAddress')");
 			} // end if insertquery
 			?>
             </p>
 
-			<p>Go back to <a href="list_users.php">List of Users</a>.</p><?
+			<p>Go back to <a href="list_users.php">List of Users</a>.</p><?php
 
 			// end of adding
 
@@ -132,25 +132,25 @@ if ($Action == "Submit") { //they've submitted the form
 			//Do the update
 			if ($results = $db->query($updatequery)) {
 				// so we updated the user successfully
-				?><p class="success">You have successfully updated <?=$User?> <?
+				?><p class="success">You have successfully updated <?php=$User?> <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'edited User $User u: $Username', '$IPAddress')");
 			} else {
-				?> Either the user info wasn't changed or something went wrong. <?
+				?> Either the user info wasn't changed or something went wrong. <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED edited User $User u: $Username', '$IPAddress')");
 			} // end if updatequery
 				
 			// now update their permissions
 			if ($results = $db->query($updatepermissionsquery)) {
-				?> The permissions were successfully updated.<?
+				?> The permissions were successfully updated.<?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'edited permissions for User $User u: $Username', '$IPAddress')");
 			} else {
-				?> Either the permissions weren't changed or something went wrong. <?
+				?> Either the permissions weren't changed or something went wrong. <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED editing permissions for User $User u: $Username', '$IPAddress')");
 			} // end if updatequery
 			?>
             </p>
 
-			<p>Go back to <a href="list_users.php">List of Users</a>.</p><?
+			<p>Go back to <a href="list_users.php">List of Users</a>.</p><?php
 		}	
 	} //end if error
 	
@@ -190,43 +190,43 @@ Function ShowForm() {
 	<div align="center">
 	<form action="add_user.php" method="post">
 	<input type="hidden" name="Action" value="Submit">
-	<input type="hidden" name="WorkingUserID" value="<?=$WorkingUserID?>">
+	<input type="hidden" name="WorkingUserID" value="<?php=$WorkingUserID?>">
 	<table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
-	<tr><td colspan="2" class="tableheader"><?=$Action?> User</td></tr>
+	<tr><td colspan="2" class="tableheader"><?php=$Action?> User</td></tr>
 	<tr><td>Username:</td>
-		<td><input type="text" name="User" value="<?=$User?>" size="50" maxlength="80"></td></tr>
+		<td><input type="text" name="User" value="<?php=$User?>" size="50" maxlength="80"></td></tr>
 	<tr><td>Password:</td>
-		<td><input type="text" name="Password" value="<?=$Password?>" size="50" maxlength="80"></td></tr>
+		<td><input type="text" name="Password" value="<?php=$Password?>" size="50" maxlength="80"></td></tr>
 	<tr><td>Email:</td>
-		<td><input type="text" name="Email" value="<?=$Email?>" size="50" maxlength="80"></td></tr>
+		<td><input type="text" name="Email" value="<?php=$Email?>" size="50" maxlength="80"></td></tr>
 	<tr><td colspan="2">Note: Permissions do not cascade - give each permission necessary</td></tr>
-	<tr><td><? WriteYNDropDown($PHeraldPerm, "PHeraldPerm"); ?></td>
+	<tr><td><?php WriteYNDropDown($PHeraldPerm, "PHeraldPerm"); ?></td>
 		<td>Principal Herald Permission</td></tr>
-	<tr><td><? WriteYNDropDown($OPHeraldPerm, "OPHeraldPerm"); ?></td>
+	<tr><td><?php WriteYNDropDown($OPHeraldPerm, "OPHeraldPerm"); ?></td>
 		<td>Full OP Herald (Wimble) Permission (necessary to edit things)</td></tr>
-	<tr><td><? WriteYNDropDown($OPMinionPerm, "OPMinionPerm"); ?></td>
+	<tr><td><?php WriteYNDropDown($OPMinionPerm, "OPMinionPerm"); ?></td>
 		<td>"OP Minion" (does nothing at this time)</td></tr>
-	<tr><td><? WriteYNDropDown($OPViewPerm, "OPViewPerm"); ?></td>
+	<tr><td><?php WriteYNDropDown($OPViewPerm, "OPViewPerm"); ?></td>
 		<td>"OP View" Permission, give to anyone who needs to view/access anything on the OP site, including Wharrow</td></tr>
-	<tr><td><? WriteYNDropDown($ROAHeraldPerm, "ROAHeraldPerm"); ?></td>
+	<tr><td><?php WriteYNDropDown($ROAHeraldPerm, "ROAHeraldPerm"); ?></td>
 		<td>Full Roll of Arms Herald (Wharrow) Permission</td></tr>
 
-<?	if ($Action == "Edit") { ?>
+<?php	if ($Action == "Edit") { ?>
 		<tr><td colspan="2" class="tableheader">Administration</td></tr>
 		<tr><td>Date Created:</td>
-			<td><?=$CreatedOn?></td></tr>
+			<td><?php=$CreatedOn?></td></tr>
 		<tr><td>Created By:</td>
-			<td><?=$CreatedBy?></td></tr>
-<?	} ?>
+			<td><?php=$CreatedBy?></td></tr>
+<?php	} ?>
 	
 	<tr><td></td>
-		<td><input type="submit" name="submit" value="<?=$Action?> User"></td></tr>
+		<td><input type="submit" name="submit" value="<?php=$Action?> User"></td></tr>
 	</table>
 	</form>
 	</div>
 
 
-<?
+<?php
 }
 
 include("includes/footer.php");

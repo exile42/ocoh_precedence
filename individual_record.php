@@ -1,4 +1,4 @@
-<?
+<?php
 
 function Personal($id){
 /*	global $cstring;
@@ -11,7 +11,7 @@ function Personal($id){
 
 $header_results = $db->get_results($header_query);
 if ($header_results) {
-	?><table border="0" width="560" cellpadding="3" cellspacing="3"><?
+	?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 	foreach ($header_results as $r){
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
@@ -26,25 +26,25 @@ if ($header_results) {
 		$print_group=$Kingdom;		//print kingdom only
 
 	?><table border="0" width="560"><tr>
-	<td valign="middle"><span class="bodyheader2"><?=$head[SCAName]?> (<?=$print_group?>)</span><br /><?
+	<td valign="middle"><span class="bodyheader2"><?php=$head[SCAName]?> (<?php=$print_group?>)</span><br /><?php
 	// Added emblazon-functionality for those who have one in the RoA, and blazon-only for those without
 	if ($Deceased==1){
-		?><span class="small">(Deceased)</span><br /><?
+		?><span class="small">(Deceased)</span><br /><?php
 	}// end if dead
 	
 	if (isset($Blazon) && $RegName == 1 && isset($Filename)){
 		?><span class="small">Name And Device Registered</td>
-		<td align="right" valign="middle"><a href="<?=$rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?=$Filename?>" alt="[<?=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+		<td align="right" valign="middle"><a href="<?php=$rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?php=$Filename?>" alt="[<?php=$Blazon?>]" style="width:70px; border:0px;"></a></td>
 		<table border=0>
-		<tr><td align="middle"><div class="centered"><?=$Blazon?></div><br /><br /></td></tr>
-		</table><?
+		<tr><td align="middle"><div class="centered"><?php=$Blazon?></div><br /><br /></td></tr>
+		</table><?php
 	} else if (isset($Blazon) && $RegName == 1 ){
 		?><span class="small">Name And Device Registered</span><br />
-		<div class="centered"><?=$Blazon?></div><br /><?
+		<div class="centered"><?php=$Blazon?></div><br /><?php
 	} else if ($RegName == 1){
-		?><span class="small">Name Registered</span><br /><?
+		?><span class="small">Name Registered</span><br /><?php
 	} else {
-		?><span class="small">Name NOT Registered</span><br />"<?
+		?><span class="small">Name NOT Registered</span><br />"<?php
 	}// end if name or device registered
 */
 	
@@ -71,7 +71,7 @@ if ($err) {
 	$header_query="SELECT P.PersonID, P.SCAName, P.ModernName, P.Deceased, G.Name AS LocalGroup, K.Name AS Kingdom, P.RegName FROM wPeople P LEFT OUTER JOIN Kingdoms K ON K.KingdomID = P.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = P.GroupID WHERE P.PersonID = $PersonID";
 	$header_results = $db->get_results($header_query);
 	if ($header_results) {
-		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?
+		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 		foreach ($header_results as $r){
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
@@ -87,17 +87,17 @@ if ($err) {
 			$print_group=$Kingdom;		//print kingdom only
 	
 		?><table border="0" width="560"><tr>
-		<td valign="middle"><span class="bodyheader2"><?=$SCAName?> (<?=$print_group?>)</span><br /><?
+		<td valign="middle"><span class="bodyheader2"><?php=$SCAName?> (<?php=$print_group?>)</span><br /><?php
 		//if someone has passed on, note this here.
 		if ($Deceased==1){
-			?><span class="small">(Deceased)</span><br /><?
+			?><span class="small">(Deceased)</span><br /><?php
 		}// end if dead
 		
 		// Displaying information about registered primary name/device, inc'l emblazon if one is available
 		$heraldry_query="SELECT H.Blazon, H.Filename FROM wHeraldry H WHERE H.PersonID = $PersonID AND H.Type = 'Device'";
 		$heraldry_results = $db->get_results($heraldry_query);
 		if ($heraldry_results) {
-			?><table border="0" width="560" cellpadding="3" cellspacing="3"><?
+			?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 			foreach ($heraldry_results as $r){
 				while(list($name,$value) = each($r)) { //name all values
 					$$name = $value;
@@ -106,17 +106,17 @@ if ($err) {
 
 			if (isset($Blazon) && $RegName == 1 && isset($Filename)){
 				?><span class="small">Name And Device Registered</td>
-				<td align="right" valign="middle"><a href="<?=$ROLLOFARMSURL?>/individual_record.php?PersonID=<?=$PersonID?>"><img src="<?=$ROLLOFARMSURL?>/images/<?=$Filename?>" alt="[<?=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+				<td align="right" valign="middle"><a href="<?php=$ROLLOFARMSURL?>/individual_record.php?PersonID=<?php=$PersonID?>"><img src="<?php=$ROLLOFARMSURL?>/images/<?php=$Filename?>" alt="[<?php=$Blazon?>]" style="width:70px; border:0px;"></a></td>
 				<table border=0>
-				<tr><td align="middle"><div class="centered"><?=$Blazon?></div><br /><br /></td></tr>
-				</table><?
+				<tr><td align="middle"><div class="centered"><?php=$Blazon?></div><br /><br /></td></tr>
+				</table><?php
 			} else if (isset($Blazon) && $RegName == 1 ){
 				?><span class="small">Name And Device Registered</span><br />
-				<div class="centered"><?=$Blazon?></div><br /><?
+				<div class="centered"><?php=$Blazon?></div><br /><?php
 			} else if ($RegName == 1){
-				?><span class="small">Name Registered</span><br /><?
+				?><span class="small">Name Registered</span><br /><?php
 			} else {
-				?><span class="small">Name NOT Registered</span><br /><?
+				?><span class="small">Name NOT Registered</span><br /><?php
 			}// end if name or device registered
 		} // end if heraldry results
 	}// end if results
@@ -124,7 +124,7 @@ if ($err) {
 	$award_query="SELECT A.AwardID, A.Name, K.Name AS Kingdom, G.Name AS LocalGroup, A.RankID, A.Rank, AG.Date, AG.AwardedBy, AG.Resigned, AG.Premier, AG.Reason, AG.Visible, AG.ReignID, AG.Notes, A.GiverType, DATE_FORMAT(AG.Date, '%Y-%m-%d') AS NiceDate FROM wAwardsGiven AG INNER JOIN wAwards A ON AG.AwardID = A.AwardID LEFT OUTER JOIN Kingdoms K ON K.KingdomID = A.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = A.GroupID WHERE AG.PersonID = $PersonID ORDER BY A.Rank, AG.Date";
 	$award_results = $db->get_results($award_query);
 	if ($award_results) {
-		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?
+		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 		foreach ($award_results as $r){
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
@@ -155,53 +155,53 @@ if ($err) {
 			}
 			if ($ShowGivenNotes) $NotesText = " </ br>$Notes ";
 			
-			?><tr><td><?=$Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?=$NiceDate?></td></tr><?
+			?><tr><td><?php=$Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php=$NiceDate?></td></tr><?php
 */
 			
 			if ($Visible && !$Resigned){
 				if ($GiverType != 'B' && isset($AwardedBy)){
-					?><tr><td><?=$Name?> [<?=$AwardedBy?>] -- (<?=$Kingdom?>)</td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php=$Name?> [<?php=$AwardedBy?>] -- (<?php=$Kingdom?>)</td><td align="right"><?php=$NiceDate?></td></tr><?php
 				} else if ($Kingdom != $WEAREKINGDOM){
 					if ($Kingdom == "SCA"){
 						if ($AwardID == 3 || $AwardID == 257 || $AwardID == 7 || $AwardID == 275){
-							?><tr><td><?=$Name?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+							?><tr><td><?php=$Name?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
 						} else {
-							?><tr><td><?=$Name?> -- <?=$a;?><?=$p;?> <?=$Notes?></td><td align="right"><?=$NiceDate?></td></tr><?
+							?><tr><td><?php=$Name?> -- <?php=$a;?><?php=$p;?> <?php=$Notes?></td><td align="right"><?php=$NiceDate?></td></tr><?php
 						} // end if a special award
 					} else {
-						?><tr><td><?=$Name?> -- <?=$Kingdom?> <?=$a;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+						?><tr><td><?php=$Name?> -- <?php=$Kingdom?> <?php=$a;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
 					}//end if not Outlands Award
 				} else if (!isset($LocalGroup)){
-					?><tr><td><?=$Name?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php=$Name?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
 				} else {
-					?><tr><td><?=$Name?> -- <?=$LocalGroup?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php=$Name?> -- <?php=$LocalGroup?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
 				}// end if Givertype
 			} // end if Visible and not Resigned
 		}// end foreach
-		?></table><?
+		?></table><?php
 	} // end if
 		
 	$alias_query="SELECT A.Alias as Name, P.PersonID FROM wPeople P LEFT OUTER JOIN wAliases A ON P.PersonID = A.PersonID WHERE A.PersonID = $PersonID";
 	$results_alias = $db->get_results($alias_query);
 	if ($results_alias) {
 		?><p><span class="bodyheader2">Known Aliases</span></p>
-		<table border="0" width="560" cellpadding="3" cellspacing="3"><?
+		<table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 		foreach($results_alias as $r) { 
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
-				?><tr><td><?=$Name?></td></tr><?
+				?><tr><td><?php=$Name?></td></tr><?php
 		}// end foreach
-		?></table><?
+		?></table><?php
 	} //end if
 
 	if ($accessOPView =="1") {
-		?><p><a href="view_person.php?PersonID=<?=$PersonID?>">VIEW DETAILS</a><?
+		?><p><a href="view_person.php?PersonID=<?php=$PersonID?>">VIEW DETAILS</a><?php
      	if ($accessWimble =="1") {
-            ?> | <a href="edit_user.php?PersonID=<?=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-            <a href="edit_awards.php?PersonID=<?=$PersonID?>">EDIT AWARDS</a> </p><?
+            ?> | <a href="edit_user.php?PersonID=<?php=$PersonID?>&Action=Edit">EDIT PERSON</a> |
+            <a href="edit_awards.php?PersonID=<?php=$PersonID?>">EDIT AWARDS</a> </p><?php
         } // end if $accessWimble
-		?></p><?
+		?></p><?php
 	} // end if $accessOPView
 } //end if error
 

@@ -1,4 +1,4 @@
-<?
+<?php
 include("../includes/ez_sql.php");
 include("../includes/functions.php");
 include("../includes/converter.php");
@@ -7,7 +7,7 @@ include("../includes/header.php");
 
 <div class="bodyheader">Magical Updating Thingy</div><br />
 
-<?
+<?php
 IF ($results = $db->get_results("SELECT P.PersonID AS PID, P.SCAName AS Name, AG.AwardsGivenID AS AGID, AG.SortRank AS Rank, AG.Visible, AG.Resigned
 FROM wPeople AS P, wAwardsGiven AS AG
 WHERE P.PersonID = AG.PersonID AND AG.Visible=1 AND AG.Resigned=0

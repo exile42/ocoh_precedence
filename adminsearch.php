@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
@@ -21,7 +21,7 @@ record page will show output like mocked up <a href="/individual_record.php">her
 
 
 
-<?
+<?php
 
 include("includes/footer.php");
 ?>

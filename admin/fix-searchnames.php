@@ -1,4 +1,4 @@
-<?
+<?php
 include("../includes/constants.php");
 include("../includes/ez_sql.php");
 include("../includes/functions.php");
@@ -8,9 +8,9 @@ include("../includes/header.php");
 
 <div class="bodyheader">Magical Updating Thingy - updates wPeople and wAliases</div><br />
 
-<?
+<?php
 if ($results = $db->get_results("SELECT PersonID, SCAName, SearchName FROM wPeople WHERE 1 ORDER BY PersonID DESC")) {
-	?><table border="0" width="560" cellpadding="3" cellspacing="3"><br /><?
+	?><table border="0" width="560" cellpadding="3" cellspacing="3"><br /><?php
 	foreach($results as $r) {
 		$PersonID 		= $r->PersonID;
 		$SCAName 		= $r->SCAName;
@@ -20,20 +20,20 @@ if ($results = $db->get_results("SELECT PersonID, SCAName, SearchName FROM wPeop
 		$NewSearchName = str_replace("`", "", $NewSearchName);
 
 		?><tr>
-		<td><?=$PersonID?></td> <td><?=$SCAName?></td> <td>o: <?=$SearchName?></td> <td>n: <?=$NewSearchName?></td><?
+		<td><?php=$PersonID?></td> <td><?php=$SCAName?></td> <td>o: <?php=$SearchName?></td> <td>n: <?php=$NewSearchName?></td><?php
 		$query = "UPDATE wPeople SET SearchName='$NewSearchName' WHERE PersonID=$PersonID";
 		if ($results = $db->get_results($query) || mysql_affected_rows() == 0) {
-			?><td>SUCCESS</td><?
+			?><td>SUCCESS</td><?php
 		} else {
-			?><td>FAIL <?=$query?></td><?
+			?><td>FAIL <?php=$query?></td><?php
 		}
-		?></tr><?
+		?></tr><?php
 	}
-	?></table><?
+	?></table><?php
 }
 
 if ($results = $db->get_results("SELECT AliasID, PersonID, Alias, SearchAlias FROM wAliases WHERE 1 ORDER BY AliasID DESC")) {
-	?><table border="0" width="560" cellpadding="3" cellspacing="3"><br /><?
+	?><table border="0" width="560" cellpadding="3" cellspacing="3"><br /><?php
 	foreach($results as $r) {
 		$PersonID 	= $r->PersonID;
 		$AliasID 	= $r->AliasID;
@@ -44,16 +44,16 @@ if ($results = $db->get_results("SELECT AliasID, PersonID, Alias, SearchAlias FR
 		$NewSearchAlias = str_replace("'", "", $NewSearchAlias);
 		$NewSearchAlias = str_replace("`", "", $NewSearchAlias);
 		?><tr>
-		<td><?=$PersonID?></td> <td><?=$SCAName?></td> <td><?=$Alias?></td> <td>o: <?=$SearchAlias?></td> <td>n: <?=$NewSearchAlias?></td><?
+		<td><?php=$PersonID?></td> <td><?php=$SCAName?></td> <td><?php=$Alias?></td> <td>o: <?php=$SearchAlias?></td> <td>n: <?php=$NewSearchAlias?></td><?php
 		$query = "UPDATE wAliases SET SearchAlias='$NewSearchAlias' WHERE AliasID=$AliasID";
 		if ($results = $db->get_results($query) || mysql_affected_rows() == 0) {
-			?><td>SUCCESS</td><?
+			?><td>SUCCESS</td><?php
 		} else {
-			?><td>FAIL <?=$query?></td><?
+			?><td>FAIL <?php=$query?></td><?php
 		}
-		?></tr><?
+		?></tr><?php
 	}
-	?></table><?
+	?></table><?php
 }
 
 include("../includes/footer.php");

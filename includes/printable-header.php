@@ -1,4 +1,4 @@
-<?
+<?php
 
 // for security, zero these out NOW
 $accessWimble = 0;
@@ -55,7 +55,7 @@ $accessWimbleView = 0;
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <link rel="stylesheet" href="/print.css" type="text/css" />
-<title><?=$WEAREKINGDOM?> College of Heralds / Office of the <?=$PRECEDENCETITLERANK?></title>
+<title><?php=$WEAREKINGDOM?> College of Heralds / Office of the <?php=$PRECEDENCETITLERANK?></title>
 <meta name="robots" content="index, follow, nocache, noarchive, snippet" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <script language="JavaScript" type="text/javascript">
@@ -79,21 +79,21 @@ $accessWimbleView = 0;
 <div id="page">
 
 <div id="login">
-<?
+<?php
 if ($Username == "" or $UserID == 0) {?>	
 	you are not logged in |
 	<a href="/login.php">sign in</a>
-<? 	} else { ?>
-	you are logged in as <strong><? echo $Username;?></strong><br /> 
+<?php 	} else { ?>
+	you are logged in as <strong><?php echo $Username;?></strong><br /> 
 	[ <a href="/logout.php">sign out</a> ]<br />
-<?	} ?>
+<?php	} ?>
 </div>
 
 <div id="menu">
 <div class="menucontent">
 
 
-<div class="menuheader">People of <?=$WEAREKINGDOMCOLLECTIVE?></div><br />
+<div class="menuheader">People of <?php=$WEAREKINGDOMCOLLECTIVE?></div><br />
 <a href="/people_alpha.php">Alphabetically</a><br />
 <a href="/people_group.php">By Local Group</a><br />
 <a href="/alias.php">By Alias (alphabetically)</a><br />
@@ -108,7 +108,7 @@ if ($Username == "" or $UserID == 0) {?>
 <a href="/awards_all.php">All Awards and Orders for the Outlands and Baronies</a> <strong>(new!)</strong><br />
 <br />
 
-<div class="menuheader"><?=$WEAREKINGDOM?> Royalty</div><br />
+<div class="menuheader"><?php=$WEAREKINGDOM?> Royalty</div><br />
 <a href="/tribute.php">A Tribute to Our Royalty</a><br />
 <!-- <a href="awards_reign.php">Awards Given By Reign</a><br /> // add this in later -->
 <br />
@@ -122,7 +122,7 @@ if ($Username == "" or $UserID == 0) {?>
 <a href="/news.php">News from Wimble</a><br />
 <br />
 
-<?
+<?php
 if ($accessWimble == 1) {
 ?>
 <div class="menuheader">Admin</div><br >
@@ -136,7 +136,7 @@ if ($accessWimble == 1) {
 <a href="/list_reigns.php">List Reigns</a> / <a href="/add_reign.php">Add Reign</a><br />
 <a href="/admin/">Converter Scripts</a><br />
 <br />
-<?
+<?php
 }// end if $accessWimble
 
 if ($accessWimbleView == 1) {
@@ -147,18 +147,18 @@ if ($accessWimbleView == 1) {
 <a href="/submit_update.php">Submit Update</a><br />
 <a href="/print_report.php">Generate Report</a><br />
 <a href="/search.php">Search Records</a><br /><br />
-<?
+<?php
 } // end if $accessWimbleView
 ?>
 
 <div class="menuheader">Useful Links</div><br />
-<a href="<?=$KINGDOMURL?>">Kingdom of <?=$WEAREKINGDOMCOLLECTIVE?></a><br />
-<a href="<?=$HERALDURL?>"><?=$WEAREKINGDOM?> College of Heralds</a><br />
-<a href="<?=$SCRIBEURL?>"><?=$WEAREKINGDOM?> College of Scribes</a><br />
+<a href="<?php=$KINGDOMURL?>">Kingdom of <?php=$WEAREKINGDOMCOLLECTIVE?></a><br />
+<a href="<?php=$HERALDURL?>"><?php=$WEAREKINGDOM?> College of Heralds</a><br />
+<a href="<?php=$SCRIBEURL?>"><?php=$WEAREKINGDOM?> College of Scribes</a><br />
 <a href="/other_ops.php">Other Orders of Precedence</a><br /><br />
 
 <div class="menuheader">Contact</div><br />
-<a href="mailto:<?=$PRECEDENCEEMAIL?>">Email <?=$PRECEDENCETITLERANK?></a><br /><br />
+<a href="mailto:<?php=$PRECEDENCEEMAIL?>">Email <?php=$PRECEDENCETITLERANK?></a><br /><br />
 
 <div class="menuheader">Disclaimer</div><br />
 This site is not sanctioned by, or an official instrument of the Society for Creative Anachronism (SCA), Inc., nor is it sanctioned by, or an official instrument of any office or subgroups of the SCA and as such does not delinate policy or regulations for the above. This site exists to provide information and to educate.<br /><br />
@@ -169,7 +169,7 @@ This site is not sanctioned by, or an official instrument of the Society for Cre
 <div id="body">
 <div class="bodycontent">
 <div id="title">
-<a href="/index.php"><img src="/images/title.jpg" height="87" width="406" alt="<?=$WEAREKINGDOM?> College of Heralds - Office of the <?=$PRECEDENCETITLERANK?>" title="<?=$WEAREKINGDOM?> College of Heralds - Office of the <?=$PRECEDENCETITLERANK?>" border="0" /></a>
+<a href="/index.php"><img src="/images/title.jpg" height="87" width="406" alt="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" title="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" border="0" /></a>
 </div>
 
 

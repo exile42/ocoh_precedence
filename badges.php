@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -20,14 +20,14 @@ $Filename = $results_award->Filename;
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <link rel="stylesheet" href="http://wimble.outlandsheralds.org/charter.css" type="text/css" />
-<title><?=$Name?></title>
+<title><?php=$Name?></title>
 </head>
 <br />
-<div class="bodyheader"><?=$Name?></div>
+<div class="bodyheader"><?php=$Name?></div>
 <br />
 <br />
 <center>
-<img src="images/badges/<?=$Filename?>" border="0" />
+<img src="images/badges/<?php=$Filename?>" border="0" />
 </center>
 
 

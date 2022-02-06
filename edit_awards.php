@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -97,14 +97,14 @@ if (isset($_REQUEST['SCAName']))
 
 ?>
 
-<div class="bodyheader"><?=$Action?> Award</div>
+<div class="bodyheader"><?php=$Action?> Award</div>
 <br />
 <br />
-<?
+<?php
 
 if ($Action == "Submit") { //they've submitted the form
   if ($err != "") { //we got errors, make them work for it
-    ?><p class="error"><?=$err ?></p><?
+    ?><p class="error"><?php=$err ?></p><?php
     ShowForm();
   } else { //no errors, insert or update as needed
     $Date = format_date_nospace($Date);
@@ -158,9 +158,9 @@ if ($Action == "Submit") { //they've submitted the form
     if ($AwardedBy != "") {
       $db->query("UPDATE wAwardsGiven SET AwardedBy='$AwardedBy' WHERE AwardsGivenID='$AwardsGivenID'");
     }
-    ?><p class="success">You have successfully updated the award for <?=stripslashes($SCAName)?></p>   
-    <p><a href="edit_awards.php?PersonID=<?=$PersonID?>">Edit Awards for <?=$SCAName?></a><br />
-        <a href="individual_record.php?PersonID=<?=$PersonID?>">View Individual Record for <?=$SCAName?></a></p><?
+    ?><p class="success">You have successfully updated the award for <?php=stripslashes($SCAName)?></p>   
+    <p><a href="edit_awards.php?PersonID=<?php=$PersonID?>">Edit Awards for <?php=$SCAName?></a><br />
+        <a href="individual_record.php?PersonID=<?php=$PersonID?>">View Individual Record for <?php=$SCAName?></a></p><?php
 
 } elseif ($Action == "Edit") { //they've chosen to edit someone, get the record from the db and showform
   $r = $db->get_row("SELECT a.*, p.SCAName FROM wAwardsGiven a INNER JOIN wPeople p ON a.PersonID=p.PersonID WHERE a.PersonID='$PersonID' AND a.AwardsGivenID='$AwardsGivenID'");
@@ -172,22 +172,22 @@ if ($Action == "Submit") { //they've submitted the form
   ShowForm();
 	
 } elseif($Action == "Delete") { //they're adding, set ID = 0 and show form
-?>  <p>Are you sure you want to delete <?=$Award?> from the profile?</p>
+?>  <p>Are you sure you want to delete <?php=$Award?> from the profile?</p>
   <div align="center">
   <form action="edit_awards.php" method="post">
   <input type="hidden" name="Action" value="deleteit">
-  <input type="hidden" name="PersonID" value="<?=$PersonID?>">
-  <input type="hidden" name="AwardsGivenID" value="<?=$AwardsGivenID?>">
-  <input type="hidden" name="Award" value="<?=$Award?>">
+  <input type="hidden" name="PersonID" value="<?php=$PersonID?>">
+  <input type="hidden" name="AwardsGivenID" value="<?php=$AwardsGivenID?>">
+  <input type="hidden" name="Award" value="<?php=$Award?>">
   <input type="submit" name="submit" value="DELETE">
   </form>
 
   <form action="edit_awards.php" method="post">
-  <input type="hidden" name="PersonID" value="<?=$PersonID?>">
+  <input type="hidden" name="PersonID" value="<?php=$PersonID?>">
   <input type="submit" name="submit" value="CANCEL">
   </form>
   </div>
-  <?  
+  <?php  
 
 } elseif($Action == "deleteit") { 
   $db->query("DELETE QUICK FROM wAwardsGiven WHERE AwardsGivenID='$AwardsGivenID'");
@@ -199,7 +199,7 @@ if ($Action == "Submit") { //they've submitted the form
 		echo "Person's SortRank updated successfully";
 	// update their number?
 
-  ?><p>You have successfully deleted <?=$Award?>.</p><?
+  ?><p>You have successfully deleted <?php=$Award?>.</p><?php
   ListAwards();
 
 } elseif($Action == "Add") { //they're adding, set ID = 0 and show form
@@ -227,27 +227,27 @@ Function ShowForm2() {
 ?>  
   <form action="edit_awards.php" method="post">
   <input type="hidden" name="Action" value="Submit2">
-  <input type="hidden" name="PersonID" value="<?=$PersonID?>">
-  <input type="hidden" name="SCAName" value="<?=htmlspecialchars($SCAName)?>">
-  <input type="hidden" name="AwardsGivenID" value="<?=$AwardsGivenID?>">
+  <input type="hidden" name="PersonID" value="<?php=$PersonID?>">
+  <input type="hidden" name="SCAName" value="<?php=htmlspecialchars($SCAName)?>">
+  <input type="hidden" name="AwardsGivenID" value="<?php=$AwardsGivenID?>">
   <div align="center">
   <table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
-  <tr><td colspan="2" class="tableheader">Add Award for <?=$SCAName?></td></tr>
+  <tr><td colspan="2" class="tableheader">Add Award for <?php=$SCAName?></td></tr>
   <tr><td>Awarded By:</td>
     <td><select name="AwardedBy">
-      <option value="">SELECT ONE</option><?
+      <option value="">SELECT ONE</option><?php
     if ($GiverType == "B") {
       $results = $db->get_results("SELECT DISTINCT RUseName FROM wReigns WHERE RUseName !='' ORDER BY RUseName"); 
       foreach($results as $r) {
         $RUseName = $r->RUseName;
         if ($RUseName == $AwardedBy) { $s = "selected"; } else { $s = ""; }
-        ?><option value="<?=$RUseName?>" <?=$s?>><?=$RUseName?></option><?
+        ?><option value="<?php=$RUseName?>" <?php=$s?>><?php=$RUseName?></option><?php
       }
       $results = $db->get_results("SELECT DISTINCT CUseName FROM wReigns WHERE CUseName !='' ORDER BY CUseName"); 
       foreach($results as $r) {
         $CUseName = $r->CUseName;
         if ($CUseName == $AwardedBy) { $s = "selected"; } else { $s = ""; }
-        ?><option value="<?=$CUseName?>" <?=$s?>><?=$CUseName?></option><?
+        ?><option value="<?php=$CUseName?>" <?php=$s?>><?php=$CUseName?></option><?php
       }
 
     } elseif ($GiverType == "C") {
@@ -255,7 +255,7 @@ Function ShowForm2() {
       foreach($results as $r) {
         $CUseName = $r->CUseName;
         if ($CUseName == $AwardedBy) { $s = "selected"; } else { $s = ""; }
-        ?><option value="<?=$CUseName?>" <?=$s?>><?=$CUseName?></option><?
+        ?><option value="<?php=$CUseName?>" <?php=$s?>><?php=$CUseName?></option><?php
       }
 
     } elseif ($GiverType == "R") {
@@ -263,7 +263,7 @@ Function ShowForm2() {
       foreach($results as $r) {
         $RUseName = $r->RUseName;
         if ($RUseName == $AwardedBy) { $s = "selected"; } else { $s = ""; }
-        ?><option value="<?=$RUseName?>" <?=$s?>><?=$RUseName?></option><?
+        ?><option value="<?php=$RUseName?>" <?php=$s?>><?php=$RUseName?></option><?php
       }
 
     }
@@ -280,7 +280,7 @@ Function ShowForm2() {
   </div>
 
 
-<?
+<?php
 }
 ///
 
@@ -292,24 +292,24 @@ Function ShowForm() {
 ?>  
   <form action="edit_awards.php" method="post">
   <input type="hidden" name="Action" value="Submit">
-  <input type="hidden" name="PersonID" value="<?=$PersonID?>">
-  <input type="hidden" name="SCAName" value="<?=htmlspecialchars($SCAName)?>">
-  <input type="hidden" name="AwardsGivenID" value="<?=$AwardsGivenID?>">
+  <input type="hidden" name="PersonID" value="<?php=$PersonID?>">
+  <input type="hidden" name="SCAName" value="<?php=htmlspecialchars($SCAName)?>">
+  <input type="hidden" name="AwardsGivenID" value="<?php=$AwardsGivenID?>">
   <div align="center">
   <table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
-  <tr><td colspan="2" class="tableheader"><?=$Action?> Award for <?=$SCAName?></td></tr>
+  <tr><td colspan="2" class="tableheader"><?php=$Action?> Award for <?php=$SCAName?></td></tr>
   <tr><td>Award:</td>
     <td>
     <select name="AwardID">
     <option value="">SELECT ONE</option>
-    <? 
+    <?php 
 	// sca-wide things
     $results = $db->get_results("SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, A.Closed FROM wAwards A WHERE ( A.KingdomID = $SOCIETYKINGDOMID OR A.GroupID = $SOCIETYGROUPID)  ORDER BY A.Name");
     foreach($results as $r) {
       $thisAID = $r->AwardID;
       $AName   = $r->Name;
       if ($AwardID == $thisAID) { $s = "selected"; } else { $s = ""; }
-      ?><option value="<?=$thisAID?>" <?=$s?>><?=$AName?></option><?
+      ?><option value="<?php=$thisAID?>" <?php=$s?>><?php=$AName?></option><?php
     }
 	// our kingdom things
     $results = $db->get_results("SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, A.Closed FROM wAwards A WHERE A.KingdomID = $MYKINGDOMID AND A.GroupID = $MYGROUPID ORDER BY A.Name");
@@ -317,7 +317,7 @@ Function ShowForm() {
       $thisAID = $r->AwardID;
       $AName   = $r->Name;
       if ($AwardID == $thisAID) { $s = "selected"; } else { $s = ""; }
-      ?><option value="<?=$thisAID?>" <?=$s?>><?=$AName?></option><?
+      ?><option value="<?php=$thisAID?>" <?php=$s?>><?php=$AName?></option><?php
     }
 	// our kingdom subgroups
     $results = $db->get_results("SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, A.Closed FROM wAwards A WHERE A.KingdomID = $MYKINGDOMID AND (A.GroupID != $MYGROUPID OR A.GroupID IS NULL)  ORDER BY A.Name");
@@ -326,7 +326,7 @@ Function ShowForm() {
       $AName   = $r->Name;
       $AGroup   = GroupNameFromGroupID($r->GroupID, $db);
       if ($AwardID == $thisAID) { $s = "selected"; } else { $s = ""; }
-      ?><option value="<?=$thisAID?>" <?=$s?>><?=$AGroup;?>: <?=$AName?></option><?
+      ?><option value="<?php=$thisAID?>" <?php=$s?>><?php=$AGroup;?>: <?php=$AName?></option><?php
     } 
 	// out-kingdom things
     $results = $db->get_results("SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, A.Closed FROM wAwards A WHERE A.KingdomID != $MYKINGDOMID AND A.KingdomID != $SOCIETYKINGDOMID AND (A.GroupID != $MYGROUPID OR A.GroupID IS NULL)  ORDER BY A.KingdomID, A.GroupID, A.Name");
@@ -336,7 +336,7 @@ Function ShowForm() {
       $AKingdom   = KingdomNameFromKingdomID($r->KingdomID, $db);
       $AGroup   = GroupNameFromGroupID($r->GroupID, $db);
       if ($AwardID == $thisAID) { $s = "selected"; } else { $s = ""; }
-      ?><option value="<?=$thisAID?>" <?=$s?>><?=$AKingdom;?>: <?=$AGroup;?>: <?=$AName?></option><?
+      ?><option value="<?php=$thisAID?>" <?php=$s?>><?php=$AKingdom;?>: <?php=$AGroup;?>: <?php=$AName?></option><?php
     }
      ?>
      </select>
@@ -344,60 +344,60 @@ Function ShowForm() {
   <tr><td>Reign:</td>
     <td>
     <select name="ReignID">
-    <? 
+    <?php 
     $results = $db->get_results("SELECT ReignID, RUseName, CUseName FROM wReigns WHERE GroupID=96 ORDER BY ReignOrder DESC");
     foreach($results as $r) {
       $thisRID = $r->ReignID;
       $Ruler   = $r->RUseName;
       $Consort = $r->CUseName;
       if ($ReignID == $thisRID) { $s = "selected"; } else { $s = ""; }
-      ?><option value="<?=$thisRID?>" <?=$s?> ><?=$Ruler?> and <?=$Consort?></option><?
+      ?><option value="<?php=$thisRID?>" <?php=$s?> ><?php=$Ruler?> and <?php=$Consort?></option><?php
     }
     if ($ReignID == 60) { $s = "selected"; } else { $s = ""; }
      ?>
-    <option value="60" <?=$s?>>Unknown reign</option>
+    <option value="60" <?php=$s?>>Unknown reign</option>
      </select>
      </td></tr>
   <tr><td>Date:</td>
-    <td><input type="text" name="Date" value="<?=$Date?>" size="10" maxlength="10"></td></tr>
+    <td><input type="text" name="Date" value="<?php=$Date?>" size="10" maxlength="10"></td></tr>
   <tr><td></td>
     <td>(MM/DD/YY)</td></tr>
   <tr><td valign="top">Reason Given:</td>
-    <td><input type="text" name="Reason" value="<?=$Reason?>" size="30" maxlength="30"><br>
+    <td><input type="text" name="Reason" value="<?php=$Reason?>" size="30" maxlength="30"><br>
 	For Awards with multiple options such as Trefoil, Militant Bard, Treasured Jewels</td></tr>
 
   <tr><td>Premier:</td>
-    <td><? WriteYNDropDown($Premier, "Premier"); ?></td></tr>
+    <td><?php WriteYNDropDown($Premier, "Premier"); ?></td></tr>
   <tr><td>Resigned:</td>
-    <td><? WriteYNDropDown($Resigned, "Resigned"); ?></td></tr>
+    <td><?php WriteYNDropDown($Resigned, "Resigned"); ?></td></tr>
   <tr><td>Verified:</td>
-    <td><input type="text" name="Verified" value="<?=htmlspecialchars($Verified)?>" size="50" maxlength="50"></td></tr>
+    <td><input type="text" name="Verified" value="<?php=htmlspecialchars($Verified)?>" size="50" maxlength="50"></td></tr>
   <tr><td>Visible:</td>
-    <td><? WriteYNDropDown($Visible, "Visible"); ?></td></tr>
+    <td><?php WriteYNDropDown($Visible, "Visible"); ?></td></tr>
 
   <tr><td>Scroll Given:</td>
-    <td><? WriteYNDropDown($ScrollGiven, "ScrollGiven"); ?></td></tr>
+    <td><?php WriteYNDropDown($ScrollGiven, "ScrollGiven"); ?></td></tr>
   <tr><td>Scribe/Illuminator:</td>
-    <td><input type="text" name="Scribe" value="<?=$Scribe?>" size="60" maxlength="60"></td></tr>
+    <td><input type="text" name="Scribe" value="<?php=$Scribe?>" size="60" maxlength="60"></td></tr>
 
   <tr><td valign="top">Notes:</td>
-    <td><textarea cols="48" rows="10" name="Notes"><?=htmlspecialchars($Notes)?></textarea></td></tr>
+    <td><textarea cols="48" rows="10" name="Notes"><?php=htmlspecialchars($Notes)?></textarea></td></tr>
 
-<?  if ($Action == "Edit") {?>
+<?php  if ($Action == "Edit") {?>
     <tr><td colspan="2" class="tableheader">Administration</td></tr>
     <tr><td>Date Added:</td>
-      <td><?=$DateAdded?></td></tr>
+      <td><?php=$DateAdded?></td></tr>
     <tr><td>Last Update:</td>
-      <td><?=$LastUpdate?></td></tr>
+      <td><?php=$LastUpdate?></td></tr>
     <tr><td>Last Update By:</td>
-      <td><?=$LastUpdateBy?></td></tr>
-<?  }  ?>  
+      <td><?php=$LastUpdateBy?></td></tr>
+<?php  }  ?>  
   <tr><td></td>
     <td><input type="submit" name="submit" value="Next &raquo;"></td></tr>
   </table>
   </div>
   </form>
-<?
+<?php
 }
 
 Function ListAwards() {
@@ -406,7 +406,7 @@ Function ListAwards() {
   <div align="center">
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Award</td><td>Action</td></tr>
-<?
+<?php
   if ($results = $db->get_results("SELECT g.AwardsGivenID, a.Name FROM wAwards a
     INNER JOIN wAwardsGiven g
     ON a.AwardID=g.AwardID
@@ -414,20 +414,20 @@ Function ListAwards() {
     foreach($results as $r) {
       $AwardsGivenID  = $r->AwardsGivenID;
       $Award      = $r->Name;
-      ?><tr><td><?=$Award?></td>
-            <td><a href="edit_awards.php?Action=Edit&PersonID=<?=$PersonID?>&AwardsGivenID=<?=$AwardsGivenID?>">EDIT</a> | 
-            <a href="edit_awards.php?Action=Delete&PersonID=<?=$PersonID?>&AwardsGivenID=<?=$AwardsGivenID?>&Award=<?=$Award?>">DELETE</a></td></tr><?
+      ?><tr><td><?php=$Award?></td>
+            <td><a href="edit_awards.php?Action=Edit&PersonID=<?php=$PersonID?>&AwardsGivenID=<?php=$AwardsGivenID?>">EDIT</a> | 
+            <a href="edit_awards.php?Action=Delete&PersonID=<?php=$PersonID?>&AwardsGivenID=<?php=$AwardsGivenID?>&Award=<?php=$Award?>">DELETE</a></td></tr><?php
     
     } //end foreach
   } else {
     ?><tr><td colspan="2" align="center">
       No current awards entered.
-    </td></tr><?
+    </td></tr><?php
     
   }
   ?><tr><td colspan="2" align="center">
-    <a href="edit_awards.php?Action=Add&PersonID=<?=$PersonID?>">ADD AWARD</a>
-  </td></tr></table></div><?
+    <a href="edit_awards.php?Action=Add&PersonID=<?php=$PersonID?>">ADD AWARD</a>
+  </td></tr></table></div><?php
 } //end listawards
 
 include("includes/footer.php");

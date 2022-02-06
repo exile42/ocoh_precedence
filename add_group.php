@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {        
-	?> <p>You do not have access to this file.</p> <?
+	?> <p>You do not have access to this file.</p> <?php
         include("includes/footer.php");
         die;
 }
@@ -58,16 +58,16 @@ if (isset($_REQUEST['Filename']))
 
 ?>
 <div class="bodyheader">
-  <?=$Action?>
+  <?php=$Action?>
   Group</div>
 <br />
-<?
+<?php
 if ($Action == "Submit") { //they've submitted the form
 	$err = ""; // no error messages yet
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
     	?><p class="error">
-		<?=$err?></p><?
+		<?php=$err?></p><?php
 		$GroupIDtrue = $GroupID;
 		$ParentGroupIDtrue = $ParentGroupID;
     	ShowForm();
@@ -81,9 +81,9 @@ if ($Action == "Submit") { //they've submitted the form
 			$insertquery="INSERT INTO Groups (GroupID, KingdomID, ParentGroupID, Name, Designator, BaronyOrder, Active, Incipient, Notes, RegName, RegDevice, Blazon, Filename) 
 			VALUES ('$GroupID', '$KingdomID', '$ParentGroupID', '$Name', '$Designator', $BaronyOrder, '$Active', '$Incipient', $Notes, '$RegName', '$RegDevice', $Blazon, $Filename)";
 			if ($db->query($insertquery)) {
-				?><p> <?=$insertquery?>: Item added successfully.</p><?
+				?><p> <?php=$insertquery?>: Item added successfully.</p><?php
 			} else {
-				?><p>ADD FAIL</p><?
+				?><p>ADD FAIL</p><?php
 			}
 		} else { //we're updating
 			$updatequery="UPDATE Groups SET KingdomID='$KingdomID', ParentGroupID='$ParentGroupID', Name='$Name', 
@@ -91,9 +91,9 @@ if ($Action == "Submit") { //they've submitted the form
 			Notes=$Notes, RegName='$RegName', RegDevice='$RegDevice', Blazon=$Blazon, Filename=$Filename
 			 WHERE GroupID='$GroupID'";
 			if ($db->query($updatequery)) {
-				?><p>Item edited successfully.</p><?
+				?><p>Item edited successfully.</p><?php
 			} else {
-				?><p>EDIT GROUP FAIL</p><?
+				?><p>EDIT GROUP FAIL</p><?php
 			}
 		}// end else updating
 	} //end if error/action is submit
@@ -125,14 +125,14 @@ function ShowForm() {
 <div class="form">
   <form action="add_group.php" method="post">
     <input type="hidden" name="Action" value="Submit" />
-    <input type="hidden" name="GroupID" value="<?=$GroupIDtrue?>">
+    <input type="hidden" name="GroupID" value="<?php=$GroupIDtrue?>">
     <b>Group Name:</b>
-    <input type="text" size="80" name="Name" class="formfield" value="<?=$Name?>" />
+    <input type="text" size="80" name="Name" class="formfield" value="<?php=$Name?>" />
     <br />
     <br />
     <b>Designator:</b>
     <select name="Designator">
-      <option value="<?=$Designator?>"> <?=$Designator?>  
+      <option value="<?php=$Designator?>"> <?php=$Designator?>  
       <option value="Shire"> Shire
       <option value="Canton"> Canton
       <option value="College"> College
@@ -154,27 +154,27 @@ function ShowForm() {
     <br />
     <br />
     <b>Status (Activity):</b>
-	<input type="radio" name="Active" value="1" <?=(($Active) ? 'checked': '') ?>> Active 
-	<input type="radio" name="Active" value="0" <?=(($Active) ? '': 'checked') ?>> Inactive/Disbanded
+	<input type="radio" name="Active" value="1" <?php=(($Active) ? 'checked': '') ?>> Active 
+	<input type="radio" name="Active" value="0" <?php=(($Active) ? '': 'checked') ?>> Inactive/Disbanded
 	<br />
     <br />
     <b>Status (Incipiency):</b>
-	<input type="radio" name="Incipient" value="1" <?=(($Incipient) ? 'checked': '') ?>> Incipient 
-	<input type="radio" name="Incipient" value="0" <?=(($Incipient) ? '': 'checked') ?>> Fully recognized group
+	<input type="radio" name="Incipient" value="1" <?php=(($Incipient) ? 'checked': '') ?>> Incipient 
+	<input type="radio" name="Incipient" value="0" <?php=(($Incipient) ? '': 'checked') ?>> Fully recognized group
 	<br /> Note that there is no option for "proto-" groups until they are actually incipient.
 	<br />
     <br />
 	<b>Kingdom:</b>  
 	<select name="KingdomID">
-		<option value="<?=$MYKINGDOMID?>" selected><?=$WEAREKINGDOM?></option>
-	<? $kingdomquery = "SELECT K.KingdomID, K.Name FROM Kingdoms K ORDER BY K.Name";
+		<option value="<?php=$MYKINGDOMID?>" selected><?php=$WEAREKINGDOM?></option>
+	<?php $kingdomquery = "SELECT K.KingdomID, K.Name FROM Kingdoms K ORDER BY K.Name";
 	if ($results = $db->get_results($kingdomquery)) {
 		foreach($results as $k) { 
 			$kKingdomID	= $k->KingdomID;
 			$kName		= $k->Name;
 		  if ($kKingdomID == $KingdomID) { $s = "selected"; } else { $s = ""; }
-		  ?><option value="<?=$kKingdomID?>" <?=$s?>><?=$kName?></option>
-		  <?
+		  ?><option value="<?php=$kKingdomID?>" <?php=$s?>><?php=$kName?></option>
+		  <?php
 		};
 	};
 	?>
@@ -183,15 +183,15 @@ function ShowForm() {
     <br />
 	<b>Parent Group: </b> 
 	<select name="ParentGroupID">
-	<option value="">SELECT ONE IF YOU KNOW IT</option><?
+	<option value="">SELECT ONE IF YOU KNOW IT</option><?php
 	$mykingdomgroupquery = "SELECT G.GroupID, G.Name FROM Groups G WHERE G.KingdomID = $MYKINGDOMID AND (Designator LIKE '%Kingdom%' OR Designator LIKE '%Principality%' OR Designator LIKE '%Barony%' OR Designator LIKE '%Province%') ORDER BY Name";
 	if ($results = $db->get_results($mykingdomgroupquery)) {
 		foreach($results as $r) { 
 			$gParentGroupID	= $r->GroupID;
 			$gName		= $r->Name;
 			if ($gParentGroupID == $ParentGroupIDtrue) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$gParentGroupID?>" <?=$s?>><?=$WEAREKINGDOM?>: <?=$gName?></option>
-			<?
+			?><option value="<?php=$gParentGroupID?>" <?php=$s?>><?php=$WEAREKINGDOM?>: <?php=$gName?></option>
+			<?php
 		}; // end foreach
 	}; // end in-kingdom query action
 	$otherkingdomgroupquery = "SELECT G.GroupID, G.KingdomID, G.Name, K.KingdomID, K.Name as KName FROM Groups G, Kingdoms K WHERE G.KingdomID !=$MYKINGDOMID AND G.KingdomID = K.KingdomID  AND (Designator LIKE '%Kingdom%' OR Designator LIKE '%Principality%' OR Designator LIKE '%Barony%' OR Designator LIKE '%Province%') ORDER BY KName, Name";
@@ -202,8 +202,8 @@ function ShowForm() {
 			$gName		= $r->Name;
 			$kName		= $r->KName;
 			if ($gParentGroupID == $ParentGroupIDtrue) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$gParentGroupID?>" <?=$s?>><?=$kName?>: <?=$gName?></option>
-			<?
+			?><option value="<?php=$gParentGroupID?>" <?php=$s?>><?php=$kName?>: <?php=$gName?></option>
+			<?php
 		};
 	};  ?>
     </select>
@@ -211,27 +211,27 @@ function ShowForm() {
 	<br />
 	<br />
     <b>Principality/Barony Order:</b>
-    <input type="text" size="2" name="BaronyOrder" class="formfield" value="<?=$BaronyOrder?>" />
+    <input type="text" size="2" name="BaronyOrder" class="formfield" value="<?php=$BaronyOrder?>" />
     <br />This field is used for sorting baronies within a kingdom into their precedential order (or principalities within a kingdom, if a kingdom happens to have multiple principalities).  If you don't know what order the baronies go in for a given kingdom, just leave this blank.  <strong>Start with 1 for the earliest and go up from there.</strong>  Note that this is not sanity checked - it's totally possible to set up two baronies with the same spot in the ordering.
     <br />
     <br />
 	<b>Registered Name:</b>
-	<? WriteYNDropDown($RegName, "RegName"); ?>
+	<?php WriteYNDropDown($RegName, "RegName"); ?>
     <br />
     <br />
 	<b>Registered Device:</b>
-	<? WriteYNDropDown($RegDevice, "RegDevice"); ?>
+	<?php WriteYNDropDown($RegDevice, "RegDevice"); ?>
     <br />
     <br />
     <b>Blazon:</b><br />
-    <input name="Blazon" type="text" class="formfield" size="80" maxlength="200" value="<?=$Blazon?>" /><br /><br />
+    <input name="Blazon" type="text" class="formfield" size="80" maxlength="200" value="<?php=$Blazon?>" /><br /><br />
     <b>Notes:</b><br />
-    <input name="Notes" type="text" class="formfield" size="80" maxlength="150"value="<?=$Notes?>" /><br /><br />
+    <input name="Notes" type="text" class="formfield" size="80" maxlength="150"value="<?php=$Notes?>" /><br /><br />
     <br />
     <input type="submit" class="button" value="Submit" />
   </form>
 </div>
-<?
+<?php
 }
 
 include("includes/footer.php");

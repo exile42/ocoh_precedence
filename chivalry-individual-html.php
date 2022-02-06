@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -21,7 +21,7 @@ if ($err) {
 <meta name="robots" content="noindex, nocache, noarchive" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head><body>
-<?	
+<?php	
 	$header_query="SELECT P.PersonID, P.SCAName, P.ModernName, P.Deceased, P.Active, G.Name AS LocalGroup, K.Name AS Kingdom, P.RegName FROM wPeople P LEFT OUTER JOIN Kingdoms K ON K.KingdomID = P.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = P.GroupID WHERE P.PersonID = $PersonID";
 	$header_results = $db->get_results($header_query);
 	if ($header_results) {

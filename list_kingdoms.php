@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Creation Order</td></tr>
 
-	<? 
+	<?php 
 	$kingdomsquery="SELECT K.* FROM Kingdoms K ORDER BY CreationOrder";
 		
 	if ($results = $db->get_results($kingdomsquery)) {
@@ -28,16 +28,16 @@ if ($accessWimble != 1) {
 		  $Kingdom	= $r->Name;
 		  $CreationOrder	= $r->CreationOrder;
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$CreationOrder?></td>
+		  <tr><td><?php=$Kingdom?></td>
+		  <td><?php=$CreationOrder?></td>
 		  </tr>
-		  <?
+		  <?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
       Bigtime error: no kingdoms!  Seriously, how is this site working at all without that!??!
-    </td></tr><?
+    </td></tr><?php
 	} // end if results for outlandsawardsquery
 	
  	?>
@@ -45,6 +45,6 @@ if ($accessWimble != 1) {
     <a href="add_kingdom.php">ADD KINGDOM</a>
   </td></tr></table></div>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

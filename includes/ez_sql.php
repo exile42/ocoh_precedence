@@ -7,9 +7,9 @@
 	// ==================================================================
 	//	ezSQL Constants
 	define("EZSQL_VERSION","1.26");
-	define("OBJECT","OBJECT",true);
-	define("ARRAY_A","ARRAY_A",true);
-	define("ARRAY_N","ARRAY_N",true);
+	define("OBJECT","OBJECT");
+	define("ARRAY_A","ARRAY_A");
+	define("ARRAY_N","ARRAY_N");
 
 	// ==================================================================
 	//	The Main Class
@@ -30,29 +30,29 @@
 
 		function db($dbuser, $dbpassword, $dbname, $dbhost)
 		{
-
-			$this->dbh = @mysql_connect($dbhost,$dbuser,$dbpassword);
+			echo "Constructor called";
+			$this->dbh = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
 
 			if ( ! $this->dbh )
 			{
 				$this->print_error("<p>IMPORTANT: Our database is currently down. We are working to bring the database server up as soon as possible. Thank you for your patience.</p>");
 			}
 
-
-			$this->select($dbname);
+			echo "dbh created";
+			//$this->select($dbname);
 
 		}
 
 		// ==================================================================
 		//	Select a DB (if another one needs to be selected)
 
-		function select($db)
-		{
-			if ( !@mysql_select_db($db,$this->dbh))
-			{
-				$this->print_error("<ol><b>Error selecting database <u>$db</u>!</b><li>Are you sure it exists?<li>Are you sure there is a valid database connection?</ol>");
-			}
-		}
+		// function select($db)
+		// {
+		// 	if ( !@mysql_select_db($db,$this->dbh))
+		// 	{
+		// 		$this->print_error("<ol><b>Error selecting database <u>$db</u>!</b><li>Are you sure it exists?<li>Are you sure there is a valid database connection?</ol>");
+		// 	}
+		// }
 
 		// ====================================================================
 		//	Format a string correctly for safe insert under all PHP conditions
@@ -138,7 +138,6 @@
 
 		function query($query)
 		{
-			
 			// For reg expressions
 			$query = trim($query); 
 			
@@ -153,21 +152,26 @@
 
 			// Keep track of the last query for debug..
 			$this->last_query = $query;
-
-			// Perform the query via std mysql_query function..
-			$this->result = @mysql_query($query,$this->dbh);
-			$this->num_queries++;
-
-			// If there is an error then take note of it..
-			if ( mysql_error() )
-			{
-				$this->print_error();
-				return false;
-			}
 			
+			$dbh = new mysqli(EZSQL_DB_HOST,EZSQL_DB_USER,EZSQL_DB_PASSWORD,EZSQL_DB_NAME);
+	
+			// Perform the query via std mysql_query function..
+			$this->result = $dbh->query($query);
+	
+			$this->num_queries++;
+			
+			// If there is an error then take note of it..
+			// if ( mysql_error() )
+			// {
+			// 	$this->print_error();
+			// 	return false;
+			// }
+			echo "Executes line 169";
 			// Query was an insert, delete, update, replace
 			if ( preg_match("/^(insert|delete|update|replace)\s+/i",$query) )
 			{
+				
+				echo "Executes line 174";
 				$this->rows_affected = mysql_affected_rows();
 				
 				// Take note of the insert_id
@@ -182,31 +186,33 @@
 			// Query was an select
 			else
 			{
-				
 				// Take note of column info	
-				$i=0;
-				while ($i < @mysql_num_fields($this->result))
-				{
-					$this->col_info[$i] = @mysql_fetch_field($this->result);
-					$i++;
-				}
+				// $i=0;
+				// while ($i < @mysql_num_fields($this->result))
+				// {
+				// 	$this->col_info[$i] = @mysql_fetch_field($this->result);
+				// 	$i++;
+				// }
+				echo "Executes line 197";
 				
 				// Store Query Results	
-				$num_rows=0;
-				while ( $row = @mysql_fetch_object($this->result) )
-				{
-					// Store relults as an objects within main array
-					$this->last_result[$num_rows] = $row;
-					$num_rows++;
-				}
+				// $num_rows=0;
+				// while ( $row = @mysql_fetch_object($this->result) )
+				// {
+				// 	// Store relults as an objects within main array
+				// 	$this->last_result[$num_rows] = $row;
+				// 	$num_rows++;
+				// }
 
-				@mysql_free_result($this->result);
+				//@mysql_free_result($this->result);
 
 				// Log number of rows the query returned
 				$this->num_rows = $num_rows;
 				
 				// Return number of rows selected
 				$return_val = $this->num_rows;
+				
+				echo "Executes line 215";
 			}
 
 			// If debug ALL queries
@@ -306,16 +312,17 @@
 
 		function get_results($query=null, $output = OBJECT)
 		{
-
 			// Log how the function was called
 			$this->func_call = "\$db->get_results(\"$query\", $output)";
-
+			
 			// If there is a query then perform it if not then use cached results..
 			if ( $query )
 			{
-				$this->query($query);
+				echo "Executes ok to here. after line 316";
+				$this->query($query);				
 			}
 
+			echo "Executes ok to here. after line 320";
 			// Send back array of objects. Each row is an object
 			if ( $output == OBJECT )
 			{

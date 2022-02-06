@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
@@ -9,6 +9,6 @@ include("includes/header.php");
 <p>This area is currently under development.  Please check back soon.</p>
 
 
-<?
+<?php
 include("includes/footer.php");
 ?>

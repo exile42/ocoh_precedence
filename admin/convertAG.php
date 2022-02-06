@@ -1,4 +1,4 @@
-<?
+<?php
 include("../includes/constants.php");
 include("../includes/ez_sql.php");
 include("../includes/functions.php");
@@ -8,7 +8,7 @@ include("../includes/header.php");
 
 <div class="bodyheader">Magical Updating Thingy - updates AwardsGiven</div><br />
 
-<?
+<?php
 IF ($results = $db->get_results(" SELECT AG.AwardsGivenID AS AGID, A.AwardID AS AwardID, DATE_FORMAT( AG.Date,  '%Y%m%d'  )  AS Dater, A.Rank AS Rank, A.Name AS Name
 FROM wAwardsGiven AG, wAwards A WHERE AG.AwardID=A.AwardID")) {
 	PRINT "<table border=\"0\" width=\"560\" cellpadding=\"3\" cellspacing=\"3\"><br />";

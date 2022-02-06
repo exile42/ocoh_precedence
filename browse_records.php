@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -15,13 +15,13 @@ IF ($accessWimbleView == 0) {
 <div class="bodyheader">Browse Records</div><br />
 
 <center>
-<? WriteAlpha("browse_records.php");
+<?php WriteAlpha("browse_records.php");
 ?>
 </center>
 
-<? 	IF (!$Letter) {?>
+<?php 	IF (!$Letter) {?>
 <p>Please click on a letter above to navigate the alphabetical list of people in the Outlands.</p>
-<?	} else {
+<?php	} else {
 		IF ($results = $db->get_results("SELECT PersonID, SCAName 
 				FROM wPeople 
 				WHERE SCAName LIKE '$Letter%' OR SCAName LIKE '`$Letter%'
@@ -39,8 +39,8 @@ IF ($accessWimbleView == 0) {
 			PRINT "</table></div>";
 		} else {
 		?>
-			<p>There are no people that start with letter <?=$Letter?>.</p>
-		<?
+			<p>There are no people that start with letter <?php=$Letter?>.</p>
+		<?php
 		}
 
 	}

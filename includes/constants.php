@@ -1,4 +1,4 @@
-<?
+<?php
 // Constants!
 // This is a file that contains the constants for running the precedence site.
 
@@ -33,10 +33,10 @@ $OPPERPAGESHORT = 40; // for the OP list short form (names only), how many per p
 $OPPERPAGELONG = 25; // for the OP list long form (names+awards), how many per page (when paged)?
 
 //Database things
-$SQLSERVER = "";
-$SQLUSERNAME = "";
+$SQLSERVER = "localhost:3307";
+$SQLUSERNAME = "root";
 $SQLPASSWORD = "";
-$SQLDATABASE = "";
+$SQLDATABASE = "ocoh";
 
 // Prevent shared server sessions stuff from causing random timeouts
 //DO NOT CHANGE THIS

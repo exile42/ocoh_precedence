@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Group</td><td>Reign Order</td><td>Ruler and Consort</td><td>Dates</td></tr>
 
-	<? 
+	<?php 
 	$ourkingdom_kingdomreigns_query="SELECT R.ReignID, R.GroupID, R.ReignOrder, R.RUseName, R.CUseName, DATE_FORMAT(R.Start, '%Y-%m') AS StartDate, DATE_FORMAT(R.End, '%Y-%m') AS EndDate FROM wReigns R WHERE R.GroupID = $MYGROUPID ORDER BY ReignOrder";
 		
 	if ($results = $db->get_results($ourkingdom_kingdomreigns_query)) {
@@ -32,20 +32,20 @@ if ($accessWimble != 1) {
 		  $Start	= $r->StartDate;
 		  $End		= $r->EndDate;
 		  ?>
-		  <tr><td><?=KingdomNameFromGroupID($GroupID, $db)?></td>
-		  <td><?=GroupNameFromGroupID($GroupID, $db)?></td>
-		  <td><?=$ReignOrder?></td>
-		  <td><?=$Ruler?><br /> <?=$Consort?></td>
-		  <td><?=$Start?> - <?=$End?></td>
-		  <td><a href="add_reign.php?Action=Edit&ReignID=<?=$ReignID?>">EDIT</a></td>
+		  <tr><td><?php=KingdomNameFromGroupID($GroupID, $db)?></td>
+		  <td><?php=GroupNameFromGroupID($GroupID, $db)?></td>
+		  <td><?php=$ReignOrder?></td>
+		  <td><?php=$Ruler?><br /> <?php=$Consort?></td>
+		  <td><?php=$Start?> - <?php=$End?></td>
+		  <td><a href="add_reign.php?Action=Edit&ReignID=<?php=$ReignID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
-      Bigtime error: no reigns! for <?=$WEAREKINGDOMCOLLECTIVE?>!  Are you perhaps just setting this up for the first time?  Click the "Add Reign" link to add some before you list any!
-    </td></tr><?
+      Bigtime error: no reigns! for <?php=$WEAREKINGDOMCOLLECTIVE?>!  Are you perhaps just setting this up for the first time?  Click the "Add Reign" link to add some before you list any!
+    </td></tr><?php
 	} // end if results for our kingdom's royal reigns.
 
 	/// now for baronies in our kingdom .. 
@@ -61,20 +61,20 @@ if ($accessWimble != 1) {
 		  $Start	= $r->StartDate;
 		  $End		= $r->EndDate;
 		  ?>
-		  <tr><td><?=KingdomNameFromGroupID($GroupID, $db)?></td>
-		  <td><?=GroupNameFromGroupID($GroupID, $db)?></td>
-		  <td><?=$ReignOrder?></td>
-		  <td><?=$Ruler?><br /> <?=$Consort?></td>
-		  <td><?=$Start?> - <?=$End?></td>
-		  <td><a href="add_reign.php?Action=Edit&ReignID=<?=$ReignID?>">EDIT</a></td>
+		  <tr><td><?php=KingdomNameFromGroupID($GroupID, $db)?></td>
+		  <td><?php=GroupNameFromGroupID($GroupID, $db)?></td>
+		  <td><?php=$ReignOrder?></td>
+		  <td><?php=$Ruler?><br /> <?php=$Consort?></td>
+		  <td><?php=$Start?> - <?php=$End?></td>
+		  <td><a href="add_reign.php?Action=Edit&ReignID=<?php=$ReignID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
-      Bigtime error: no reigns! for <?=$WEAREKINGDOMCOLLECTIVE?>!  Are you perhaps just setting this up for the first time?  Click the "Add Reign" link to add some before you list any!
-    </td></tr><?
+      Bigtime error: no reigns! for <?php=$WEAREKINGDOMCOLLECTIVE?>!  Are you perhaps just setting this up for the first time?  Click the "Add Reign" link to add some before you list any!
+    </td></tr><?php
 	} // end if results for our kingdom's royal reigns.
 
 /*	
@@ -87,17 +87,17 @@ if ($accessWimble != 1) {
 		  $Group	= $r->GroupName;
 		  $Designator	= $r->Designator;
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?> (<?=$Designator?>)</td>
-		  <td><?=$Award?></td>
-		  <td><a href="add_group.php?Action=Edit&GroupID=<?=$GroupID?>">EDIT</a></td>
+		  <tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?> (<?php=$Designator?>)</td>
+		  <td><?php=$Award?></td>
+		  <td><a href="add_group.php?Action=Edit&GroupID=<?php=$GroupID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} // end foreach
 	} else {
     ?><tr><td colspan="2" align="center">
       Bigtime error: no groups from other kingdoms!
-    </td></tr><?
+    </td></tr><?php
 	} // end if results for other kingdoms and their sub groups
 */	
 
@@ -106,6 +106,6 @@ if ($accessWimble != 1) {
     <a href="add_reign.php">ADD REIGN</a>
   </td></tr></table></div>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

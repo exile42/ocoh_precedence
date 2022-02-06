@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 
 echo $Username . "/" . $_SESSION["LoggedUsername"] . "\n";
@@ -22,6 +22,6 @@ include("includes/header.php");
 
 <p>You've been logged out for inactivity (3 hours). Log back in to continue working.</p>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

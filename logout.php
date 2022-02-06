@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 //kill the session and all variables
 session_destroy(); 
@@ -16,6 +16,6 @@ include("includes/header.php");
 
 <p>You've logged out. You can now close your browser session.</p>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

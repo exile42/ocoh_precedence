@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/functions.php");
 include("includes/ez_sql.php");
@@ -37,18 +37,18 @@ if ($_SESSION["LoggedUserID"] ==0 OR $_SESSION["LoggedUserID"] == "") { //they'r
 			//login failure, let them try again, but log it as well.
 			$UserID = 0;
 			include("includes/header.php");
-			?><p class="error">Your login failed. Please try again.</p><?
+			?><p class="error">Your login failed. Please try again.</p><?php
 			ShowLoginForm(); //this function is in includes/functions.php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES ('$Now', '$UserID', 'failed login: u: $Username p: $Password', '$IPAddress')");
 		}
 	} else  {
 		//no submit
 		include("includes/header.php");
-		?><p>To login, please complete the form below.</p><?
+		?><p>To login, please complete the form below.</p><?php
 		ShowLoginForm(); //this function is in includes/functions.php
 	}
 } else {
-	?><p>You're already logged in. </p><?
+	?><p>You're already logged in. </p><?php
 	include("includes/footer.php");
 	die;
 

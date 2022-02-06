@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -25,12 +25,12 @@ if ($by=="alias") {
 ?>
 
 <div class="bodyheader">List of People and Possible Alias</div><br />
-<center><? WriteAlpha("alias_letter.php"); ?> <a href="alias_letter.php?Letter=ALL">ALL</a>
+<center><?php WriteAlpha("alias_letter.php"); ?> <a href="alias_letter.php?Letter=ALL">ALL</a>
 </center>
-<p>Sort: <?=$by?> | <a href="alias_letter.php?Letter=<?=$Letter?>&amp;by=<?=$switchby?>"><?=$switchby?></a></p>
+<p>Sort: <?php=$by?> | <a href="alias_letter.php?Letter=<?php=$Letter?>&amp;by=<?php=$switchby?>"><?php=$switchby?></a></p>
 
 <table border="0" cellpadding="3" cellspacing="3" width="515">
-<? 
+<?php 
 if ($Letter=="ALL")
 	$letterquery="";
 else
@@ -44,26 +44,26 @@ if ($results) {
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		}; // end while
-		?><tr><? 
+		?><tr><?php 
 		if ($by=="alias") {
-			?><td align="left"><?=$Alias?></td>
-			<td align="right"><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a></td><? 
+			?><td align="left"><?php=$Alias?></td>
+			<td align="right"><a href="individual_record.php?PersonID=<?php=$PersonID?>"><?php=$SCAName?></a></td><?php 
 		} else { // $by=="name"
-			?><td align="left"><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a></td>
-			<td align="right"><?=$Alias?></td><?
+			?><td align="left"><a href="individual_record.php?PersonID=<?php=$PersonID?>"><?php=$SCAName?></a></td>
+			<td align="right"><?php=$Alias?></td><?php
 		} // end if
-		?></tr><? 
+		?></tr><?php 
 	};  //end foreach
 } else { 
 	if ($by=="alias") {
-		?>Nobody has an known alias that starts with <?=strtoupper($Letter)?>.<?
+		?>Nobody has an known alias that starts with <?php=strtoupper($Letter)?>.<?php
 	} else { // $by=="name" 
-		?>Nobody whose name starts with <?=strtoupper($Letter)?> has a known alias.<?
+		?>Nobody whose name starts with <?php=strtoupper($Letter)?> has a known alias.<?php
 	} // end if sortby
 } // end if
 ?>
 </table>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

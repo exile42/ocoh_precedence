@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -10,7 +10,7 @@ $strTo = "wimble@outlandsheralds.org, wharrow@outlandsheralds.org";
 <div class="bodyheader">Submit Update</div>
 <br />
 <br />
-<?
+<?php
 IF ($action == "submit") {
 	$Browser	= getenv ("HTTP_USER_AGENT");
 	$IPAddress  = getenv ("REMOTE_ADDR");
@@ -61,27 +61,27 @@ Function ShowForm() {
 		<form action="submit_update.php" method="post">
 		<input type="hidden" name="action" value="submit" />
 		<b>SCA Name:</b><br />
-		<input type="text" size="40" name="scaname" class="formfield" value="<?=htmlspecialchars($scaname)?>" /><br /><br />
+		<input type="text" size="40" name="scaname" class="formfield" value="<?php=htmlspecialchars($scaname)?>" /><br /><br />
 		<b>Mundane Name:</b><br />
-		<input type="text" size="40" name="mkaname" class="formfield" value="<?=htmlspecialchars($mkaname)?>" /><br /><br />
+		<input type="text" size="40" name="mkaname" class="formfield" value="<?php=htmlspecialchars($mkaname)?>" /><br /><br />
 		<b>Local Group:</b><br />
-		<input type="text" size="40" name="localgroup" class="formfield" value="<?=htmlspecialchars($localgroup)?>" /><br /><br />
+		<input type="text" size="40" name="localgroup" class="formfield" value="<?php=htmlspecialchars($localgroup)?>" /><br /><br />
 		<b>Registered Name (if different from SCA name):</b><br />
-		<input type="text" size="40" name="regname" class="formfield" value="<?=htmlspecialchars($regname)?>" /><br /><br />
+		<input type="text" size="40" name="regname" class="formfield" value="<?php=htmlspecialchars($regname)?>" /><br /><br />
 		<b>Date of Registration:</b><br />
-		<input type="text" size="40" name="regnamedate" class="formfield" value="<?=htmlspecialchars($regnamedate)?>" /><br /><br />
+		<input type="text" size="40" name="regnamedate" class="formfield" value="<?php=htmlspecialchars($regnamedate)?>" /><br /><br />
 		<b>Registered Device Blazon:</b><br />
-		<input type="text" size="40" name="regblazon" class="formfield" value="<?=htmlspecialchars($regblazon)?>" /><br /><br />
+		<input type="text" size="40" name="regblazon" class="formfield" value="<?php=htmlspecialchars($regblazon)?>" /><br /><br />
 		<b>Date of Device Registration:</b><br />
-		<input type="text" size="40" name="regdevicedate" class="formfield" value="<?=htmlspecialchars($scaname)?>" /><br /><br />
+		<input type="text" size="40" name="regdevicedate" class="formfield" value="<?php=htmlspecialchars($scaname)?>" /><br /><br />
 		<b>Awards Received (please include dates):</b><br />
-		<textarea rows="8" name="awards" cols="40" class="formfield"><?=htmlspecialchars($awards)?></textarea><br /><br />
+		<textarea rows="8" name="awards" cols="40" class="formfield"><?php=htmlspecialchars($awards)?></textarea><br /><br />
 		<b>Additional Notes:</b><br />
-		<textarea rows="8" name="comments" cols="40" class="formfield"><?=htmlspecialchars($comments)?></textarea><br /><br />
+		<textarea rows="8" name="comments" cols="40" class="formfield"><?php=htmlspecialchars($comments)?></textarea><br /><br />
 		<input type="submit" class="button" value="Submit" />
 		</form>
 	</div>
-<?
+<?php
 }
 
 

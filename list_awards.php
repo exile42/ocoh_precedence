@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Group</td><td>Award</td><td>Action</td></tr>
 
-	<? 
+	<?php 
 	$ourkingdom_awardsquery="SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, K.Name AS KingdomName, G.Name AS GroupName, G.Designator FROM wAwards A INNER JOIN Kingdoms K INNER JOIN Groups G ON A.KingdomID = K.KingdomID AND A.GroupID = G.GroupID WHERE A.KingdomID = $MYKINGDOMID AND A.GroupID = $MYGROUPID ORDER BY A.Name";
 		
 	if ($results = $db->get_results($ourkingdom_awardsquery)) {
@@ -29,18 +29,18 @@ if ($accessWimble != 1) {
 		  $Kingdom	= $r->KingdomName;
 		  $Group	= $r->GroupName;
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?></td>
-		  <td><?=$Award?></td>
-		  <td><a href="add_award.php?Action=Edit&AwardID=<?=$AwardID?>">EDIT</a></td>
+		  <tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?></td>
+		  <td><?php=$Award?></td>
+		  <td><a href="add_award.php?Action=Edit&AwardID=<?php=$AwardID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
-      Bigtime error: no awards for <?=$WEAREKINGDOMCOLLECTIVE?>!
-    </td></tr><?
+      Bigtime error: no awards for <?php=$WEAREKINGDOMCOLLECTIVE?>!
+    </td></tr><?php
 	} // end if results for outlandsawardsquery
 
 	$ourkingdom_subgroups_awardsquery="SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, K.Name AS KingdomName, G.Name AS GroupName, G.Designator FROM wAwards A INNER JOIN Kingdoms K INNER JOIN Groups G ON A.KingdomID = K.KingdomID AND A.GroupID = G.GroupID WHERE A.KingdomID = $MYKINGDOMID AND (A.GroupID != $MYGROUPID OR A.GroupID IS NULL) ORDER BY GroupName, A.Name";
@@ -51,17 +51,17 @@ if ($accessWimble != 1) {
 		  $Award	= $r->Name;
 		  $Kingdom	= $r->KingdomName;
 		  $Group	= $r->GroupName;
-		  ?><tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?></td>
-		  <td><?=$Award?></td>
-		  <td><a href="add_award.php?Action=Edit&AwardID=<?=$AwardID?>">EDIT</a></td></tr>
-		  <?
+		  ?><tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?></td>
+		  <td><?php=$Award?></td>
+		  <td><a href="add_award.php?Action=Edit&AwardID=<?php=$AwardID?>">EDIT</a></td></tr>
+		  <?php
 		
 		} //end foreach
 	} else {
     ?><tr><td colspan="2" align="center">
-      Bigtime error: no awards for subgroups of <?=$WEAREKINGDOMCOLLECTIVE?>!
-    </td></tr><?
+      Bigtime error: no awards for subgroups of <?php=$WEAREKINGDOMCOLLECTIVE?>!
+    </td></tr><?php
 	} // end if results for outlandssubgroupsawardquery
 	
 	$otherkingdoms_awardsquery="SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID, K.Name AS KingdomName, G.Name AS GroupName, G.Designator FROM wAwards A INNER JOIN Kingdoms K INNER JOIN Groups G ON A.KingdomID = K.KingdomID AND A.GroupID = G.GroupID WHERE ( A.KingdomID != $MYKINGDOMID OR A.KingdomID IS NULL) ORDER BY KingdomName, GroupName, A.Name";
@@ -72,17 +72,17 @@ if ($accessWimble != 1) {
 		  $Award	= $r->Name;
 		  $Kingdom	= $r->KingdomName;
 		  $Group	= $r->GroupName;
-		  ?><tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?></td>
-		  <td><?=$Award?></td>
-		  <td><a href="add_award.php?Action=Edit&AwardID=<?=$AwardID?>">EDIT</a></td></tr>
-		  <?
+		  ?><tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?></td>
+		  <td><?php=$Award?></td>
+		  <td><a href="add_award.php?Action=Edit&AwardID=<?php=$AwardID?>">EDIT</a></td></tr>
+		  <?php
 		
 		} //end foreach
 	} else {
     ?><tr><td colspan="2" align="center">
       Bigtime error: no foreign awards!
-    </td></tr><?
+    </td></tr><?php
 	} // end if results for otherawardsquery
 	
 		$broken_awardsquery="SELECT A.AwardID, A.Name, A.GroupID, A.KingdomID FROM wAwards A WHERE (A.KingdomID = 0 OR A.KingdomID IS NULL) OR (A.GroupID = 0 OR A.GroupID IS NULL) ORDER BY A.Name";
@@ -93,17 +93,17 @@ if ($accessWimble != 1) {
 		  $KingdomID	= $r->KingdomID;
 		  $GroupID	= $r->GroupID;
 		  $Award	= $r->Name;
-		  ?><tr><td><?=$KingdomID?></td>
-		  <td><?=$GroupID?></td>
-		  <td><?=$Award?></td>
-		  <td><a href="add_award.php?Action=Edit&AwardID=<?=$AwardID?>">EDIT</a></td></tr>
-		  <?
+		  ?><tr><td><?php=$KingdomID?></td>
+		  <td><?php=$GroupID?></td>
+		  <td><?php=$Award?></td>
+		  <td><a href="add_award.php?Action=Edit&AwardID=<?php=$AwardID?>">EDIT</a></td></tr>
+		  <?php
 		
 		} //end foreach
 	} else {
     ?><tr><td colspan="2" align="center">
       HOORAY! No wonky awards!
-    </td></tr><?
+    </td></tr><?php
 	} // end if results for outlandssubgroupsawardquery
 
  	?>
@@ -111,6 +111,6 @@ if ($accessWimble != 1) {
     <a href="add_award.php">ADD AWARD</a>
   </td></tr></table></div>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

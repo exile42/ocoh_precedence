@@ -1,4 +1,4 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
@@ -22,7 +22,7 @@ if ($results = $db->get_results($reignquery)) {
 ?>
 <div id="content">
 
-<? switch($Type) {
+<?php switch($Type) {
 	case "Reign": 
 		// first we need to sanitize the date
 		// for now, we just ask for it in the proper format
@@ -30,28 +30,28 @@ if ($results = $db->get_results($reignquery)) {
 		if ($results = $db->get_results($query)) {
 		?>
 		<br />
-		People who received awards during the reign of "<? echo $RUseName;?>" and "<? echo $CUseName;?>":<br />
+		People who received awards during the reign of "<?php echo $RUseName;?>" and "<?php echo $CUseName;?>":<br />
 		<br />
 		</p>
 		<table border="1" cellpadding="3" cellspacing="3" width="560">
-		<? 
+		<?php 
 		foreach($results as $r) { 
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
 				?>
 				<tr>
-				<td valign="top" align="right"><? echo $NiceDate; ?></td>
-				<td valign="top" align="left"><a href="individual_record.php?PersonID=<? echo $PersonID ; ?>"><? echo $SCAName;?></a></td>
-				<td valign="top" align="right"><? echo $AwardName; ?></td>
+				<td valign="top" align="right"><?php echo $NiceDate; ?></td>
+				<td valign="top" align="left"><a href="individual_record.php?PersonID=<?php echo $PersonID ; ?>"><?php echo $SCAName;?></a></td>
+				<td valign="top" align="right"><?php echo $AwardName; ?></td>
 				</tr>
-				<? 
+				<?php 
 		}; // end foreach
 		?>
 		</table>
-		<?
+		<?php
 		} else {
-			?><p>There were no awards given on <? echo $SearchMe1; ?>. (that we know of - if you think this is in error, contact Wimble!)</p><?
+			?><p>There were no awards given on <?php echo $SearchMe1; ?>. (that we know of - if you think this is in error, contact Wimble!)</p><?php
 		}
 		break;
 		
@@ -62,7 +62,7 @@ if ($results = $db->get_results($reignquery)) {
 		<br /> Search By Reign</div>
 		<br /><form action="by_reign.php" method="get">
 		<select name="ReignID">
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT ReignID, RUseName, CUseName FROM wReigns WHERE GroupID=$MYGROUPID ORDER BY ReignOrder DESC");
 		foreach($results as $r) {
 		  $thisRID = $r->ReignID;
@@ -80,7 +80,7 @@ if ($results = $db->get_results($reignquery)) {
 		<br />
 		Not acurate before the reign of B&eacute;la II and Claudia.
 		
-		<?
+		<?php
 		break;
 		
 	}  // end switch

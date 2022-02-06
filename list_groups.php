@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {
-        ?><p>You do not have access to this file.</p><?
+        ?><p>You do not have access to this file.</p><?php
         include("includes/footer.php");
         die;
 }
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Group</td><td>Active?</td><td>Action</td></tr>
 
-	<? 
+	<?php 
 	$ourkingdom_groupsquery="SELECT G.GroupID, G.Name AS GroupName, G.ParentGroupID, G.KingdomID, K.Name AS KingdomName, G.Designator, G.Active FROM Groups G INNER JOIN Kingdoms K ON G.KingdomID = K.KingdomID WHERE G.KingdomID = $MYKINGDOMID ORDER BY GroupName";
 		
 	if ($results = $db->get_results($ourkingdom_groupsquery)) {
@@ -31,18 +31,18 @@ if ($accessWimble != 1) {
 		  $Active	= $r->Active;
 		  if (!$Active) { $a="(inactive/disbanded)"; } else { $a=""; }
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?> (<?=$Designator?>)</td>
-		  <td><?=$a?></td>
-		  <td><a href="add_group.php?Action=Edit&GroupID=<?=$GroupID?>">EDIT</a></td>
+		  <tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?> (<?php=$Designator?>)</td>
+		  <td><?php=$a?></td>
+		  <td><a href="add_group.php?Action=Edit&GroupID=<?php=$GroupID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
-      Bigtime error: no groups for <?=$WEAREKINGDOMCOLLECTIVE?>!
-    </td></tr><?
+      Bigtime error: no groups for <?php=$WEAREKINGDOMCOLLECTIVE?>!
+    </td></tr><?php
 	} // end if results for outlandsawardsquery
 
 	
@@ -57,17 +57,17 @@ if ($accessWimble != 1) {
 		  $Active	= $r->Active;
 		  if (!$Active) { $a="(inactive/disbanded)"; } else { $a=""; }
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?> (<?=$Designator?>)</td>
-		  <td><?=$a?></td>
-		  <td><a href="add_group.php?Action=Edit&GroupID=<?=$GroupID?>">EDIT</a></td>
+		  <tr><td><?php=$Kingdom?></td>
+		  <td><?php=$Group?> (<?php=$Designator?>)</td>
+		  <td><?php=$a?></td>
+		  <td><a href="add_group.php?Action=Edit&GroupID=<?php=$GroupID?>">EDIT</a></td>
 		  </tr>
-		  <?
+		  <?php
 		} // end foreach
 	} else {
     ?><tr><td colspan="2" align="center">
       Bigtime error: no groups from other kingdoms!
-    </td></tr><?
+    </td></tr><?php
 	} // end if results for otherawardsquery
 	
  	?>
@@ -75,6 +75,6 @@ if ($accessWimble != 1) {
     <a href="add_group.php">ADD GROUP</a>
   </td></tr></table></div>
 
-<?
+<?php
 include("includes/footer.php");
 ?>

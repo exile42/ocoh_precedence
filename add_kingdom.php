@@ -1,11 +1,11 @@
-<?
+<?php
 include("includes/constants.php");
 include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
 if ($accessWimble != 1) {        
-	?> <p>You do not have access to this file.</p> <?
+	?> <p>You do not have access to this file.</p> <?php
         include("includes/footer.php");
         die;
 }
@@ -31,10 +31,10 @@ if (isset($_REQUEST['CreationOrder']))
 
 ?>
 <div class="bodyheader">
-  <?=$Action?>
+  <?php=$Action?>
   Kingdom</div>
 <br />
-<?
+<?php
 if ($Action == "Submit") { //they've submitted the form
 	$err = ""; // no error messages yet
 	//first check for errors
@@ -45,7 +45,7 @@ if ($Action == "Submit") { //they've submitted the form
 	// Were there any errors?
 	if ($err != "") { //we got errors, make them work for it
     	?><p class="error">
-		<?=$err?></p><?
+		<?php=$err?></p><?php
 		$KingdomIDtrue = $KingdomID;
     	ShowForm();
 
@@ -54,17 +54,17 @@ if ($Action == "Submit") { //they've submitted the form
 		if ($KingdomID == 0) { //we're adding a completely new group
 			$insertquery="INSERT INTO Kingdoms (KingdomID, Name, CreationOrder) VALUES ('$KingdomID', '$Name', $CreationOrder)";
 			if ($db->query($insertquery)) {
-				?><p> Kingdom added successfully.</p><?
+				?><p> Kingdom added successfully.</p><?php
 			} else {
-				?><p>ADD FAIL</p><?
+				?><p>ADD FAIL</p><?php
 			}
 		} else { //we're updating
 			$updatequery="UPDATE Groups SET KingdomID='$KingdomID', Name='$Name', CreationOrder='$CreationOrder', WHERE KingdomID='$KingdomID'";
 			echo $updatequery;
 			if ($db->query($updatequery)) {
-				?><p>Kingdom edited successfully.</p><?
+				?><p>Kingdom edited successfully.</p><?php
 			} else {
-				?><p>EDIT GROUP FAIL</p><?
+				?><p>EDIT GROUP FAIL</p><?php
 			}
 		}// end else updating
 	} //end if error/action is submit
@@ -93,20 +93,20 @@ function ShowForm() {
 <div class="form">
   <form action="add_kingdom.php" method="post">
     <input type="hidden" name="Action" value="Submit" />
-    <input type="hidden" name="KingdomID" value="<?=$KingdomIDtrue?>">
+    <input type="hidden" name="KingdomID" value="<?php=$KingdomIDtrue?>">
     <b>Kingdom Name:</b>
-    <input type="text" size="80" name="Name" class="formfield" value="<?=$Name?>" />
+    <input type="text" size="80" name="Name" class="formfield" value="<?php=$Name?>" />
     <br />
     <br />
     <b>Creation Order:</b>
-    <input type="text" size="2" name="CreationOrder" class="formfield" value="<?=$CreationOrder?>" />
-    <br />This field is used for sorting kingdoms into their precedential order.  <strong>Start with 1 for the earliest and go up from there.</strong>  This is a required field.  The current highest Creation Order is <?=$CurrentMaxCreationOrder?>
+    <input type="text" size="2" name="CreationOrder" class="formfield" value="<?php=$CreationOrder?>" />
+    <br />This field is used for sorting kingdoms into their precedential order.  <strong>Start with 1 for the earliest and go up from there.</strong>  This is a required field.  The current highest Creation Order is <?php=$CurrentMaxCreationOrder?>
     <br />
     <br />
 	<input type="submit" class="button" value="Submit" />
   </form>
 </div>
-<?
+<?php
 }
 
 include("includes/footer.php");
