@@ -166,12 +166,10 @@
 			// 	$this->print_error();
 			// 	return false;
 			// }
-			echo "Executes line 169";
 			// Query was an insert, delete, update, replace
 			if ( preg_match("/^(insert|delete|update|replace)\s+/i",$query) )
 			{
 				
-				echo "Executes line 174";
 				$this->rows_affected = mysql_affected_rows();
 				
 				// Take note of the insert_id
@@ -193,7 +191,6 @@
 				// 	$this->col_info[$i] = @mysql_fetch_field($this->result);
 				// 	$i++;
 				// }
-				echo "Executes line 197";
 				
 				// Store Query Results	
 				// $num_rows=0;
@@ -207,12 +204,11 @@
 				//@mysql_free_result($this->result);
 
 				// Log number of rows the query returned
-				$this->num_rows = $num_rows;
+				//$this->num_rows = $num_rows;
 				
 				// Return number of rows selected
-				$return_val = $this->num_rows;
+				//$return_val = $this->num_rows;
 				
-				echo "Executes line 215";
 			}
 
 			// If debug ALL queries
@@ -318,11 +314,9 @@
 			// If there is a query then perform it if not then use cached results..
 			if ( $query )
 			{
-				echo "Executes ok to here. after line 316";
 				$this->query($query);				
 			}
 
-			echo "Executes ok to here. after line 320";
 			// Send back array of objects. Each row is an object
 			if ( $output == OBJECT )
 			{

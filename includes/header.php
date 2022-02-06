@@ -10,9 +10,8 @@ $accessOPView = 0;
 	//RJG: added a check to see if Action exists.
 	if (!(array_key_exists("Action",$_REQUEST) && $_REQUEST["Action"] == "Login")) 
 	{ 
-		echo "Inside header.php if statement.";
 		//Start the Session
-		session_start();
+		//session_start();
 		// for security, zero these out first
 		// Poke is 3-hour adjusted to stop non-logged-in timeout
 		$Username = "";
@@ -63,8 +62,8 @@ $accessOPView = 0;
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link rel="stylesheet" media="screen" href="/css/wimble.css" type="text/css" />
-<link rel="stylesheet" media="print" href="/css/print.css" type="text/css" />
+<link rel="stylesheet" media="screen" href="css/wimble.css" type="text/css" />
+<link rel="stylesheet" media="print" href="css/print.css" type="text/css" />
 <title><?php=$WEAREKINGDOM?> College of Heralds / Office of the <?php=$PRECEDENCETITLERANK?></title>
 <meta name="robots" content="index, follow, nocache, noarchive, snippet" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -195,7 +194,7 @@ This site is not sanctioned by, or an official instrument of the Society for Cre
 <div id="body">
 <div class="bodycontent">
 <div id="title">
-<a href="/index.php"><img src="/images/title.jpg" height="87" width="406" alt="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" title="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" border="0" /></a>
+<a href="/index.php"><img src="images/title.jpg" height="87" width="406" alt="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" title="<?php=$WEAREKINGDOM?> College of Heralds - Office of the <?php=$PRECEDENCETITLERANK?>" border="0" /></a>
 </div>
 
 
