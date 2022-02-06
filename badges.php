@@ -13,13 +13,12 @@ $results_award = $db->get_row ($db_query_award);
 $Name =$results_award->Name;
 $Charter = $results_award->Charter;
 $Filename = $results_award->Filename;
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link rel="stylesheet" href="http://wimble.outlandsheralds.org/charter.css" type="text/css" />
+<link rel="stylesheet" href="http://wimble.outlandsheralds.org/css/charter.css" type="text/css" />
 <title><?php=$Name?></title>
 </head>
 <br />

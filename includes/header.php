@@ -63,8 +63,8 @@ $accessOPView = 0;
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link rel="stylesheet" media="screen" href="/wimble.css" type="text/css" />
-<link rel="stylesheet" media="print" href="/print.css" type="text/css" />
+<link rel="stylesheet" media="screen" href="/css/wimble.css" type="text/css" />
+<link rel="stylesheet" media="print" href="/css/print.css" type="text/css" />
 <title><?php=$WEAREKINGDOM?> College of Heralds / Office of the <?php=$PRECEDENCETITLERANK?></title>
 <meta name="robots" content="index, follow, nocache, noarchive, snippet" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -78,7 +78,7 @@ $accessOPView = 0;
 	}
 </script>
 
-<script type="text/javascript" src="popup.js"></script>
+<script type="text/javascript" src="js/popup.js"></script>
 
 </head>
 
