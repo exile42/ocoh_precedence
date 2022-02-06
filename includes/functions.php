@@ -2,7 +2,7 @@
 //this file contains global functions that are used on multiple pages.
 
 function ShowLoginForm() {
-?> <div align="center">
+?> <div style="text-align: center;">
    <div class="formarea" style="width:350px;">
 	<form action="login.php" method="post">
 	<fieldset class="formfieldset">
