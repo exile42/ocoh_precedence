@@ -13,8 +13,6 @@
             $query->execute();
             $data = $query->fetchAll();
             return $data;		
-        }
-
-        
+        }        
     }
 ?>
