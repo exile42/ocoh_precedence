@@ -1,4 +1,4 @@
-<?php
+
 	define("EZSQL_DB_USER", "$SQLUSERNAME");	// <-- mysql db user
 	define("EZSQL_DB_PASSWORD", "$SQLPASSWORD");		// <-- mysql db password
 	define("EZSQL_DB_NAME", "$SQLDATABASE");		// <-- mysql db pname
@@ -503,4 +503,4 @@
 
 $db = new db(EZSQL_DB_USER, EZSQL_DB_PASSWORD, EZSQL_DB_NAME, EZSQL_DB_HOST);
 
-?>
+

@@ -82,7 +82,7 @@ $accessWimbleView = 0;
 <?php
 if ($Username == "" or $UserID == 0) {?>	
 	you are not logged in |
-	<a href="/login.php">sign in</a>
+	<a href="login.php">sign in</a>
 <?php 	} else { ?>
 	you are logged in as <strong><?php echo $Username;?></strong><br /> 
 	[ <a href="/logout.php">sign out</a> ]<br />

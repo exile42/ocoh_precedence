@@ -5,13 +5,13 @@ $accessPH = 0;
 $accessWimble = 0;
 $accessOPMinion = 0;
 $accessOPView = 0;
-
 	//Only do this if we are not in the process of logging in
 	//RJG: added a check to see if Action exists.
 	if (!(array_key_exists("Action",$_REQUEST) && $_REQUEST["Action"] == "Login")) 
 	{ 
 		//Start the Session
-		//session_start();
+		$session_result = session_start();
+		echo "Session result: ".($session_result ? 'true' : 'false');
 		// for security, zero these out first
 		// Poke is 3-hour adjusted to stop non-logged-in timeout
 		$Username = "";
@@ -98,7 +98,7 @@ echo (time() - 1435400000 - 10800) . "/" . (time() - 1435400000) . "\n";
 <?php
 if ($Username == "" or $UserID == 0) {?>	
 	you are not logged in |
-	<a href="/login.php">sign in</a>
+	<a href="login.php">sign in</a>
 <?php 	} else { ?>
 	you are logged in as <strong><?php echo $Username;?></strong><br /> 
 	[ <a href="/logout.php">sign out</a> ]<br />
