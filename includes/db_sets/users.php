@@ -1,9 +1,6 @@
 <?php
-    include '../models/user.php';
-    include '../db_context.php';
-
+    include('../models/user.php');
     class Users
-
     {
         private $db;
         

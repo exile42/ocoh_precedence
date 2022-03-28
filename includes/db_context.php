@@ -1,20 +1,18 @@
 <?php
-    include 'db_sets/users.php';
-    include 'db_sets/user_accesses.php';
+    include("db_sets/users.php");
+    include("db_sets/user_accesses.php");
 
-	define("DB_USER", "$SQLUSERNAME");	// <-- mysql db user
-	define("DB_PASSWORD", "$SQLPASSWORD");		// <-- mysql db password
-	define("DB_NAME", "$SQLDATABASE");		// <-- mysql db pname
-	define("DB_HOST", "$SQLSERVER");	// <-- mysql server host
+    class DBContext
+    {
 
-    class DBContext{
 
         private $db;
 
         function __construct()
         {
             try {
-                $db = new PDO(DB_HOST, DB_USER, DB_PASSWORD);
+                $connection_string='mysql:host='.$SQLSERVER.';dbname='.$SQLDATABASE.';charset=utf8';
+                $db = new PDO($connection_string, $SQLUSERNAME, $SQLDATABASE);
             } catch (PDOException $ex) {
                 $error_message = $ex->getMessage();
                 //TODO: display error message and set up to shutdown gracefully

@@ -1,8 +1,12 @@
 <?php
 include("includes/constants.php");
-include("includes/ez_sql.php");
+include("includes/db_context.php");
+$db = new DBContext; //create the db context object for the application. 
+//TODO: Should this be created here or injected somewhere else? RJG
+//include("includes/ez_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
+
 ?>
 
 <div class="bodyheader">Welcome to the <?php=$WEAREKINGDOM?> College of Heralds <?php=$PRECEDENCETITLE?> site!</div><br />
