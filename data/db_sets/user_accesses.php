@@ -2,8 +2,6 @@
     include '../db_context.php';
     include '../models/user_accesses.php';
 
-
-
     class UserAccesses
     {    private $db;
         

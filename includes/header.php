@@ -1,10 +1,14 @@
 <?php
+ 	include '../data/db_context.php';
+	$db = new DBContext(); //create the db context object for the application. 
+	//TODO: Should this be created here or injected somewhere else? RJG
+	
+	// for security, zero these out NOW
+	$accessPH = 0;
+	$accessWimble = 0;
+	$accessOPMinion = 0;
+	$accessOPView = 0;
 
-// for security, zero these out NOW
-$accessPH = 0;
-$accessWimble = 0;
-$accessOPMinion = 0;
-$accessOPView = 0;
 	//Only do this if we are not in the process of logging in
 	//RJG: added a check to see if Action exists.
 	if (!(array_key_exists("Action",$_REQUEST) && $_REQUEST["Action"] == "Login")) 
@@ -41,11 +45,8 @@ $accessOPView = 0;
 			$NewPoke = time();
 		} // end if session is set
 
-		
 		// Now we need to figure out what you have access to.
-		$access_query = "SELECT * FROM Users as U, UserAccess as UA WHERE U.UserID=UA.UserAccessID and U.Username='$Username' and U.UserID=$UserID";
-		
-		if ($access_results  = $db->get_results($access_query)) {
+		if ($access_results  = db->user_accesses->getAccesesByUserId($Username,$UserID)) {
 			foreach($access_results as $r) {
 				$accessPH			= $r->PrincipalHerald;
 				$accessWimble		= $r->Wimble;
