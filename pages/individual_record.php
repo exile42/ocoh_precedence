@@ -96,7 +96,7 @@ if ($err) {
 		?><table border="0" width="560"><tr>
 		<td valign="middle"><span class="bodyheader2"><?php echo $person[SCAName]?> (<?php echo $person[print_group]?>)</span><br /><?php
 		//if someone has pronouns to display, show them here.
-		if (not(is_null($person[Pronouns]))){
+		if ($person[Pronouns]){
 			?><span class="small">(<?print $person[Pronouns]?>)</span><?php
 		}// end pronouns
 		
@@ -110,11 +110,10 @@ if ($err) {
 		$heraldry_results = $cstring->query($heraldry_query) or die("MySQL Error(heraldry)!!" .$cstring->error);
 		
 		if ($heraldry_results) {
-			?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-			while ($head[] = $head_result->fetch_assoc());
-			array_pop($head);
-			foreach ($head as $heraldry)
-					}// end foreach
+		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
+		while ($registration[] = $registration_result->fetch_assoc());
+		array_pop($registration);
+		foreach ($registration as $heraldry) {
 
 			if (isset($heraldry[Blazon]) && $person[RegName] == 1 && isset($heraldry[Filename])){
 				?><span class="small">Name And Device Registered</td>
@@ -122,10 +121,10 @@ if ($err) {
 				<table border=0>
 				<tr><td align="middle"><div class="centered"><?php echo $heraldry[Blazon]?></div><br /><br /></td></tr>
 				</table><?php
-			} else if (isset($Blazon) && $RegName == 1 ){
+			} else if (isset($heraldry[Blazon]) && $person[RegName] == 1 ){
 				?><span class="small">Name And Device Registered</span><br />
-				<div class="centered"><?php echo $Blazon?></div><br /><?php
-			} else if ($RegName == 1){
+				<div class="centered"><?php echo $heraldry[Blazon]?></div><br /><?php
+			} else if ($person[RegName] == 1){
 				?><span class="small">Name Registered</span><br /><?php
 			} else {
 				?><span class="small">Name NOT Registered</span><br /><?php
@@ -134,17 +133,17 @@ if ($err) {
 	}// end if results
 
 	$award_query="SELECT A.AwardID, A.Name, K.Name AS Kingdom, G.Name AS LocalGroup, A.RankID, A.Rank, AG.Date, AG.AwardedBy, AG.Resigned, AG.Premier, AG.Reason, AG.Visible, AG.ReignID, AG.Notes, A.GiverType, DATE_FORMAT(AG.Date, '%Y-%m-%d') AS NiceDate FROM wAwardsGiven AG INNER JOIN wAwards A ON AG.AwardID = A.AwardID LEFT OUTER JOIN Kingdoms K ON K.KingdomID = A.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = A.GroupID WHERE AG.PersonID = $PersonID ORDER BY A.Rank, AG.Date";
-	$award_results = $db->get_results($award_query);
+	$award_results = $cstring->query($award_query) or die("MySQL Error (Awards)!! ".$cstring->error);
+
 	if ($award_results) {
 		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-		foreach ($award_results as $r){
-			while(list($name,$value) = each($r)) { //name all values
-				$$name = $value;
-			};
+	while($award[] = $award_result->fetch_assoc());
+	array_pop($award);
+	foreach ($award_results as $awards){
 		
-			if ($Premier==1) {$p = " (premier)"; } else {$p = "";}
-			if ($Reason) {$r = " ($Reason)";} else {$r = "";}
-			if ($Rank == 60 || $Rank == 70) {$a = " (AoA)"; } else {$a = "";}
+		if ($awards[Premier]==1) {$p = " (premier)"; } else {$p = "";}
+		if ($awards[Reason]) {$r = " ($Reason)";} else {$r = "";}
+		if ($awards[Rank] == 60 || $awards[Rank] == 70) {$a = " (AoA)"; } else {$a = "";}
 			
 			//So, what are the speshul cases here?
 			//If there is a single giver, show the AwardedBy
@@ -170,23 +169,23 @@ if ($err) {
 			?><tr><td><?php echo $Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php echo $NiceDate?></td></tr><?php
 */
 			
-			if ($Visible && !$Resigned){
-				if ($GiverType != 'B' && isset($AwardedBy)){
-					?><tr><td><?php echo $Name?> [<?php echo $AwardedBy?>] -- (<?php echo $Kingdom?>)</td><td align="right"><?php echo $NiceDate?></td></tr><?php
-				} else if ($Kingdom != $WEAREKINGDOM){
-					if ($Kingdom == "SCA"){
-						if ($AwardID == 3 || $AwardID == 257 || $AwardID == 7 || $AwardID == 275){
-							?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
+			if ($awards[Visible] && !$awards[Resigned]){
+				if ($awards[GiverType] != 'B' && isset($awards[AwardedBy])){
+					?><tr><td><?php echo $awards[Name]?> [<?php echo $awards[AwardedBy]?>] -- (<?php echo $awards[Kingdom]?>)</td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+				} else if ($awards[Kingdom] != $WEAREKINGDOM){
+					if ($awards[Kingdom] == "SCA"){
+						if ($awards[AwardID] == 3 || $awards[AwardID] == 257 || $awards[AwardID] == 7 || $awards[AwardID] == 275){
+							?><tr><td><?php echo $awards[Name]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
 						} else {
-							?><tr><td><?php echo $Name?> -- <?php echo $a;?><?php echo $p;?> <?php echo $Notes?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
+							?><tr><td><?php echo $awards[Name]?> -- <?php echo $a;?><?php echo $p;?> <?php echo $awards[Notes]?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
 						} // end if a special award
 					} else {
-						?><tr><td><?php echo $Name?> -- <?php echo $Kingdom?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
+						?><tr><td><?php echo $awards[Name]?> -- <?php echo $awards[Kingdom]?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
 					}//end if not Outlands Award
-				} else if (!isset($LocalGroup)){
-					?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
+				} else if (!isset($awards[LocalGroup])){
+					?><tr><td><?php echo $awards[Name]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
 				} else {
-					?><tr><td><?php echo $Name?> -- <?php echo $LocalGroup?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
+					?><tr><td><?php echo $awards[Name]?> -- <?php echo $awards[LocalGroup]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
 				}// end if Givertype
 			} // end if Visible and not Resigned
 		}// end foreach
