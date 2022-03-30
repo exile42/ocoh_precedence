@@ -31,23 +31,23 @@ if ($err) {
 		foreach ($head as $person){
         // Clunky way to determine what of group and kingdom location to print
                     
-		  if ($person[LocalGroup] != "" && $person[Kingdom] != $WEAREKINGDOM) {					//if we know what subgroup they're in and it's not in our kingdom
-            $print_group=$person[LocalGroup] . ", " . $person[Kingdom];                         //print both group and kingdom
-              } elseif ($person[LocalGroup] != "" && $person[Kingdom] == $WEAREKINGDOM) {		//but if it's in our kingdom
-                 $print_group=$person[LocalGroup];                                      		//print group only
+		  if ($person['LocalGroup'] != "" && $person['Kingdom'] != $WEAREKINGDOM) {					//if we know what subgroup they're in and it's not in our kingdom
+            $print_group=$person['LocalGroup'] . ", " . $person['Kingdom'];                         //print both group and kingdom
+              } elseif ($person['LocalGroup'] != "" && $person['Kingdom'] == $WEAREKINGDOM) {		//but if it's in our kingdom
+                 $print_group=$person['LocalGroup'];                                      		//print group only
               } else {									                                        //but when it's an unknown group
-                  $print_group=$person[Kingdom];		                                        //print kingdom only
+                  $print_group=$person['Kingdom'];		                                        //print kingdom only
               }
             
           ?><table border="0" width="560"><tr>
-		  <td valign="middle"><span class="bodyheader2"><?php echo $person[SCAName]?> (<?php echo $person[print_group]?>)</span><br /><?php
+		  <td valign="middle"><span class="bodyheader2"><?php echo $person['SCAName']?> (<?php echo $print_group?>)</span><br /><?php
 		  //if someone has pronouns to display, show them here.
-		  if ($person[Pronouns]){
-              ?><span class="small">(<?print $person[Pronouns]?>)</span><?php
+		  if ($person['Pronouns']){
+              ?><span class="small">(<?print $person['Pronouns']?>)</span><?php
 		  }// end pronouns
 		
 		  //if someone has passed on, note this here.
-		  if ($person[Deceased]==1){
+		  if ($person['Deceased']==1){
               ?><span class="small">(Deceased)</span><br /><?php
 		  }// end if dead
 		
@@ -61,16 +61,16 @@ if ($err) {
 		  array_pop($registration);
 		  foreach ($registration as $heraldry) {
 
-			if (isset($heraldry[Blazon]) && $person[RegName] == 1 && isset($heraldry[Filename])){
+			if (isset($heraldry['Blazon']) && $person['RegName'] == 1 && isset($heraldry['Filename'])){
 			 ?><span class="small">Name And Device Registered</td>
-			 <td align="right" valign="middle"><a href="<?php echo $ROLLOFARMSURL?>/individual_record.php?PersonID=<?php echo $PersonID?>"><img src="<?php echo $ROLLOFARMSURL?>/images/<?php echo $heraldry[Filename]?>" alt="[<?php echo $heraldry[Blazon]?>]" style="width:70px; border:0px;"></a></td>
+			 <td align="right" valign="middle"><a href="<?php echo $ROLLOFARMSURL?>/individual_record.php?PersonID=<?php echo $PersonID?>"><img src="<?php echo $ROLLOFARMSURL?>/images/<?php echo $heraldry['Filename']?>" alt="[<?php echo $heraldry['Blazon']?>]" style="width:70px; border:0px;"></a></td>
 			 <table border=0>
-			     <tr><td align="middle"><div class="centered"><?php echo $heraldry[Blazon]?></div><br /><br /></td></tr>
+			     <tr><td align="middle"><div class="centered"><?php echo $heraldry['Blazon']?></div><br /><br /></td></tr>
              </table><?php
-			 } elseif (isset($heraldry[Blazon]) && $person[RegName] == 1 ){
+			 } elseif (isset($heraldry['Blazon']) && $person['RegName'] == 1 ){
 				?><span class="small">Name And Device Registered</span><br />
-				<div class="centered"><?php echo $heraldry[Blazon]?></div><br /><?php
-			 } elseif ($person[RegName] == 1){
+				<div class="centered"><?php echo $heraldry['Blazon']?></div><br /><?php
+			 } elseif ($person['RegName'] == 1){
 				?><span class="small">Name Registered</span><br /><?php
 			 } else {
 				?><span class="small">Name NOT Registered</span><br /><?php
@@ -87,9 +87,9 @@ if ($err) {
 	      array_pop($award);
 	      foreach ($award_results as $awards){
               
-            if ($awards[Premier]==1) {$p = " (premier)"; } else {$p = "";}
-		    if ($awards[Reason]) {$r = " ($Reason)";} else {$r = "";}
-		    if ($awards[Rank] == 60 || $awards[Rank] == 70) {$a = " (AoA)"; } else {$a = "";}
+            if ($awards['Premier']==1) {$p = " (Premier)"; } else {$p = "";}
+		    if ($awards['Reason']) {$r = " ($Reason)";} else {$r = "";}
+		    if ($awards['Rank'] == 60 || $awards['Rank'] == 70) {$a = " (AoA)"; } else {$a = "";}
             //So, what are the speshul cases here?
             //If there is a single giver, show the AwardedBy
             //If not from here, is AoA, GoA, Aug, or Rose, show no notes
@@ -101,23 +101,23 @@ if ($err) {
             //so, for Awards, add flags ShowGiver, ShowKingdom, ShowLocalGroup, ShowGivenNotes
             //For AwardsGiven, add separate "Givenfor" vs generic Notes ... AND a PrivateNotes  ... and a KingdomIDGivenBy for AoA/GoA/Aug/Rose?
 			
-			if ($awards[Visible] && !$awards[Resigned]){
-                if ($awards[GiverType] != 'B' && isset($awards[AwardedBy])){
-				    ?><tr><td><?php echo $awards[Name]?> [<?php echo $awards[AwardedBy]?>] -- (<?php echo $awards[Kingdom]?>)</td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
-				} elseif ($awards[Kingdom] != $WEAREKINGDOM){
-					if ($awards[Kingdom] == "SCA"){
-				        if ($awards[AwardID] == 3 || $awards[AwardID] == 257 || $awards[AwardID] == 7 || $awards[AwardID] == 275){
-				            ?><tr><td><?php echo $awards[Name]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+			if ($awards['Visible'] && !$awards['Resigned']){
+                if ($awards['GiverType'] != 'B' && isset($awards['AwardedBy'])){
+				    ?><tr><td><?php echo $awards['Name']?> [<?php echo $awards['AwardedBy']?>] -- (<?php echo $awards['Kingdom']?>)</td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
+				} elseif ($awards['Kingdom'] != $WEAREKINGDOM){
+					if ($awards['Kingdom'] == "SCA"){
+				        if ($awards['AwardID'] == 3 || $awards['AwardID'] == 257 || $awards['AwardID'] == 7 || $awards['AwardID'] == 275){
+				            ?><tr><td><?php echo $awards['Name']?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
 						} else {
-							?><tr><td><?php echo $awards[Name]?> -- <?php echo $a;?><?php echo $p;?> <?php echo $awards[Notes]?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+							?><tr><td><?php echo $awards['Name']?> -- <?php echo $a;?><?php echo $p;?> <?php echo $awards['Notes']?></td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
 						} // end if a special award
 					} else {
-						?><tr><td><?php echo $awards[Name]?> -- <?php echo $awards[Kingdom]?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+						?><tr><td><?php echo $awards['Name']?> -- <?php echo $awards['Kingdom']?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
 					}//end if not Outlands Award
-				} elseif (!isset($awards[LocalGroup])){
-					?><tr><td><?php echo $awards[Name]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+				} elseif (!isset($awards['LocalGroup'])){
+					?><tr><td><?php echo $awards['Name']?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
 				} else {
-					?><tr><td><?php echo $awards[Name]?> -- <?php echo $awards[LocalGroup]?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards[NiceDate]?></td></tr><?php
+					?><tr><td><?php echo $awards['Name']?> -- <?php echo $awards['LocalGroup']?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $awards['NiceDate']?></td></tr><?php
 				   }// end if GiverType
              } // end if Visible and not Resigned
 		    }// end foreach awards
@@ -133,7 +133,7 @@ if ($err) {
 	      while($aliases[] = $results_alias->fetch_assoc());
 	      array_pop($aliases);
 	      foreach ($results_alias as $alias){
-			 ?><tr><td><?php echo $alias[Name]?></td></tr><?php
+			 ?><tr><td><?php echo $alias['Name']?></td></tr><?php
             }// end foreach
             ?></table><?php
 	      } //end if alias
