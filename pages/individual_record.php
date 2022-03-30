@@ -1,7 +1,7 @@
 <?php
 
-function Personal($id){
-/*	global $cstring;
+ /*function Personal($id){
+	global $cstring;
 
 	$rollofarms_link = "http://wharrow.outlandsheralds.org/individual_record.php?PersonID=$head[PersonID]";
 	
@@ -45,12 +45,8 @@ if ($header_results) {
 		?><span class="small">Name Registered</span><br /><?php
 	} else {
 		?><span class="small">Name NOT Registered</span><br />"<?php
-	}// end if name or device registered
-*/
-	
-}// end Personal()
-
-	
+	}// end if name or device registered	
+}// end Personal() */
 
 include("includes/constants.php");
 //include("includes/ez_sql.php");
@@ -216,4 +212,5 @@ if ($err) {
 } //end if error
 
 include("includes/footer.php");
+
 ?>
