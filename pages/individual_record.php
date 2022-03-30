@@ -10,15 +10,13 @@ if (isset($_REQUEST['PersonID']) && is_numeric($_REQUEST['PersonID'])){
 } else {
 	$err = "We have no idea who you are talking about.  Go back and try again?";
 }
+
+$cstring = new mysqli($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD, $SQLDATABASE);
+	if ($cstring->connect_error) {$err = "Connection failed: " . $cstring->connect_error;}
 	
 if ($err) {
 	die($err);
 } else {
-
-	$cstring = new mysqli($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD, $SQLDATABASE);
-	if ($cstring->connect_error) {
-		die("Connection failed: " . $cstring->connect_error);
-		}
 
 	$header_query="SELECT P.PersonID, P.SCAName, P.ModernName, P.Deceased, P.Pronouns, G.Name AS LocalGroup, K.Name AS Kingdom, P.RegName FROM wPeople P LEFT OUTER JOIN Kingdoms K ON K.KingdomID = P.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = P.GroupID WHERE P.PersonID = $PersonID";
 	$header_results = $cstring->query($header_query) or die("MySQL Error(Individal Header)!!" .$cstring->error);
@@ -26,11 +24,10 @@ if ($err) {
 	if ($header_results) {
 		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
 		
-        while ($head[] = $head_result->fetch_assoc());
+        while ($head[] = $header_results->fetch_assoc());
 		array_pop($head);
 		foreach ($head as $person){
-        // Clunky way to determine what of group and kingdom location to print
-                    
+			// Clunky way to determine what of group and kingdom location to print
 		  if ($person['LocalGroup'] != "" && $person['Kingdom'] != $WEAREKINGDOM) {					//if we know what subgroup they're in and it's not in our kingdom
             $print_group=$person['LocalGroup'] . ", " . $person['Kingdom'];                         //print both group and kingdom
               } elseif ($person['LocalGroup'] != "" && $person['Kingdom'] == $WEAREKINGDOM) {		//but if it's in our kingdom
@@ -48,17 +45,18 @@ if ($err) {
 		
 		  //if someone has passed on, note this here.
 		  if ($person['Deceased']==1){
-              ?><span class="small">(Deceased)</span><br /><?php
+              ?><span class="small">(Deceased)</span><?php
 		  }// end if dead
-		
+		  ?><br /><?php // newline after pronouns/deceased, and before the rest of the records
+
           // Displaying information about registered primary name/device, inc'l emblazon if one is available
 		  $heraldry_query="SELECT H.Blazon, H.Filename FROM wHeraldry H WHERE H.PersonID = $PersonID AND H.Type = 'Device'";
 		  $heraldry_results = $cstring->query($heraldry_query) or die("MySQL Error(heraldry)!!" .$cstring->error);
 		
 		  if ($heraldry_results) {
 		  ?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-		  while ($registration[] = $registration_result->fetch_assoc());
-		  array_pop($registration);
+		  while ($registration[] = $heraldry_results->fetch_assoc());
+		//  array_pop($registration);
 		  foreach ($registration as $heraldry) {
 
 			if (isset($heraldry['Blazon']) && $person['RegName'] == 1 && isset($heraldry['Filename'])){
@@ -83,9 +81,9 @@ if ($err) {
 
 	      if ($award_results) {
 		  ?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-	      while($award[] = $award_result->fetch_assoc());
-	      array_pop($award);
-	      foreach ($award_results as $awards){
+	      while($list[] = $award_results->fetch_assoc());
+	      //array_pop($award);
+	      foreach ($list as $awards){
               
             if ($awards['Premier']==1) {$p = " (Premier)"; } else {$p = "";}
 		    if ($awards['Reason']) {$r = " ($Reason)";} else {$r = "";}
@@ -130,9 +128,8 @@ if ($err) {
 	      if ($results_alias) {
 		  ?><p><span class="bodyheader2">Known Aliases</span></p>
 		    <table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-	      while($aliases[] = $results_alias->fetch_assoc());
-	      array_pop($aliases);
-	      foreach ($results_alias as $alias){
+	      while($aka[] = $results_alias->fetch_assoc());
+	      foreach ($aka as $alias){
 			 ?><tr><td><?php echo $alias['Name']?></td></tr><?php
             }// end foreach
             ?></table><?php
