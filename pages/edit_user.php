@@ -19,7 +19,7 @@ else
 	$Delete = "NOPE";
 ?>
 
-<div class="bodyheader"><?php=$Action?> Person</div>
+<div class="bodyheader"><?php echo $Action?> Person</div>
 <br />
 <br />
 <?php
@@ -47,7 +47,7 @@ if ($Delete == "DeleteAlias") {
 		
 		$query = "DELETE QUICK FROM wAliases WHERE AliasID='$AliasID' AND PersonID='$PersonID'";
 		$db->query($query);
-		?><p class="success">You have successfully deleted <?php=$Alias?> from the profile.</p><?php
+		?><p class="success">You have successfully deleted <?php echo $Alias?> from the profile.</p><?php
 		$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'deleted an alias $Alias for $Name u: $Username', '$IPAddress')");
 	} // end if err
 	
@@ -60,7 +60,7 @@ if (isset($_REQUEST['PersonID']))
 	else
 		$err .= " That Person doesn't exist. ";
 if (isset($_REQUEST['SCAName']))
-	$SCAName = mysql_real_escape_string(SanitizeInputGeneral($_REQUEST['SCAName']));
+	$SCAName = $cstring -> real_escape_string(SanitizeInputGeneral($_REQUEST['SCAName']));
 	else
 		$err .= " There is no SCA Name. That's not ok. ";
 if (isset($_REQUEST['RegName']))
@@ -69,11 +69,13 @@ if (isset($_REQUEST['RegName']))
 	else
 		$err .= "Registered Name flag has an invalid value. ";
 if (isset($_REQUEST['RegNameDate']))
-	$RegNameDate = mysql_real_escape_string($_REQUEST['RegNameDate']);
+	$RegNameDate = $cstring -> real_escape_string($_REQUEST['RegNameDate']);
 if (isset($_REQUEST['RegDevice']))
-	$RegDevice = mysql_real_escape_string($_REQUEST['RegDevice']);
+	$RegDevice = $cstring -> real_escape_string($_REQUEST['RegDevice']);
+if (isset($_REQUEST['Pronouns']))
+	$RegDevice = $cstring -> real_escape_string($_REQUEST['Pronouns']);
 if (isset($_REQUEST['Blazon']))
-	$Blazon = mysql_real_escape_string($_REQUEST['Blazon']);
+	$Blazon = $cstring -> real_escape_string($_REQUEST['Blazon']);
 if (isset($_REQUEST['GroupID']))
 	if (is_numeric($_REQUEST['GroupID'])) 
 		$GroupID = $_REQUEST['GroupID'];
@@ -88,7 +90,7 @@ if (isset($_REQUEST['Active']) && is_numeric($_REQUEST['Active']))
 if (isset($_REQUEST['Deceased'])  && is_numeric($_REQUEST['Deceased']))
 	$Deceased = $_REQUEST['Deceased'];
 if (isset($_REQUEST['ModernName']))
-	$ModernName = mysql_real_escape_string(SanitizeInputGeneral($_REQUEST['ModernName']));
+	$ModernName = $cstring -> real_escape_string(SanitizeInputGeneral($_REQUEST['ModernName']));
 	else
 		$err .= " There is legal name. ";
 
@@ -97,7 +99,7 @@ if (isset($_REQUEST['MemberNumber']) && is_numeric($_REQUEST['MemberNumber']))
 if (isset($_REQUEST['AliasCount']))
 	$AliasCount = $_REQUEST['AliasCount'];
 if (isset($_REQUEST['AddAlias']))
-	$AddAlias = mysql_real_escape_string($_REQUEST['AddAlias']);
+	$AddAlias = $cstring -> real_escape_string($_REQUEST['AddAlias']);
 else
 	$AddAlias = "";
 // $Alias is NOT sanitized here because it's an array and the sanitization is handled as it is processed, below.
@@ -108,7 +110,7 @@ if ($Action == "Submit") { //they've submitted the form
 
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
-		?><p class="error"><?php=$err?></p><?php
+		?><p class="error"><?php echo $err?></p><?php
 		ShowForm();
 	} else { //no errors, insert or update as needed
 	
@@ -119,19 +121,19 @@ if ($Action == "Submit") { //they've submitted the form
 		if ($PersonID == 0) { //we're adding the user
 			$insertquery="INSERT INTO wPeople 
 			(SCAName, SearchName, RegName, RegNameDate, RegDevice, GroupID, 
-			KingdomID, Active, Deceased, ModernName, MemberNumber, DateAdded, LastUpdate, LastUpdateID) 
+			KingdomID, Active, Pronouns, Deceased, ModernName, MemberNumber, DateAdded, LastUpdate, LastUpdateID) 
 			VALUES 
 			('$SCAName', '$SearchName', '$RegName', '$RegNameDate', '$RegDevice', '$GroupID', 
-			'$KingdomID', '$Active', '$Deceased', '$ModernName', '$MemberNumber', '$Now', '$Now', '$LoggedUserID')";
+			'$KingdomID', '$Active', '$Pronouns', '$Deceased', '$ModernName', '$MemberNumber', '$Now', '$Now', '$LoggedUserID')";
 			//echo $insertquery;
 			// Do the insert
 			if ($results = $db->query($insertquery)) {
-				?><p class="success">You have successfully added <?php=$SCAName?>.<?php
+				?><p class="success">You have successfully added <?php echo $SCAName?>.<?php
 				$PersonID = $db->get_var("SELECT MAX(PersonID) FROM wPeople WHERE SCAName='$SCAName'");
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added new Person $SCAName u: $Username', '$IPAddress')");
-				?><p><a href="view_person.php?PersonID=<?php=$PersonID?>">VIEW DETAILS</a><?php
-				?> | <a href="edit_user.php?PersonID=<?php=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-				<a href="edit_awards.php?PersonID=<?php=$PersonID?>">EDIT AWARDS</a> </p><?php
+				?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?php
+				?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+				<a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?php
 			} else {
 				?> Something went wrong and the person wasn't added. :( <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED added new Person $SCAName u: $Username', '$IPAddress')");
@@ -149,6 +151,7 @@ if ($Action == "Submit") { //they've submitted the form
 			GroupID='$GroupID',
 			KingdomID='$KingdomID',
 			Active='$Active',
+			Pronouns='$Pronouns',
 			Deceased='$Deceased',
 			ModernName='$ModernName',
 			MemberNumber='$MemberNumber',
@@ -158,11 +161,11 @@ if ($Action == "Submit") { //they've submitted the form
 			//echo $updatequery;
 			//Do the update
 			if ($results = $db->query($updatequery)) {
-				?><p class="success">You have successfully updated <?php=$SCAName?>.<?php
+				?><p class="success">You have successfully updated <?php echo $SCAName?>.<?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'edited Person $SCAName u: $Username', '$IPAddress')");
-				?><p><a href="view_person.php?PersonID=<?php=$PersonID?>">VIEW DETAILS</a><?php
-   	    		?> | <a href="edit_user.php?PersonID=<?php=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-	            <a href="edit_awards.php?PersonID=<?php=$PersonID?>">EDIT AWARDS</a> </p><?php
+				?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?php
+   	    		?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+	            <a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?php
 			} else {
 				?> Something went wrong and the person wasn't updated. :( <?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED edited Person $SCAName u: $Username', '$IPAddress')");
@@ -173,7 +176,7 @@ if ($Action == "Submit") { //they've submitted the form
 				$i = 0; 
 				WHILE ($i < $AliasCount): 
 					$AliasID = $_REQUEST['AliasID-'.$i]; 
-					$Alias 	 = mysql_real_escape_string($_REQUEST['Alias-'.$i]); 
+					$Alias 	 = $cstring -> real_escape_string($_REQUEST['Alias-'.$i]); 
 					$SearchAlias	= convert_from_utf8_to_ascii($Alias);
 					$SearchAlias = str_replace("'", "", $SearchAlias);
 					$SearchAlias = str_replace("`", "", $SearchAlias);
@@ -184,13 +187,13 @@ if ($Action == "Submit") { //they've submitted the form
 				ENDWHILE;
 			} //end if AliasCount
 			
-			?><p class="success">You have successfully edited <?php=$SCAName?>.</p>
-			<p>Go back to <a href="individual_record.php?PersonID=<?php=$PersonID?>"><?php=$SCAName?></a>.</p><?php
+			?><p class="success">You have successfully edited <?php echo $SCAName?>.</p>
+			<p>Go back to <a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a>.</p><?php
 		}
 		
 		//for both add and edit
 		if ($AddAlias != "") {
-			$AddAlias = mysql_real_escape_string($AddAlias);
+			$AddAlias = $cstring -> real_escape_string($AddAlias);
 			$SearchAlias	= convert_from_utf8_to_ascii($AddAlias);
 			$SearchAlias = str_replace("'", "", $SearchAlias);
 			$SearchAlias = str_replace("`", "", $SearchAlias);
@@ -198,7 +201,7 @@ if ($Action == "Submit") { //they've submitted the form
 			//echo $query;
 			//Do the update
 			if ($results = $db->query($aliasquery)) {
-				?><p class="success">You have successfully added the alias <?php=$AddAlias?> to <?php=$SCAName?>.<?php
+				?><p class="success">You have successfully added the alias <?php echo $AddAlias?> to <?php echo $SCAName?>.<?php
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added new alias $AddAlias to $SCAName u: $Username', '$IPAddress')");
 			} else {
 				?> Something went wrong and the new alias wasn't added. :( <?php
@@ -221,6 +224,7 @@ if ($Action == "Submit") { //they've submitted the form
 
 	$PersonID = 0;
 	$Active = "1";
+	$Pronouns = "";
 	$Deceased = "";
 	$RegName = "";
 	$KingdomID = $MYKINGDOMID;
@@ -230,20 +234,22 @@ if ($Action == "Submit") { //they've submitted the form
 
 
 Function ShowForm() {
-	global $db, $PersonID, $Action, $SCAName, $RegName, $RegNameDate, $RegDevice, $GroupID, $KingdomID, $Active, $Deceased, $ModernName, $MemberNumber, $DateAdded, $LastUpdate, $LastUpdateBy, $MYKINGDOMID;
+	global $db, $PersonID, $Action, $SCAName, $RegName, $RegNameDate, $RegDevice, $GroupID, $KingdomID, $Active, $Pronouns, $Deceased, $ModernName, $MemberNumber, $DateAdded, $LastUpdate, $LastUpdateBy, $MYKINGDOMID;
 ?>	
 	<div align="center">
 	<form action="edit_user.php" method="post">
 	<input type="hidden" name="Action" value="Submit">
-	<input type="hidden" name="PersonID" value="<?php=$PersonID?>">
+	<input type="hidden" name="PersonID" value="<?php echo $PersonID?>">
 	<table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
-	<tr><td colspan="2" class="tableheader"><?php=$Action?> Person</td></tr>
+	<tr><td colspan="2" class="tableheader"><?php echo $Action?> Person</td></tr>
 	<tr><td>SCA Name:</td>
-		<td><input type="text" name="SCAName" value="<?php=htmlspecialchars($SCAName)?>" size="50" maxlength="80"></td></tr>
+		<td><input type="text" name="SCAName" value="<?php htmlspecialchars($SCAName)?>" size="50" maxlength="80"></td></tr>
+	<tr><td>Pronouns:</td>
+		<td><input type="text" name="Pronouns" value="<?php htmlspecialchars($Pronouns)?>" size="10" maxlength="10"></td></tr>
 	<tr><td>Registered Name:</td>
 		<td><?php WriteYNDropDown($RegName, "RegName"); ?></td></tr>
 	<tr><td>Date Registered:</td>
-		<td><input type="text" name="RegNameDate" value="<?php=htmlspecialchars($RegNameDate)?>" size="10" maxlength="10"></td></tr>
+		<td><input type="text" name="RegNameDate" value="<?php htmlspecialchars($RegNameDate)?>" size="10" maxlength="10"></td></tr>
 	<tr><td></td>
 		<td><span class="small">(YYYY-MM)</span></td></tr>
 	<tr><td>Registered Device:</td>
@@ -258,14 +264,14 @@ Function ShowForm() {
 			$thisGroupID = $r->GroupID;
 			$GroupName   = $r->Name;
 			if ($GroupID == $thisGroupID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?php=$thisGroupID?>" <?php=$s?>><?php=$GroupName?></option><?php
+			?><option value="<?php echo $thisGroupID?>" <?php echo $s?>><?php echo $GroupName?></option><?php
 		}
 		$results = $db->get_results("SELECT GroupID, Name, KingdomID FROM Groups WHERE KingdomID != $MYKINGDOMID ORDER BY KingdomID, Name");
 		foreach($results as $r) {
 			$thisGroupID = $r->GroupID;
 			$GroupName   = $r->Name;
 			if ($GroupID == $thisGroupID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?php=$thisGroupID?>" <?php=$s?>><?php=$GroupName?></option><?php
+			?><option value="<?php echo $thisGroupID?>" <?php echo $s?>><?php echo $GroupName?></option><?php
 		}
 		 ?>
 		 </select>
@@ -280,7 +286,7 @@ Function ShowForm() {
 			$thisKID = $r->KingdomID;
 			$KName   = $r->Name;
 			if ($KingdomID == $thisKID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?php=$thisKID?>" <?php=$s?> ><?php=$KName?></option><?php
+			?><option value="<?php echo $thisKID?>" <?php echo $s?> ><?php echo $KName?></option><?php
 		}
 		 ?>
 		 </select>
@@ -291,9 +297,9 @@ Function ShowForm() {
 	<tr><td>Deceased:</td>
 		<td><?php WriteYNDropDown($Deceased, "Deceased"); ?></td></tr>
 	<tr><td>Modern Name:</td>
-		<td><input type="text" name="ModernName" value="<?php=htmlspecialchars($ModernName)?>" size="50" maxlength="150"></td></tr>
+		<td><input type="text" name="ModernName" value="<?php htmlspecialchars($ModernName)?>" size="50" maxlength="150"></td></tr>
 	<tr><td>Member Number:</td>
-		<td><input type="text" name="MemberNumber" value="<?php=htmlspecialchars($MemberNumber)?>" size="10" maxlength="10"></td></tr>
+		<td><input type="text" name="MemberNumber" value="<?php htmlspecialchars($MemberNumber)?>" size="10" maxlength="10"></td></tr>
 	<tr><td colspan="2" class="tableheader">Aliases</td></tr>
 	<tr><td valign="top">Aliases:</td>
 		<td>
@@ -305,10 +311,10 @@ Function ShowForm() {
 				$AliasID = $r->AliasID;
 				$Alias 	  = $r->Alias;
 				?>
-				<input type="hidden" name="AliasID-<?php=$count?>" value="<?php=$AliasID?>">
-				<input type="text" name="Alias-<?php=$count?>" value="<?php=htmlspecialchars($Alias)?>" size="40" maxlength="80">
-				<a 	href="edit_user.php?Delete=DeleteAlias&Action=Edit&PersonID=<?php=$PersonID?>&Alias=<?php=$Alias?>&AliasID=<?php=$AliasID?>"
-					onClick="return confirm_delete('<?php=$Alias?>')">Delete?</a><br>
+				<input type="hidden" name="AliasID-<?php echo $count?>" value="<?php echo $AliasID?>">
+				<input type="text" name="Alias-<?php echo $count?>" value="<?php htmlspecialchars($Alias)?>" size="40" maxlength="80">
+				<a 	href="edit_user.php?Delete=DeleteAlias&Action=Edit&PersonID=<?php echo $PersonID?>&Alias=<?php echo $Alias?>&AliasID=<?php echo $AliasID?>"
+					onClick="return confirm_delete('<?php echo $Alias?>')">Delete?</a><br>
 				<?php 
 				$count++;
 			} //end foreach
@@ -318,27 +324,27 @@ Function ShowForm() {
 		}
 		?>	
 		<tr><td>Add Alias:</td>
-			<td><input type="text" name="AddAlias" value="<?php=htmlspecialchars($AddAlias)?>" size="40" maxlength="80"></td></tr>
+			<td><input type="text" name="AddAlias" value="<?php htmlspecialchars($AddAlias)?>" size="40" maxlength="80"></td></tr>
 
-		<input type="hidden" name="AliasCount" value="<?php=$count?>">
+		<input type="hidden" name="AliasCount" value="<?php echo $count?>">
 
 
 
 <?php	if ($Action == "Edit") {
 ?>			<tr><td colspan="2" class="tableheader">Administration</td></tr>
 		<tr><td>Date Added:</td>
-			<td><?php=$DateAdded?></td></tr>
+			<td><?php echo $DateAdded?></td></tr>
 		<tr><td>Last Update:</td>
-			<td><?php=$LastUpdate?></td></tr>
+			<td><?php echo $LastUpdate?></td></tr>
 		<tr><td>Last Update By:</td>
-			<td><?php=$LastUpdateBy?></td></tr>
+			<td><?php echo $LastUpdateBy?></td></tr>
 
 <?php
 	}
 
 ?>	
 	<tr><td></td>
-		<td><input type="submit" name="submit" value="<?php=$Action?> Person"></td></tr>
+		<td><input type="submit" name="submit" value="<?php echo $Action?> Person"></td></tr>
 	</table>
 	</form>
 	</div>

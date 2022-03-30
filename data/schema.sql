@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: sika.swcp.com
--- Generation Time: Jan 22, 2022 at 10:08 AM
+-- Generation Time: Mar 29, 2022 at 07:24 PM
 -- Server version: 10.3.27-MariaDB-0+deb10u1-log
 -- PHP Version: 7.3.5
 
@@ -237,6 +237,7 @@ CREATE TABLE `wPeople` (
   `KingdomID` smallint(6) NOT NULL DEFAULT 17,
   `Active` tinyint(4) NOT NULL DEFAULT 1,
   `Deceased` tinyint(4) NOT NULL DEFAULT 0,
+  `Pronouns` varchar(10) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'free-text field for pronoun display in Wimble/Wharrow',
   `ModernName` varchar(150) COLLATE latin1_general_ci DEFAULT NULL,
   `MemberNumber` int(11) DEFAULT NULL,
   `DateAdded` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -306,13 +307,6 @@ ALTER TABLE `Groups`
 ALTER TABLE `Kingdoms`
   ADD PRIMARY KEY (`KingdomID`);
 
-
---
--- Indexes for table `tAwardsGiven`
---
-ALTER TABLE `tAwardsGiven`
-  ADD PRIMARY KEY (`AwardsGivenID`);
-
 --
 -- Indexes for table `UserAccess`
 --
@@ -346,7 +340,7 @@ ALTER TABLE `wAliases`
 ALTER TABLE `wAwards`
   ADD PRIMARY KEY (`AwardID`),
   ADD KEY `FK_A_Rank` (`RankID`),
-  ADD KEY `FK_A_Locale` (`GroupID`,`KingdomID`);
+  ADD KEY `FK_A_Locale` (`GroupID`,`KingdomID`) USING BTREE;
 
 --
 -- Indexes for table `wAwardsGiven`
@@ -394,7 +388,6 @@ ALTER TABLE `wReigns`
   ADD KEY `FK_Reign_Group` (`GroupID`),
   ADD KEY `IDX_UseName` (`RUseName`,`CUseName`);
 
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -416,7 +409,6 @@ ALTER TABLE `Groups`
 --
 ALTER TABLE `Kingdoms`
   MODIFY `KingdomID` smallint(6) NOT NULL AUTO_INCREMENT;
-
 
 --
 -- AUTO_INCREMENT for table `UserAccess`
