@@ -155,9 +155,8 @@ if ($err) {
 			//yeah, speshul.
 			//so, for Awards, add flags ShowGiver, ShowKingdom, ShowLocalGroup, ShowGivenNotes
 			//For AwardsGiven, add separate "Givenfor" vs generic Notes ... AND a PrivateNotes  ... and a KingdomIDGivenBy for AoA/GoA/Aug/Rose?
-
-/*			
-			if ($ShowAwardedBy) $GiverText = "[$AwardedBy] ";
+			
+			/*if ($ShowAwardedBy) $GiverText = "[$AwardedBy] ";
 			if ($ShowKingdom) $GroupText = " ($Kingdom) ";
 			if ($ShowLocalGroup) $GroupText = " ($LocalGroup) ";
 			if ($ShowGiverKingdom) {
@@ -166,8 +165,8 @@ if ($err) {
 			}
 			if ($ShowGivenNotes) $NotesText = " </ br>$Notes ";
 			
-			?><tr><td><?php echo $Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php echo $NiceDate?></td></tr><?php
-*/
+			?><tr><td><?php echo $Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php echo $NiceDate?></td></tr><?php */
+
 			
 			if ($awards[Visible] && !$awards[Resigned]){
 				if ($awards[GiverType] != 'B' && isset($awards[AwardedBy])){
@@ -193,16 +192,16 @@ if ($err) {
 	} // end if
 		
 	$alias_query="SELECT A.Alias as Name, P.PersonID FROM wPeople P LEFT OUTER JOIN wAliases A ON P.PersonID = A.PersonID WHERE A.PersonID = $PersonID";
-	$results_alias = $db->get_results($alias_query);
+	$results_alias = $cstring->query($alias_query) or die("MySQL Error (Aliases)!! ".$cstring->error);
+
 	if ($results_alias) {
 		?><p><span class="bodyheader2">Known Aliases</span></p>
 		<table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-		foreach($results_alias as $r) { 
-			while(list($name,$value) = each($r)) { //name all values
-				$$name = $value;
-			};
-				?><tr><td><?php echo $Name?></td></tr><?php
-		}// end foreach
+	while($aliases[] = $results_alias->fetch_assoc());
+	array_pop($aliases);
+	foreach ($results_alias as $alias){
+			?><tr><td><?php echo $alias[Name]?></td></tr><?php
+	}// end foreach
 		?></table><?php
 	} //end if
 
