@@ -26,7 +26,7 @@ if ($header_results) {
 		$print_group=$Kingdom;		//print kingdom only
 
 	?><table border="0" width="560"><tr>
-	<td valign="middle"><span class="bodyheader2"><?php=$head[SCAName]?> (<?php=$print_group?>)</span><br /><?php
+	<td valign="middle"><span class="bodyheader2"><?php echo $head[SCAName]?> (<?php echo $print_group?>)</span><br /><?php
 	// Added emblazon-functionality for those who have one in the RoA, and blazon-only for those without
 	if ($Deceased==1){
 		?><span class="small">(Deceased)</span><br /><?php
@@ -34,13 +34,13 @@ if ($header_results) {
 	
 	if (isset($Blazon) && $RegName == 1 && isset($Filename)){
 		?><span class="small">Name And Device Registered</td>
-		<td align="right" valign="middle"><a href="<?php=$rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?php=$Filename?>" alt="[<?php=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+		<td align="right" valign="middle"><a href="<?php echo $rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?php echo $Filename?>" alt="[<?php echo $Blazon?>]" style="width:70px; border:0px;"></a></td>
 		<table border=0>
-		<tr><td align="middle"><div class="centered"><?php=$Blazon?></div><br /><br /></td></tr>
+		<tr><td align="middle"><div class="centered"><?php echo $Blazon?></div><br /><br /></td></tr>
 		</table><?php
 	} else if (isset($Blazon) && $RegName == 1 ){
 		?><span class="small">Name And Device Registered</span><br />
-		<div class="centered"><?php=$Blazon?></div><br /><?php
+		<div class="centered"><?php echo $Blazon?></div><br /><?php
 	} else if ($RegName == 1){
 		?><span class="small">Name Registered</span><br /><?php
 	} else {
@@ -53,7 +53,8 @@ if ($header_results) {
 	
 
 include("includes/constants.php");
-include("includes/ez_sql.php");
+//include("includes/ez_sql.php");
+include("includes/ae_sql.php");
 include("includes/functions.php");
 include("includes/header.php");
 
@@ -67,52 +68,63 @@ if ($err) {
 	die($err);
 } else {
 //	Personal($_REQUEST['PersonID']);
+	$cstring = new mysqli($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD, $SQLDATABASE);
+	if ($cstring->connect_error) {
+		die("Connection failed: " . $cstring->connect_error);
+		}
+
+	$header_query="SELECT P.PersonID, P.SCAName, P.ModernName, P.Deceased, P.Pronouns, G.Name AS LocalGroup, K.Name AS Kingdom, P.RegName FROM wPeople P LEFT OUTER JOIN Kingdoms K ON K.KingdomID = P.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = P.GroupID WHERE P.PersonID = $PersonID";
+	$header_results = $cstring->query($header_query) or die("MySQL Error(Individal Header)!!" .$cstring->error);
 	
-	$header_query="SELECT P.PersonID, P.SCAName, P.ModernName, P.Deceased, G.Name AS LocalGroup, K.Name AS Kingdom, P.RegName FROM wPeople P LEFT OUTER JOIN Kingdoms K ON K.KingdomID = P.KingdomID LEFT OUTER JOIN Groups G ON G.GroupID = P.GroupID WHERE P.PersonID = $PersonID";
-	$header_results = $db->get_results($header_query);
 	if ($header_results) {
 		?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-		foreach ($header_results as $r){
-			while(list($name,$value) = each($r)) { //name all values
-				$$name = $value;
-			};
+		while ($head[] = $head_result->fetch_assoc());
+		array_pop($head);
+		foreach ($head as $person){
+			$list_result=null;
+			$list = null;
 		}// end foreach
 		// Clunky way to determine what of group and kingdom location to print
-		if ($LocalGroup != "")					//if we know what subgroup they're in
-			if ($Kingdom != $WEAREKINGDOM) 	//and it's not in our kingdom
-				$print_group=$LocalGroup . ", " . $Kingdom; //print both group and kingdom
+		if ($person[LocalGroup] != "")					//if we know what subgroup they're in
+			if ($person[Kingdom] != $WEAREKINGDOM) 	//and it's not in our kingdom
+				$print_group=$person[LocalGroup] . ", " . $person[Kingdom]; //print both group and kingdom
 			else								//but if it's in our kingdom
-				$print_group=$LocalGroup;		//print group only
+				$print_group=$person[LocalGroup];		//print group only
 		else									//but when it's an unknown group
-			$print_group=$Kingdom;		//print kingdom only
+			$print_group=$person[Kingdom];		//print kingdom only
 	
 		?><table border="0" width="560"><tr>
-		<td valign="middle"><span class="bodyheader2"><?php=$SCAName?> (<?php=$print_group?>)</span><br /><?php
+		<td valign="middle"><span class="bodyheader2"><?php echo $person[SCAName]?> (<?php echo $person[print_group]?>)</span><br /><?php
+		//if someone has pronouns to display, show them here.
+		if (not(is_null($person[Pronouns]))){
+			?><span class="small">(<?print $person[Pronouns]?>)</span><?php
+		}// end pronouns
+		
 		//if someone has passed on, note this here.
-		if ($Deceased==1){
+		if ($person[Deceased]==1){
 			?><span class="small">(Deceased)</span><br /><?php
 		}// end if dead
 		
 		// Displaying information about registered primary name/device, inc'l emblazon if one is available
 		$heraldry_query="SELECT H.Blazon, H.Filename FROM wHeraldry H WHERE H.PersonID = $PersonID AND H.Type = 'Device'";
-		$heraldry_results = $db->get_results($heraldry_query);
+		$heraldry_results = $cstring->query($heraldry_query) or die("MySQL Error(heraldry)!!" .$cstring->error);
+		
 		if ($heraldry_results) {
 			?><table border="0" width="560" cellpadding="3" cellspacing="3"><?php
-			foreach ($heraldry_results as $r){
-				while(list($name,$value) = each($r)) { //name all values
-					$$name = $value;
-				};
-			}// end foreach
+			while ($head[] = $head_result->fetch_assoc());
+			array_pop($head);
+			foreach ($head as $heraldry)
+					}// end foreach
 
-			if (isset($Blazon) && $RegName == 1 && isset($Filename)){
+			if (isset($heraldry[Blazon]) && $person[RegName] == 1 && isset($heraldry[Filename])){
 				?><span class="small">Name And Device Registered</td>
-				<td align="right" valign="middle"><a href="<?php=$ROLLOFARMSURL?>/individual_record.php?PersonID=<?php=$PersonID?>"><img src="<?php=$ROLLOFARMSURL?>/images/<?php=$Filename?>" alt="[<?php=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+				<td align="right" valign="middle"><a href="<?php echo $ROLLOFARMSURL?>/individual_record.php?PersonID=<?php echo $PersonID?>"><img src="<?php echo $ROLLOFARMSURL?>/images/<?php echo $heraldry[Filename]?>" alt="[<?php echo $heraldry[Blazon]?>]" style="width:70px; border:0px;"></a></td>
 				<table border=0>
-				<tr><td align="middle"><div class="centered"><?php=$Blazon?></div><br /><br /></td></tr>
+				<tr><td align="middle"><div class="centered"><?php echo $heraldry[Blazon]?></div><br /><br /></td></tr>
 				</table><?php
 			} else if (isset($Blazon) && $RegName == 1 ){
 				?><span class="small">Name And Device Registered</span><br />
-				<div class="centered"><?php=$Blazon?></div><br /><?php
+				<div class="centered"><?php echo $Blazon?></div><br /><?php
 			} else if ($RegName == 1){
 				?><span class="small">Name Registered</span><br /><?php
 			} else {
@@ -155,26 +167,26 @@ if ($err) {
 			}
 			if ($ShowGivenNotes) $NotesText = " </ br>$Notes ";
 			
-			?><tr><td><?php=$Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php=$NiceDate?></td></tr><?php
+			?><tr><td><?php echo $Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php echo $NiceDate?></td></tr><?php
 */
 			
 			if ($Visible && !$Resigned){
 				if ($GiverType != 'B' && isset($AwardedBy)){
-					?><tr><td><?php=$Name?> [<?php=$AwardedBy?>] -- (<?php=$Kingdom?>)</td><td align="right"><?php=$NiceDate?></td></tr><?php
+					?><tr><td><?php echo $Name?> [<?php echo $AwardedBy?>] -- (<?php echo $Kingdom?>)</td><td align="right"><?php echo $NiceDate?></td></tr><?php
 				} else if ($Kingdom != $WEAREKINGDOM){
 					if ($Kingdom == "SCA"){
 						if ($AwardID == 3 || $AwardID == 257 || $AwardID == 7 || $AwardID == 275){
-							?><tr><td><?php=$Name?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
+							?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
 						} else {
-							?><tr><td><?php=$Name?> -- <?php=$a;?><?php=$p;?> <?php=$Notes?></td><td align="right"><?php=$NiceDate?></td></tr><?php
+							?><tr><td><?php echo $Name?> -- <?php echo $a;?><?php echo $p;?> <?php echo $Notes?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
 						} // end if a special award
 					} else {
-						?><tr><td><?php=$Name?> -- <?php=$Kingdom?> <?php=$a;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
+						?><tr><td><?php echo $Name?> -- <?php echo $Kingdom?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
 					}//end if not Outlands Award
 				} else if (!isset($LocalGroup)){
-					?><tr><td><?php=$Name?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
+					?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
 				} else {
-					?><tr><td><?php=$Name?> -- <?php=$LocalGroup?> <?php=$a;?><?php=$p;?><?php=$r;?></td><td align="right"><?php=$NiceDate?></td></tr><?php
+					?><tr><td><?php echo $Name?> -- <?php echo $LocalGroup?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?php
 				}// end if Givertype
 			} // end if Visible and not Resigned
 		}// end foreach
@@ -190,16 +202,16 @@ if ($err) {
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
-				?><tr><td><?php=$Name?></td></tr><?php
+				?><tr><td><?php echo $Name?></td></tr><?php
 		}// end foreach
 		?></table><?php
 	} //end if
 
 	if ($accessOPView =="1") {
-		?><p><a href="view_person.php?PersonID=<?php=$PersonID?>">VIEW DETAILS</a><?php
+		?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?php
      	if ($accessWimble =="1") {
-            ?> | <a href="edit_user.php?PersonID=<?php=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-            <a href="edit_awards.php?PersonID=<?php=$PersonID?>">EDIT AWARDS</a> </p><?php
+            ?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+            <a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?php
         } // end if $accessWimble
 		?></p><?php
 	} // end if $accessOPView
