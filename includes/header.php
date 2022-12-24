@@ -1,4 +1,4 @@
-<?
+<?php
 
 // for security, zero these out NOW
 $accessPH = 0;
@@ -62,7 +62,7 @@ $accessOPView = 0;
 <head>
 <link rel="stylesheet" media="screen" href="/wimble.css" type="text/css" />
 <link rel="stylesheet" media="print" href="/print.css" type="text/css" />
-<title><?=$WEAREKINGDOM?> College of Heralds / Office of the <?=$PRECEDENCETITLERANK?></title>
+<title><?php echo $WEAREKINGDOM; ?> College of Heralds / Office of the <?php echo $PRECEDENCETITLERANK; ?></title>
 <meta name="robots" content="index, follow, nocache, noarchive, snippet" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <script language="JavaScript" type="text/javascript">
@@ -81,7 +81,7 @@ $accessOPView = 0;
 
 <body>
 <!--
-<?
+<?php
 echo $Username . "/" . $_SESSION["LoggedUsername"] . "\n";
 echo $UserID . "/" . $_SESSION["LoggedUserID"] . "\n";
 echo ($Poke - 1435400000) . "/" . ($_SESSION["LastPoke"] - 1435400000). "\n";
@@ -93,21 +93,21 @@ echo (time() - 1435400000 - 10800) . "/" . (time() - 1435400000) . "\n";
 <div id="page">
 
 <div id="login">
-<?
+<?php
 if ($Username == "" or $UserID == 0) {?>	
 	you are not logged in |
 	<a href="/login.php">sign in</a>
-<? 	} else { ?>
-	you are logged in as <strong><? echo $Username;?></strong><br /> 
+<?php 	} else { ?>
+	you are logged in as <strong><?php echo $Username;?></strong><br /> 
 	[ <a href="/logout.php">sign out</a> ]<br />
-<?	} ?>
+<?php	} ?>
 </div>
 
 <div id="menu">
 <div class="menucontent">
 
 
-<div class="menuheader">People of <?=$WEAREKINGDOMCOLLECTIVE?></div><br />
+<div class="menuheader">People of <?php echo $WEAREKINGDOMCOLLECTIVE; ?></div><br />
 <a href="/people_alpha.php">People Alphabetically</a><br />
 <a href="/people_group.php">People by Local Group</a><br />
 <a href="/alias.php">People by Alias</a><br />
@@ -119,10 +119,10 @@ if ($Username == "" or $UserID == 0) {?>
 <a href="/awards_alpha.php">Awards Alphabetically</a><br />
 <a href="/awards_initials.php">Awards by Initials</a><br />
 <a href="/awards_group.php">Awards by Kingdom or Barony</a><br />
-<a href="/awards_all.php">All Awards and Orders for the <?=$WEAREKINGDOM?> and Baronies</a><br />
+<a href="/awards_all.php">All Awards and Orders for the <?php echo $WEAREKINGDOM; ?> and Baronies</a><br />
 <br />
 
-<div class="menuheader"><?=$WEAREKINGDOM?> Royalty</div><br />
+<div class="menuheader"><?php $WEAREKINGDOM; ?> Royalty</div><br />
 <a href="/tribute.php">A Tribute to Our Royalty</a><br />
 <!-- <a href="awards_reign.php">Awards Given By Reign</a><br /> // add this in later -->
 <br />
@@ -136,12 +136,12 @@ if ($Username == "" or $UserID == 0) {?>
 <a href="/news.php">News from Wimble</a><br />
 <br />
 
-<? if ($accessOPView == 1) { ?>
+<?php if ($accessOPView == 1) { ?>
     <div class="menuheader">Admin</div><br >
     
     <a href="/by_visible.php">Find invisible awards</a><br />
     <a href="/by_reign.php">List Awards by Reign</a><br />
-	<? if ($accessWimble == 1) { ?>
+	<?php if ($accessWimble == 1) { ?>
         <a href="/edit_user.php?Action=Add">Add Person</a><br />
         <a href="/list_awards.php">List Awards</a> / <a href="/add_award.php">Add Awards</a><br />
         <a href="/list_groups.php">List Groups</a> / <a href="/add_group.php">Add Group</a><br />
@@ -149,15 +149,15 @@ if ($Username == "" or $UserID == 0) {?>
         <a href="/list_kingdoms.php">List Kingdoms</a> / <a href="/add_kingdom.php">Add Kingdom</a><br />
         <a href="/admin/">Converter Scripts</a><br />
         <a href="/admin/merge_people.php">Merge People</a><br />
-    <? } // end if $accessWimble 
+    <?php } // end if $accessWimble 
 	?>
 	    
-    <? if ($accessPH ==1) {  ?>
+    <?php if ($accessPH ==1) {  ?>
         <a href="/list_users.php">List Users</a> / <a href="add_user.php">Add User</a><br />
-    <? } // end if $accessPH 
+    <?php } // end if $accessPH 
 	?>
     <br />
-<?
+<?php
 }// end if $accessWimble
 
 /*
@@ -175,13 +175,13 @@ if ($accessOPView == 1) {
 ?>
 
 <div class="menuheader">Useful Links</div><br />
-<a href="<?=$KINGDOMURL?>">Kingdom of <?=$WEAREKINGDOMCOLLECTIVE?></a><br />
-<a href="<?=$HERALDURL?>"><?=$WEAREKINGDOM?> College of Heralds</a><br />
-<a href="<?=$SCRIBEURL?>"><?=$WEAREKINGDOM?> College of Scribes</a><br />
+<a href="<?php echo $KINGDOMURL; ?>">Kingdom of <?php echo $WEAREKINGDOMCOLLECTIVE; ?></a><br />
+<a href="<?php echo $HERALDURL; ?>"><?php echo $WEAREKINGDOM; ?> College of Heralds</a><br />
+<a href="<?php echo $SCRIBEURL; ?>"><?php echo $WEAREKINGDOM; ?> College of Scribes</a><br />
 <a href="/other_ops.php">Other Orders of Precedence</a><br /><br />
 
 <div class="menuheader">Contact</div><br />
-<a href="mailto:<?=$PRECEDENCEEMAIL?>">Email <?=$PRECEDENCETITLERANK?></a><br /><br />
+<a href="mailto:<?php echo $PRECEDENCEEMAIL; ?>">Email <?php echo $PRECEDENCETITLERANK; ?></a><br /><br />
 
 <div class="menuheader">Disclaimer</div><br />
 This site is not sanctioned by, or an official instrument of the Society for Creative Anachronism (SCA), Inc., nor is it sanctioned by, or an official instrument of any office or subgroups of the SCA and as such does not delinate policy or regulations for the above. This site exists to provide information and to educate.<br /><br />
@@ -192,7 +192,5 @@ This site is not sanctioned by, or an official instrument of the Society for Cre
 <div id="body">
 <div class="bodycontent">
 <div id="title">
-<a href="/index.php"><img src="/images/title.jpg" height="87" width="406" alt="<?=$WEAREKINGDOM?> College of Heralds - Office of the <?=$PRECEDENCETITLERANK?>" title="<?=$WEAREKINGDOM?> College of Heralds - Office of the <?=$PRECEDENCETITLERANK?>" border="0" /></a>
+<a href="/index.php"><img src="/images/title.jpg" height="87" width="406" alt="<?php $WEAREKINGDOM; ?> College of Heralds - Office of the <?php $PRECEDENCETITLERANK?>" title="<?php $WEAREKINGDOM?> College of Heralds - Office of the <?php $PRECEDENCETITLERANK?>" border="0" /></a>
 </div>
-
-

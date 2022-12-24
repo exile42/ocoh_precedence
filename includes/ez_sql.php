@@ -6,7 +6,7 @@
 
 	// ==================================================================
 	//	ezSQL Constants
-	define("EZSQL_VERSION","1.26");
+	define("EZSQL_VERSION","1.26-Æ");
 	define("OBJECT","OBJECT",true);
 	define("ARRAY_A","ARRAY_A",true);
 	define("ARRAY_N","ARRAY_N",true);
@@ -31,9 +31,10 @@
 		function db($dbuser, $dbpassword, $dbname, $dbhost)
 		{
 
-			$this->dbh = @mysql_connect($dbhost,$dbuser,$dbpassword);
+			//$this->dbh = @mysql_connect($dbhost,$dbuser,$dbpassword);
+			$dbh = new mysqli($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD, $SQLDATABASE);
 
-			if ( ! $this->dbh )
+			if ($dbh->connect_error)
 			{
 				$this->print_error("<p>IMPORTANT: Our database is currently down. We are working to bring the database server up as soon as possible. Thank you for your patience.</p>");
 			}
@@ -48,7 +49,7 @@
 
 		function select($db)
 		{
-			if ( !@mysql_select_db($db,$this->dbh))
+			if ( !$dbh->select_db($db))
 			{
 				$this->print_error("<ol><b>Error selecting database <u>$db</u>!</b><li>Are you sure it exists?<li>Are you sure there is a valid database connection?</ol>");
 			}
@@ -59,7 +60,7 @@
 		
 		function escape($str)
 		{
-			return mysql_escape_string(stripslashes($str));				
+			return $dbh->real_escape_string(stripslashes($str));				
 		}
 
 		// ==================================================================
@@ -74,8 +75,8 @@
 			// If no special error string then use mysql default..
 			if ( !$str )
 			{
-				$str = mysql_error($this->dbh);
-				$error_no = mysql_errno($this->dbh);
+				$str = $dbh->connect_error;
+				$error_no = $dbh->errno;
 			}
 			
 			// Log this error to the global array..
@@ -155,11 +156,11 @@
 			$this->last_query = $query;
 
 			// Perform the query via std mysql_query function..
-			$this->result = @mysql_query($query,$this->dbh);
+			$db_result = $dbh->query($query);
 			$this->num_queries++;
 
 			// If there is an error then take note of it..
-			if ( mysql_error() )
+			if ( $dbh->error )
 			{
 				$this->print_error();
 				return false;
@@ -168,12 +169,12 @@
 			// Query was an insert, delete, update, replace
 			if ( preg_match("/^(insert|delete|update|replace)\s+/i",$query) )
 			{
-				$this->rows_affected = mysql_affected_rows();
+				$this->rows_affected = $dbh->affected_rows;
 				
 				// Take note of the insert_id
 				if ( preg_match("/^(insert|replace)\s+/i",$query) )
 				{
-					$this->insert_id = mysql_insert_id($this->dbh);	
+					$this->insert_id = $dbh->insert_id;	
 				}
 				
 				// Return number fo rows affected
@@ -184,23 +185,29 @@
 			{
 				
 				// Take note of column info	
-				$i=0;
+				/*$i=0;
 				while ($i < @mysql_num_fields($this->result))
 				{
 					$this->col_info[$i] = @mysql_fetch_field($this->result);
+					$i++;
+				}*/
+				$i=0;
+				while ($i < $db_result->field_count)
+				{
+					$this->col_info[$i] = $db_result->fetch_field;
 					$i++;
 				}
 				
 				// Store Query Results	
 				$num_rows=0;
-				while ( $row = @mysql_fetch_object($this->result) )
+				while ( $row = $db_result->fetch_object )
 				{
 					// Store relults as an objects within main array
 					$this->last_result[$num_rows] = $row;
 					$num_rows++;
 				}
 
-				@mysql_free_result($this->result);
+				$db-result -> free_result());
 
 				// Log number of rows the query returned
 				$this->num_rows = $num_rows;
@@ -210,7 +217,7 @@
 			}
 
 			// If debug ALL queries
-			$this->trace || $this->debug_all ? $this->debug() : null ;
+			$this->trace || $this->debug_all ? $db_result->debug() : null ;
 
 			return $return_val;
 
@@ -219,7 +226,7 @@
 		// ==================================================================
 		//	Get one variable from the DB - see docs for more detail
 
-		function get_var($query=null,$x=0,$y=0)
+		/*function get_var($query=null,$x=0,$y=0)
 		{
 
 			// Log how the function was called
@@ -239,12 +246,12 @@
 
 			// If there is a value return it else return null
 			return (isset($values[$x]) && $values[$x]!=='')?$values[$x]:null;
-		}
+		}*/
 
 		// ==================================================================
 		//	Get one row from the DB - see docs for more detail
 
-		function get_row($query=null,$output=OBJECT,$y=0)
+		/*function get_row($query=null,$output=OBJECT,$y=0)
 		{
 
 			// Log how the function was called
@@ -277,13 +284,13 @@
 				$this->print_error(" \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N");
 			}
 
-		}
+		}*/
 
 		// ==================================================================
 		//	Function to get 1 column from the cached result set based in X index
 		// se docs for usage and info
 
-		function get_col($query=null,$x=0)
+		/*function get_col($query=null,$x=0)
 		{
 
 			// If there is a query then perform it if not then use cached results..
@@ -299,7 +306,7 @@
 			}
 
 			return $new_array;
-		}
+		}*/
 
 		// ==================================================================
 		// Return the the query as a result set - see docs for more details
@@ -353,7 +360,7 @@
 		// Function to get column meta data info pertaining to the last query
 		// see docs for more info and usage
 
-		function get_col_info($info_type="name",$col_offset=-1)
+		/*function get_col_info($info_type="name",$col_offset=-1)
 		{
 
 			if ( $this->col_info )
@@ -375,7 +382,7 @@
 
 			}
 
-		}
+		}*/
 
 
 		// ==================================================================

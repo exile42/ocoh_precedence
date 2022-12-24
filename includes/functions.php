@@ -23,7 +23,7 @@ function ShowLoginForm() {
 	</form>
 	</div>
 	</div>
-<?
+<?php
 }
 ////////////////////////////////////////////////////////////////////////////////////
 function format_date_pretty($inputDate) { //from mysql to pretty, date only
