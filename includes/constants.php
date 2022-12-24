@@ -1,4 +1,4 @@
-<?
+<?php
 // Constants!
 // This is a file that contains the constants for running the precedence site.
 
