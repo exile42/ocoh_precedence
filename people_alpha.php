@@ -1,8 +1,8 @@
 <?php
-include'includes/constants.php';
-include'includes/ez_sql.php';
-include'includes/functions.php';
-include'includes/header.php';
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
 <div class="bodyheader">People of <?php echo $WEAREKINGDOMCOLLECTIVE; ?> (Alphabetically)</div><br />
