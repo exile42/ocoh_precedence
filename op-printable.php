@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/printable-header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/printable-header.php';
 
 if (!($cstring = mysql_connect($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD))) echo "Unable to Connect to $SQLSERVER ".mysql_error()."<br/>";
 if (!mysql_select_db($SQLDATABASE)) echo "Unable to select db $SQLDATABASE ".mysql_error();
@@ -25,7 +25,7 @@ switch ($_REQUEST['style']){
 		<?
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 
 
 function OPLong($kingdom = 17, $start=0, $paged=null){
@@ -49,11 +49,11 @@ function OPLong($kingdom = 17, $start=0, $paged=null){
 	array_pop($head);
 	
 	?><div class="bodyheader">Outlands Order of Precedence</div>
-	<div style="margin-left:10px;"><br/><br/><?=$nav?> <?
+	<div style="margin-left:10px;"><br/><br/><?php echo $nav?> <?
 	foreach ($head as $person){
 		$list_result=null;
 		$list = null;
-		?><strong><a href="individual_record.php?PersonID=<?=$person[ID]?>"><?=$person[SCAName]?></a></strong>  (<?=$person[Group]?>)<?
+		?><strong><a href="individual_record.php?PersonID=<?php echo $person[ID]?>"><?php echo $person[SCAName]?></a></strong>  (<?php echo $person[Group]?>)<?
 
 		if (isset($person['RegDevice']) && $person['RegName'] == 1) { 
 			?> -- Name And Device Registered<br/><?
@@ -72,21 +72,21 @@ function OPLong($kingdom = 17, $start=0, $paged=null){
 		foreach ($list as $award){
 			if ($award['Visible'] && !$award['Resigned']){
 				if ($award['GiverType'] != 'B' && isset($award['AwardedBy'])){
-					?><tr><td><?=$award[Name]?> [<?=$award[AwardedBy]?>] -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?> [<?php echo $award[AwardedBy]?>] -- (<?php echo $award[Kingdom]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				} else if ($award['Kingdom'] != "Outlands"){
 					if ($award['Kingdom'] == "SCA"){
 						if ($award['AwardID'] == 3 || $award['AwardID'] == 257 || $award['AwardID'] == 7 || $award['AwardID'] == 275){
-							?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php echo $award[Name]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 						} else {
-							?><tr><td><?=$award[Name]?> -- <?=$award[Notes]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php echo $award[Name]?> -- <?php echo $award[Notes]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 						}
 					} else {
-						?><tr><td><?=$award[Name]?> -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+						?><tr><td><?php echo $award[Name]?> -- (<?php echo $award[Kingdom]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 					}
 				} else if (!isset($award['Group'])){
-					?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				} else {
-					?><tr><td><?=$award[Name]?> -- (<?=$award[Group]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?> -- (<?php echo $award[Group]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				}
 			}
 		}

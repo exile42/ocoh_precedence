@@ -29,7 +29,7 @@ $accessWimbleView = 0;
 			// if so, you get timed out and logged out.
 			if (time() > ( 10800 + $Poke))
 			{
-				header("location: timeout.php");
+				header("location: timeout.php';
 			}
 			// we're not expired, update the timestamp to now.
 			// this lets you keep pushing out the 3 hour limit.

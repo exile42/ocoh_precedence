@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if (!($cstring = mysql_connect($SQLSERVER, $SQLUSERNAME, $SQLPASSWORD))) echo "Unable to Connect to $SQLSERVER ".mysql_error()."<br/>";
 if (!mysql_select_db($SQLDATABASE)) echo "Unable to select db $SQLDATABASE ".mysql_error();
@@ -56,23 +56,23 @@ if (isset($_REQUEST['GroupID']) && (is_numeric($_REQUEST['GroupID']) || ($_REQUE
 	
 	switch ($_REQUEST['style']){
 		case 'long':
-			include("includes/header.php");
+			include 'includes/header.php';
 			if (!$paged) {OPLong($MYKINGDOMID);}
 			else OPLong($MYKINGDOMID, $start, true);
 			break;
 		case 'short':
-			include("includes/header.php");
+			include 'includes/header.php';
 			if (!$paged) {OPShort($MYKINGDOMID);}
 			else OPShort($MYKINGDOMID, $start, true);
 			break;
 		case 'plain':
-			include("includes/printable-header.php");
+			include 'includes/printable-header.php';
 			if (!$paged) {OPShort($MYKINGDOMID);}
 			else OPShort($MYKINGDOMID, $start, true);
 			break;
 		default:
-			include("includes/header.php");
-			?><div class="bodyheader"><?=$WEAREKINGDOM?> Order of Precedence</div><br /><br />
+			include 'includes/header.php';
+			?><div class="bodyheader"><?php echo $WEAREKINGDOM?> Order of Precedence</div><br /><br />
 		<p>Long Form: <a href="op.php?style=long&start=0">Paginated</a> | <a href="op.php?style=long">Non-Paginated</a><br />
 			Short Form: <a href="op.php?style=short&start=0">Paginated</a> | <a href="op.php?style=short">Non-Paginated</a> | <a href="op.php?style=plain">Plain-style Non-Paginated</a></p>
 		<p>Note: The non-paginated forms are long enough that they may trigger a bug in Firefox relating to CSS; portions of the list will be black text on a dark green background. This is not a problem with the site itself, it is a long-standing bug in Firefox itself. If you use Firefox, try the 'plain' version or another browser.</p>
@@ -95,14 +95,14 @@ if (isset($_REQUEST['GroupID']) && (is_numeric($_REQUEST['GroupID']) || ($_REQUE
 				while(list($name,$value) = each($r)) { //name all values
 					$$name = $value;
 				};
-				?><a href="op_group.php?GroupID=<?=$GroupID?>"><?=$Name?></a> <? if ($Active==0) print "(inactive)"?> <br/><? ; 
+				?><a href="op_group.php?GroupID=<?php echo $GroupID?>"><?php echo $Name?></a> <?php if ($Active==0) print "(inactive)"?> <br/><?php ; 
 			};  //end foreach
 			?></p><?
 		}
 	}
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 
 function GetSubgroups($db, $GroupID, $subgroups) {
 
@@ -143,12 +143,12 @@ function OPLong($groups, $GroupName, $start=0, $paged=null){
 	while ($head[] = mysql_fetch_assoc($head_result));
 	array_pop($head);
 	
-	?><div class="bodyheader"><?=$GroupName?> Order of Precedence</div>
-	<div style="margin-left:10px;"><br/><br/><?=$nav?> <?
+	?><div class="bodyheader"><?php echo $GroupName?> Order of Precedence</div>
+	<div style="margin-left:10px;"><br/><br/><?php echo $nav?> <?
 	foreach ($head as $person){
 		$list_result=null;
 		$list = null;
-		?><strong><a href="individual_record.php?PersonID=<?=$person[ID]?>"><?=$person[SCAName]?></a></strong>  (<?=$person[Group]?>)<?
+		?><strong><a href="individual_record.php?PersonID=<?php echo $person[ID]?>"><?php echo $person[SCAName]?></a></strong>  (<?php echo $person[Group]?>)<?
 
 		if (isset($person['RegDevice']) && $person['RegName'] == 1) { 
 			?> -- Name And Device Registered<br/><?
@@ -167,21 +167,21 @@ function OPLong($groups, $GroupName, $start=0, $paged=null){
 		foreach ($list as $award){
 			if ($award['Visible'] && !$award['Resigned']){
 				if ($award['GiverType'] != 'B' && isset($award['AwardedBy'])){
-					?><tr><td><?=$award[Name]?> [<?=$award[AwardedBy]?>] -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?> [<?php echo $award[AwardedBy]?>] -- (<?php echo $award[Kingdom]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				} else if ($award['Kingdom'] != "Outlands"){
 					if ($award['Kingdom'] == "SCA"){
 						if ($award['AwardID'] == 3 || $award['AwardID'] == 257 || $award['AwardID'] == 7 || $award['AwardID'] == 275){
-							?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php echo $award[Name]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 						} else {
-							?><tr><td><?=$award[Name]?> -- <?=$award[Notes]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+							?><tr><td><?php echo $award[Name]?> -- <?php echo $award[Notes]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 						}
 					} else {
-						?><tr><td><?=$award[Name]?> -- (<?=$award[Kingdom]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+						?><tr><td><?php echo $award[Name]?> -- (<?php echo $award[Kingdom]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 					}
 				} else if (!isset($award['Group'])){
-					?><tr><td><?=$award[Name]?></td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?></td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				} else {
-					?><tr><td><?=$award[Name]?> -- (<?=$award[Group]?>)</td><td align="right"><?=$award[AGDate]?></td></tr><?
+					?><tr><td><?php echo $award[Name]?> -- (<?php echo $award[Group]?>)</td><td align="right"><?php echo $award[AGDate]?></td></tr><?
 				}
 			}
 		}
@@ -216,8 +216,8 @@ function OPShort($groups, $GroupName, $start= 0, $paged=null){
 	while ($short[] = mysql_fetch_assoc($short_result));
 	array_pop($short);
 	$i = $start;
-	?><div class="bodyheader"><?=$GroupName?> Order of Precedence</div>
-	<div style="margin-left:10px;"><br/><br/><?=$nav?> <?
+	?><div class="bodyheader"><?php echo $GroupName?> Order of Precedence</div>
+	<div style="margin-left:10px;"><br/><br/><?php echo $nav?> <?
 	foreach ($short as $person){
 		echo ++$i.")\t<strong><a href=\"individual_record.php?PersonID=$person[ID]\">$person[SCAName]</a></strong>\t($person[Group])";
 		if (isset($person['RegDevice']) && $person['RegName'] == 1){echo "\t-- Name &amp; Device<br/><br/>\n";}

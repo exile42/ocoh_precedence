@@ -1,7 +1,7 @@
 <?
-include("includes/constants.php");
-include("includes/functions.php");
-include("includes/ez_sql.php");
+include 'includes/constants.php';
+include 'includes/functions.php';
+include 'includes/ez_sql.php';
 //header is called conditionally below
 
 if ($_SESSION["LoggedUserID"] ==0 OR $_SESSION["LoggedUserID"] == "") { //they're not logged in already
@@ -31,27 +31,27 @@ if ($_SESSION["LoggedUserID"] ==0 OR $_SESSION["LoggedUserID"] == "") { //they'r
 			$_SESSION["LoggedUsername"] = $Username;
 			$_SESSION["LoggedUserID"] = $UserID;
 			$_SESSION["LastPoke"] = $LastPoke;
-			header("location: index.php"); //redirects user to the homepage with their logged in status
+			header("location: index.php'; //redirects user to the homepage with their logged in status
 		} else {
 			
 			//login failure, let them try again, but log it as well.
 			$UserID = 0;
-			include("includes/header.php");
+			include 'includes/header.php';
 			?><p class="error">Your login failed. Please try again.</p><?
 			ShowLoginForm(); //this function is in includes/functions.php
 			$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES ('$Now', '$UserID', 'failed login: u: $Username p: $Password', '$IPAddress')");
 		}
 	} else  {
 		//no submit
-		include("includes/header.php");
+		include 'includes/header.php';
 		?><p>To login, please complete the form below.</p><?
 		ShowLoginForm(); //this function is in includes/functions.php
 	}
 } else {
 	?><p>You're already logged in. </p><?
-	include("includes/footer.php");
+	include 'includes/footer.php';
 	die;
 
 } //end if
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

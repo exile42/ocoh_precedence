@@ -1,6 +1,6 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
 
 ?>
 
@@ -9,7 +9,7 @@ include("includes/ez_sql.php");
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <link rel="stylesheet" media="print" href="/print.css" type="text/css" />
-<title><?=$WEAREKINGDOM?> College of Heralds / Office of the <?=$PRECEDENCETITLERANK?></title>
+<title><?php echo $WEAREKINGDOM?> College of Heralds / Office of the <?php echo $PRECEDENCETITLERANK?></title>
 <meta name="robots" content="index, follow, nocache, noarchive, snippet" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -24,7 +24,7 @@ include("includes/ez_sql.php");
   <table border="1" cellpadding="4" cellspacing="0">
   <tr><td>Kingdom</td><td>Group</td><td>Designator</td><td>Parent Group</td><td>Inactive?</td><td>Barony Order</td><td>Reg&nbsp;Name/ Reg&nbsp;Device</td><td>Blazon</td><td>Notes</td></tr>
 
-	<? 
+	<?php 
 
 	
 	$groupsquery="SELECT G.GroupID, G.Name AS GroupName, G.ParentGroupID, G.KingdomID, G.Active, G.BaronyOrder, G.RegName, G.RegDevice, G.Blazon, G.Notes, K.Name AS KingdomName, G.Designator FROM Groups G INNER JOIN Kingdoms K ON G.KingdomID = K.KingdomID WHERE 1 ORDER BY KingdomName, G.BaronyOrder, GroupName";
@@ -58,15 +58,15 @@ include("includes/ez_sql.php");
 			}
 
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?></td>
-		  <td><?=$Designator?></td>
-		  <td><?=$ParentName?></td>
-		  <td><?=$Activetext?></td>
-		  <td><?=$BaronyOrder?></td>
-		  <td><?=$RegName?>/<?=$RegDevice?></td>
-		  <td><?=$Blazon?></td>
-		  <td><?=$Notes?></td>
+		  <tr><td><?php echo $Kingdom?></td>
+		  <td><?php echo $Group?></td>
+		  <td><?php echo $Designator?></td>
+		  <td><?php echo $ParentName?></td>
+		  <td><?php echo $Activetext?></td>
+		  <td><?php echo $BaronyOrder?></td>
+		  <td><?php echo $RegName?>/<?php echo $RegDevice?></td>
+		  <td><?php echo $Blazon?></td>
+		  <td><?php echo $Notes?></td>
 		  </tr>
 		  <?
 		  $ParentName = "";

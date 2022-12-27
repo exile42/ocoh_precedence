@@ -11,10 +11,10 @@ session_destroy();
 $Username = 0;
 $UserID = 0;
 $Poke = time() + 10800;
-include("includes/constants.php");
-include("includes/functions.php");
-include("includes/ez_sql.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/functions.php';
+include 'includes/ez_sql.php';
+include 'includes/header.php';
 ?>
 
 
@@ -23,5 +23,5 @@ include("includes/header.php");
 <p>You've been logged out for inactivity (3 hours). Log back in to continue working.</p>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

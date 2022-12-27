@@ -26,21 +26,21 @@ if ($header_results) {
 		$print_group=$Kingdom;		//print kingdom only
 
 	?><table border="0" width="560"><tr>
-	<td valign="middle"><span class="bodyheader2"><?=$head[SCAName]?> (<?=$print_group?>)</span><br /><?
+	<td valign="middle"><span class="bodyheader2"><?php echo $head[SCAName]?> (<?php echo $print_group?>)</span><br /><?
 	// Added emblazon-functionality for those who have one in the RoA, and blazon-only for those without
 	if ($Deceased==1){
 		?><span class="small">(Deceased)</span><br /><?
-	}// end if dead
+	}// end if dead'
 	
 	if (isset($Blazon) && $RegName == 1 && isset($Filename)){
 		?><span class="small">Name And Device Registered</td>
-		<td align="right" valign="middle"><a href="<?=$rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?=$Filename?>" alt="[<?=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+		<td align="right" valign="middle"><a href="<?php echo $rollofarms_link?>"><img src="http://wharrow.outlandsheralds.org/images/<?php echo $Filename?>" alt="[<?php echo $Blazon?>]" style="width:70px; border:0px;"></a></td>
 		<table border=0>
-		<tr><td align="middle"><div class="centered"><?=$Blazon?></div><br /><br /></td></tr>
+		<tr><td align="middle"><div class="centered"><?php echo $Blazon?></div><br /><br /></td></tr>
 		</table><?
 	} else if (isset($Blazon) && $RegName == 1 ){
 		?><span class="small">Name And Device Registered</span><br />
-		<div class="centered"><?=$Blazon?></div><br /><?
+		<div class="centered"><?php echo $Blazon?></div><br /><?
 	} else if ($RegName == 1){
 		?><span class="small">Name Registered</span><br /><?
 	} else {
@@ -52,10 +52,10 @@ if ($header_results) {
 
 	
 
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if (isset($_REQUEST['PersonID']) && is_numeric($_REQUEST['PersonID'])){
 	$PersonID = $_REQUEST['PersonID'];
@@ -87,7 +87,7 @@ if ($err) {
 			$print_group=$Kingdom;		//print kingdom only
 	
 		?><table border="0" width="560"><tr>
-		<td valign="middle"><span class="bodyheader2"><?=$SCAName?> (<?=$print_group?>)</span><br /><?
+		<td valign="middle"><span class="bodyheader2"><?php echo $SCAName?> (<?php echo $print_group?>)</span><br /><?
 		//if someone has passed on, note this here.
 		if ($Deceased==1){
 			?><span class="small">(Deceased)</span><br /><?
@@ -106,13 +106,13 @@ if ($err) {
 
 			if (isset($Blazon) && $RegName == 1 && isset($Filename)){
 				?><span class="small">Name And Device Registered</td>
-				<td align="right" valign="middle"><a href="<?=$ROLLOFARMSURL?>/individual_record.php?PersonID=<?=$PersonID?>"><img src="<?=$ROLLOFARMSURL?>/images/<?=$Filename?>" alt="[<?=$Blazon?>]" style="width:70px; border:0px;"></a></td>
+				<td align="right" valign="middle"><a href="<?php echo $ROLLOFARMSURL?>/individual_record.php?PersonID=<?php echo $PersonID?>"><img src="<?php echo $ROLLOFARMSURL?>/images/<?php echo $Filename?>" alt="[<?php echo $Blazon?>]" style="width:70px; border:0px;"></a></td>
 				<table border=0>
-				<tr><td align="middle"><div class="centered"><?=$Blazon?></div><br /><br /></td></tr>
+				<tr><td align="middle"><div class="centered"><?php echo $Blazon?></div><br /><br /></td></tr>
 				</table><?
 			} else if (isset($Blazon) && $RegName == 1 ){
 				?><span class="small">Name And Device Registered</span><br />
-				<div class="centered"><?=$Blazon?></div><br /><?
+				<div class="centered"><?php echo $Blazon?></div><br /><?
 			} else if ($RegName == 1){
 				?><span class="small">Name Registered</span><br /><?
 			} else {
@@ -155,26 +155,26 @@ if ($err) {
 			}
 			if ($ShowGivenNotes) $NotesText = " </ br>$Notes ";
 			
-			?><tr><td><?=$Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?=$NiceDate?></td></tr><?
+			?><tr><td><?php echo $Name?> $GiverText  $GroupText $NotesText</td><td align="right"><?php echo $NiceDate?></td></tr><?
 */
 			
 			if ($Visible && !$Resigned){
 				if ($GiverType != 'B' && isset($AwardedBy)){
-					?><tr><td><?=$Name?> [<?=$AwardedBy?>] -- (<?=$Kingdom?>)</td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php echo $Name?> [<?php echo $AwardedBy?>] -- (<?php echo $Kingdom?>)</td><td align="right"><?php echo $NiceDate?></td></tr><?
 				} else if ($Kingdom != $WEAREKINGDOM){
 					if ($Kingdom == "SCA"){
 						if ($AwardID == 3 || $AwardID == 257 || $AwardID == 7 || $AwardID == 275){
-							?><tr><td><?=$Name?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+							?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?
 						} else {
-							?><tr><td><?=$Name?> -- <?=$a;?><?=$p;?> <?=$Notes?></td><td align="right"><?=$NiceDate?></td></tr><?
+							?><tr><td><?php echo $Name?> -- <?php echo $a;?><?php echo $p;?> <?php echo $Notes?></td><td align="right"><?php echo $NiceDate?></td></tr><?
 						} // end if a special award
 					} else {
-						?><tr><td><?=$Name?> -- <?=$Kingdom?> <?=$a;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+						?><tr><td><?php echo $Name?> -- <?php echo $Kingdom?> <?php echo $a;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?
 					}//end if not Outlands Award
 				} else if (!isset($LocalGroup)){
-					?><tr><td><?=$Name?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php echo $Name?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?
 				} else {
-					?><tr><td><?=$Name?> -- <?=$LocalGroup?> <?=$a;?><?=$p;?><?=$r;?></td><td align="right"><?=$NiceDate?></td></tr><?
+					?><tr><td><?php echo $Name?> -- <?php echo $LocalGroup?> <?php echo $a;?><?php echo $p;?><?php echo $r;?></td><td align="right"><?php echo $NiceDate?></td></tr><?
 				}// end if Givertype
 			} // end if Visible and not Resigned
 		}// end foreach
@@ -190,20 +190,20 @@ if ($err) {
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
-				?><tr><td><?=$Name?></td></tr><?
+				?><tr><td><?php echo $Name?></td></tr><?
 		}// end foreach
 		?></table><?
 	} //end if
 
 	if ($accessOPView =="1") {
-		?><p><a href="view_person.php?PersonID=<?=$PersonID?>">VIEW DETAILS</a><?
+		?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?
      	if ($accessWimble =="1") {
-            ?> | <a href="edit_user.php?PersonID=<?=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-            <a href="edit_awards.php?PersonID=<?=$PersonID?>">EDIT AWARDS</a> </p><?
+            ?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+            <a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?
         } // end if $accessWimble
 		?></p><?
 	} // end if $accessOPView
 } //end if error
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

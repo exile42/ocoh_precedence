@@ -1,13 +1,13 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
-include("includes/converter.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
+include 'includes/converter.php';
 
 if ($accessOPView != 1) {
         ?><p>You do not have access to this file.</p><?
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -34,28 +34,28 @@ $RegDeviceDate = $db->get_var("SELECT RegDeviceDate FROM wHeraldry WHERE PersonI
 	<table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
 	<tr><td colspan="2" class="tableheader">View Person</td></tr>
 	<tr><td>SCA Name:</td>
-		<td><?=htmlspecialchars($SCAName)?></td></tr>
+		<td><?php echo htmlspecialchars($SCAName)?></td></tr>
 	<tr><td>Registered Name:</td>
-		<td><?=YNFromBinary($RegName)?></td></tr>
+		<td><?php echo YNFromBinary($RegName)?></td></tr>
 	<tr><td>Date Name Registered:</td>
-		<td><?=htmlspecialchars($RegNameDate)?></td></tr>
+		<td><?php echo htmlspecialchars($RegNameDate)?></td></tr>
 	<tr><td>Registered Device:</td>
-		<td><?=YNFromBinary($RegDevice)?></td></tr>
+		<td><?php echo YNFromBinary($RegDevice)?></td></tr>
 	<tr><td>Date Device Registered:</td>
-		<td><?=htmlspecialchars($RegDeviceDate)?></td></tr>
+		<td><?php echo htmlspecialchars($RegDeviceDate)?></td></tr>
 	<tr><td>Group:</td>
-		<td><?=GroupNameFromGroupID($GroupID,$db)?></td></tr>
+		<td><?php echo GroupNameFromGroupID($GroupID,$db)?></td></tr>
 	<tr><td>Kingdom:</td>
-		<td><?=KingdomNameFromKingdomID($KingdomID,$db)?></td></tr>
+		<td><?php echo KingdomNameFromKingdomID($KingdomID,$db)?></td></tr>
 
 	<tr><td>Active:</td>
-		<td><?=YNFromBinary($Active)?></td></tr>
+		<td><?php echo YNFromBinary($Active)?></td></tr>
 	<tr><td>Deceased:</td>
-		<td><?=YNFromBinary($Deceased)?></td></tr>
+		<td><?php echo YNFromBinary($Deceased)?></td></tr>
 	<tr><td>Modern Name:</td>
-		<td><?=htmlspecialchars($ModernName)?></td></tr>
+		<td><?php echo htmlspecialchars($ModernName)?></td></tr>
 	<tr><td>Member Number:</td>
-		<td><?=htmlspecialchars($MemberNumber)?></td></tr>
+		<td><?php echo htmlspecialchars($MemberNumber)?></td></tr>
 	<tr><td colspan="2" class="tableheader">Aliases</td></tr>
 	<tr><td valign="top">Aliases:</td>
 		<td>
@@ -66,7 +66,7 @@ $RegDeviceDate = $db->get_var("SELECT RegDeviceDate FROM wHeraldry WHERE PersonI
 			foreach($results as $r) {
 				$AliasID = $r->AliasID;
 				$Alias 	  = $r->Alias;
-				?><?=htmlspecialchars($Alias)?><br><? 
+				?><?php echo htmlspecialchars($Alias)?><br><?php 
 				$count++;
 			} //end foreach
 			?></td></tr><?
@@ -77,13 +77,13 @@ $RegDeviceDate = $db->get_var("SELECT RegDeviceDate FROM wHeraldry WHERE PersonI
 
 		<tr><td colspan="2" class="tableheader">Administration</td></tr>
 		<tr><td>Date Added:</td>
-			<td><?=$DateAdded?></td></tr>
+			<td><?php echo $DateAdded?></td></tr>
 		<tr><td>Last Update:</td>
-			<td><?=$LastUpdate?></td></tr>
+			<td><?php echo $LastUpdate?></td></tr>
 		<tr><td>Last Update By:</td>
-			<td><?=$LastUpdateBy?></td></tr>
+			<td><?php echo $LastUpdateBy?></td></tr>
 	</table>
 	</div>
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

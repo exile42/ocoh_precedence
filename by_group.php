@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if (isset($_REQUEST['GroupID']) && (is_numeric($_REQUEST['GroupID']) || ($_REQUEST['GroupID']=="ALL")))
 	$GroupID = $_REQUEST['GroupID'];
@@ -33,12 +33,12 @@ if ($results_child_groups) {
 
 ?>
 
-<div class="bodyheader"><? print "$Name"; ?></div>
+<div class="bodyheader"><?php print "$Name"; ?></div>
 
-<p><? print "$Notes"; ?></p>
+<p><?php print "$Notes"; ?></p>
 
 <table border="0" cellpadding="0" cellspacing="10" width="500">
-<? 
+<?php 
 $db_query_recipients="SELECT PersonID, SCAName, Active FROM wPeople WHERE GroupID=$GroupID $subgroups ORDER BY Active DESC,SearchName";
 $results_recipients = $db->get_results($db_query_recipients);
 if ($results_recipients) {
@@ -47,14 +47,14 @@ if ($results_recipients) {
 			$$name = $value;
 		};
 		?><tr>
-		<td><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a> <? if ($Active==0) echo "(inactive)";?></td>
+		<td><a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a> <?php if ($Active==0) echo "(inactive)";?></td>
 		<?
 		if ($accessWimble =="1") {
-			?><td valign="middle" align="right" nowrap><a href="edit_user.php?PersonID=<?=$PersonID?>&Action=Edit">EDIT</a> |
-			<a href="edit_awards.php?PersonID=<?=$PersonID?>">AWARDS</a>
+			?><td valign="middle" align="right" nowrap><a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT</a> |
+			<a href="edit_awards.php?PersonID=<?php echo $PersonID?>">AWARDS</a>
 			</td><?
 		}
-		?></tr><? 
+		?></tr><?php 
 	};  //end foreach
 } else {
 	?>No one is currently listed with this as their primary group<?
@@ -64,5 +64,5 @@ if ($results_recipients) {
 
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

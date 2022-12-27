@@ -1,7 +1,7 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
 
 if (isset($_REQUEST['GroupID']) && is_numeric($_REQUEST['GroupID'])){
 	$GroupID = $_REQUEST['GroupID'];

@@ -1,7 +1,7 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
 
 
 if (!is_null($HTTP_GET_VARS[AwardID]))
@@ -18,5 +18,5 @@ $Filename = $results_award->Filename;
 ?>
 
 <?
-include("charters/$Charter");
+include 'charters/$Charter");
 ?>

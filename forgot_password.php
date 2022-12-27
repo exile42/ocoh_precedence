@@ -1,7 +1,7 @@
 <?
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 	$sender_name = "Wimble Web Site";
 	$sender_email = "wimble@outlandsheralds.org";
@@ -63,5 +63,5 @@ Function ShowForm() {
 	
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

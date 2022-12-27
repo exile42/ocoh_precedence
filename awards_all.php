@@ -1,13 +1,13 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
-<div class="bodyheader">All Awards and Orders for <?=$WEAREKINGDOMCOLLECTIVE?></div><br />
+<div class="bodyheader">All Awards and Orders for <?php echo $WEAREKINGDOMCOLLECTIVE?></div><br />
 
-<? // get and print the subordinate groups, if any
+<?php // get and print the subordinate groups, if any
 /* $db_query_child_groups="SELECT GroupID as ChildGroupID, Name as ChildGroupName FROM Groups WHERE ParentGroupID=$MYGROUPID AND (Designator = \"Barony\" OR Designator = \"Principality\") ";
 $results_child_groups = $db->get_results($db_query_child_groups);
 if ($results_child_groups) {
@@ -15,7 +15,7 @@ if ($results_child_groups) {
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		};
-		?> | <a href="awards_group.php?GroupID=<?=$ChildGroupID?>"><?=$ChildGroupName?></a> <?
+		?> | <a href="awards_group.php?GroupID=<?php echo $ChildGroupID?>"><?php echo $ChildGroupName?></a> <?
 	}// end foreach
 	?> | <a href="awards_group.php?GroupID=ALL">ALL</a> <?
 } //end if 
@@ -41,7 +41,7 @@ if ($results = $db->get_results($db_query)) {
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		};
-		?><a href="by_single_award.php?AwardID=<?=$AwardID?>"><?=$Name?></a> (<?=$Initials?>) <?
+		?><a href="by_single_award.php?AwardID=<?php echo $AwardID?>"><?php echo $Name?></a> (<?php echo $Initials?>) <?
 		if ($ShortFor!=NULL) {
 			echo $ShortFor;
 		}
@@ -60,7 +60,7 @@ if ($results = $db->get_results($db_query)) {
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		};
-		?><a href="by_single_award.php?AwardID=<?=$AwardID?>"><?=$Name?></a> (<?=$Initials?>) <?
+		?><a href="by_single_award.php?AwardID=<?php echo $AwardID?>"><?php echo $Name?></a> (<?php echo $Initials?>) <?
 		if ($ShortFor!=NULL) {
 			echo $ShortFor;
 		}
@@ -80,7 +80,7 @@ if ($results = $db->get_results($db_query)) {
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		};
-		?><a href="by_single_award.php?AwardID=<?=$AwardID?>"><?=$Name?></a> (<?=$Initials?>) <?
+		?><a href="by_single_award.php?AwardID=<?php echo $AwardID?>"><?php echo $Name?></a> (<?php echo $Initials?>) <?
 		if ($ShortFor!=NULL) {
 			echo $ShortFor;
 		}
@@ -96,12 +96,12 @@ if ($results = $db->get_results($db_query)) {
 
 $db_query=" SELECT GroupID as BaronialGroupID, Name as BaronyName, ParentGroupID, Designator, BaronyOrder FROM Groups WHERE ParentGroupID=$GroupID AND Designator='Barony' ORDER BY BaronyOrder ASC";
 if ($results = $db->get_results($db_query)) {
-	?><center><div style="text-transform:uppercase;">Baronial Awards of the Kingdom of <?=$WEAREKINGDOMCOLLECTIVE?></div></center><?
+	?><center><div style="text-transform:uppercase;">Baronial Awards of the Kingdom of <?php echo $WEAREKINGDOMCOLLECTIVE?></div></center><?
 	foreach($results as $r) { 
 		while(list($name,$value) = each($r)) { //name all values
 			$$name = $value;
 		};
-		?><p><center><em>Barony of <?=$BaronyName?></em></center><?
+		?><p><center><em>Barony of <?php echo $BaronyName?></em></center><?
 
 
 		// Get the Award-bearing awards
@@ -112,7 +112,7 @@ if ($results = $db->get_results($db_query)) {
 				while(list($name,$value) = each($r)) { //name all values
 					$$name = $value;
 				};
-				?><a href="by_single_award.php?AwardID=<?=$AwardID?>"><?=$Name?></a> (<?=$Initials?>) <?
+				?><a href="by_single_award.php?AwardID=<?php echo $AwardID?>"><?php echo $Name?></a> (<?php echo $Initials?>) <?
 				if ($ShortFor!=NULL) {
 					echo $ShortFor;
 				}
@@ -130,7 +130,7 @@ if ($results = $db->get_results($db_query)) {
 				while(list($name,$value) = each($r)) { //name all values
 					$$name = $value;
 				};
-				?><a href="by_single_award.php?AwardID=<?=$AwardID?>"><?=$Name?></a> (<?=$Initials?>) <?
+				?><a href="by_single_award.php?AwardID=<?php echo $AwardID?>"><?php echo $Name?></a> (<?php echo $Initials?>) <?
 				if ($ShortFor!=NULL) {
 					echo $ShortFor;
 				}
@@ -147,5 +147,5 @@ if ($results = $db->get_results($db_query)) {
 ?>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?> 

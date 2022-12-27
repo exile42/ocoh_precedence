@@ -1,8 +1,8 @@
 <?
-include("../includes/ez_sql.php");
-include("../includes/functions.php");
-include("../includes/converter.php");
-include("../includes/header.php");
+include '../includes/ez_sql.php';
+include '../includes/functions.php';
+include '../includes/converter.php';
+include '../includes/header.php';
 ?>
 
 <div class="bodyheader">Magical Updating Thingy</div><br />
@@ -27,5 +27,5 @@ ORDER  BY P.PersonID, AG.SortRank DESC")) {
 	PRINT "</table>";
 }
 
-include("../includes/footer.php");
+include '../includes/footer.php';
 ?>

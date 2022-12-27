@@ -7,7 +7,7 @@ include 'includes/converter.php';
 
 if ($accessWimble != 1) {
         ?><p>You do not have access to this file.</p><?php
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -353,5 +353,5 @@ Function ShowForm() {
 <?php
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

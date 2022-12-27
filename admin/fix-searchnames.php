@@ -1,9 +1,9 @@
 <?
-include("../includes/constants.php");
-include("../includes/ez_sql.php");
-include("../includes/functions.php");
-include("../includes/converter.php");
-include("../includes/header.php");
+include '../includes/constants.php';
+include '../includes/ez_sql.php';
+include '../includes/functions.php';
+include '../includes/converter.php';
+include '../includes/header.php';
 ?>
 
 <div class="bodyheader">Magical Updating Thingy - updates wPeople and wAliases</div><br />
@@ -20,12 +20,12 @@ if ($results = $db->get_results("SELECT PersonID, SCAName, SearchName FROM wPeop
 		$NewSearchName = str_replace("`", "", $NewSearchName);
 
 		?><tr>
-		<td><?=$PersonID?></td> <td><?=$SCAName?></td> <td>o: <?=$SearchName?></td> <td>n: <?=$NewSearchName?></td><?
+		<td><?php echo $PersonID?></td> <td><?php echo $SCAName?></td> <td>o: <?php echo $SearchName?></td> <td>n: <?php echo $NewSearchName?></td><?
 		$query = "UPDATE wPeople SET SearchName='$NewSearchName' WHERE PersonID=$PersonID";
 		if ($results = $db->get_results($query) || mysql_affected_rows() == 0) {
 			?><td>SUCCESS</td><?
 		} else {
-			?><td>FAIL <?=$query?></td><?
+			?><td>FAIL <?php echo $query?></td><?
 		}
 		?></tr><?
 	}
@@ -44,17 +44,17 @@ if ($results = $db->get_results("SELECT AliasID, PersonID, Alias, SearchAlias FR
 		$NewSearchAlias = str_replace("'", "", $NewSearchAlias);
 		$NewSearchAlias = str_replace("`", "", $NewSearchAlias);
 		?><tr>
-		<td><?=$PersonID?></td> <td><?=$SCAName?></td> <td><?=$Alias?></td> <td>o: <?=$SearchAlias?></td> <td>n: <?=$NewSearchAlias?></td><?
+		<td><?php echo $PersonID?></td> <td><?php echo $SCAName?></td> <td><?php echo $Alias?></td> <td>o: <?php echo $SearchAlias?></td> <td>n: <?php echo $NewSearchAlias?></td><?
 		$query = "UPDATE wAliases SET SearchAlias='$NewSearchAlias' WHERE AliasID=$AliasID";
 		if ($results = $db->get_results($query) || mysql_affected_rows() == 0) {
 			?><td>SUCCESS</td><?
 		} else {
-			?><td>FAIL <?=$query?></td><?
+			?><td>FAIL <?php echo $query?></td><?
 		}
 		?></tr><?
 	}
 	?></table><?
 }
 
-include("../includes/footer.php");
+include '../includes/footer.php';
 ?>

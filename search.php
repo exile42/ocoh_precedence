@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 
 
@@ -50,7 +50,7 @@ else
 
 <div id="content">
 
-<? switch($Type) {
+<?php switch($Type) {
 	case "Name": 
 		// first we check names
 		// if you have Wimble access and the SearchMe is more than 5 characters, you can search legal names)
@@ -64,46 +64,46 @@ else
 //		$namequery = "SELECT PersonID, SCAName FROM wPeople WHERE (SCAName LIKE '%$SearchMe%' OR SearchName LIKE '%$SearchMe%' $legalnamequery) $kingdomlimiter ORDER BY SearchName";
 		$namequery = "(SELECT PersonID, SCAName as Name, SearchName as Search, 0 as IsAlias, Deceased FROM wPeople WHERE (SCAName LIKE '%$SearchMe%' OR SearchName LIKE '%$SearchMe%' $legalnamequery) $kingdomlimiter) UNION ALL (SELECT A.PersonID, A.Alias as Name, A.SearchAlias as Search, 1 as IsAlias, P.Deceased FROM wAliases as A, wPeople as P WHERE A.PersonID = P.PersonID AND (A.Alias LIKE '%$SearchMe%' OR A.SearchAlias LIKE '%$SearchMe%' $legalnamequery) $kingdomlimiter) ORDER BY Search";
 		if ($results = $db->get_results($namequery)) {
-			?><br />People whose names or aliases contain "<?=$SearchMe?>":<br /><br /><?
+			?><br />People whose names or aliases contain "<?php echo $SearchMe?>":<br /><br /><?
 			foreach($results as $r) {
 				$PersonID 	= $r->PersonID;
 				$SCAName 	= $r->Name;
 				$IsAlias	= $r->IsAlias;
 				$Deceased	= $r->Deceased;
-				?><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName; ?></a> <?
-				if ($IsAlias) { ?> (alias) <? };
-				if ($Deceased) { ?> (deceased) <? };
+				?><a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName; ?></a> <?
+				if ($IsAlias) { ?> (alias) <?php };
+				if ($Deceased) { ?> (deceased) <?php };
 				if ($accessOPView== "1") {
-				?> <a href="view_person.php?PersonID=<?=$PersonID?>">(DETAILS)</a><?
+				?> <a href="view_person.php?PersonID=<?php echo $PersonID?>">(DETAILS)</a><?
 				}
 				if ($accessWimble== "1") {
-					?> <a href="edit_user.php?PersonID=<?=$PersonID?>&amp;Action=Edit">(EDIT)</a><?
+					?> <a href="edit_user.php?PersonID=<?php echo $PersonID?>&amp;Action=Edit">(EDIT)</a><?
 				}
 				?><br /><?
 			}
 		} else {
-			?><p>There are no people whose names or aliases contain "<?=$SearchMe?>".</p><?
+			?><p>There are no people whose names or aliases contain "<?php echo $SearchMe?>".</p><?
 		}
 
 /*		// now we check aliases
 		$aliasquery = "SELECT P.PersonID, A.Alias, P.SCAName FROM wPeople as P, wAliases as A WHERE P.PersonID = A.PersonID AND (A.Alias LIKE '%$SearchMe%' OR A.SearchAlias LIKE '%$SearchMe%') $kingdomlimiter ORDER BY SearchAlias";
 		if ($results = $db->get_results($aliasquery)) {
-			?><br />People whose aliases contain "<?=$SearchMe?>":<br /><br /><?
+			?><br />People whose aliases contain "<?php echo $SearchMe?>":<br /><br /><?
 			foreach($results as $r) {
 				$PersonID 	= $r->PersonID;
 				$Alias		= $r->Alias;
 				$SCAName 	= $r->SCAName;
-				?> <? echo $Alias; ?> (<a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a>)<?
+				?> <?php echo $Alias; ?> (<a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a>)<?
 				if ($accessOPView== "1") {
-					?> <a href="view_person.php?PersonID=<?=$PersonID?>">(DETAILS)</a><?
+					?> <a href="view_person.php?PersonID=<?php echo $PersonID?>">(DETAILS)</a><?
 				}
 				if ($accessWimble== "1") {
-					?> <a href="edit_user.php?PersonID=<?=$PersonID?>&amp;Action=Edit">(EDIT)</a><?
+					?> <a href="edit_user.php?PersonID=<?php echo $PersonID?>&amp;Action=Edit">(EDIT)</a><?
 				}
 				?><br /><?
 			}
 		} else {
-			?><p>There are no people whose aliases contain "<?=$SearchMe?>".</p><?
+			?><p>There are no people whose aliases contain "<?php echo $SearchMe?>".</p><?
 		}
 */
 // End case "Name"
@@ -112,23 +112,23 @@ else
 	case "MemberNumber": 
 		$numberquery = "SELECT PersonID, SCAName as Name, SearchName, Deceased FROM wPeople WHERE MemberNumber = $SearchMe ORDER BY SearchName";
 		if ($results = $db->get_results($numberquery)) {
-			?><br />People whose membership number is <?=$SearchMe?>:<br /><br /><?
+			?><br />People whose membership number is <?php echo $SearchMe?>:<br /><br /><?
 			foreach($results as $r) {
 				$PersonID 	= $r->PersonID;
 				$SCAName 	= $r->Name;
 				$Deceased	= $r->Deceased;
-				?><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName; ?></a> <?
-				if ($Deceased) { ?> (deceased) <? };
+				?><a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName; ?></a> <?
+				if ($Deceased) { ?> (deceased) <?php };
 				if ($accessOPView== "1") {
-				?> <a href="view_person.php?PersonID=<?=$PersonID?>">(DETAILS)</a><?
+				?> <a href="view_person.php?PersonID=<?php echo $PersonID?>">(DETAILS)</a><?
 				}
 				if ($accessWimble== "1") {
-					?> <a href="edit_user.php?PersonID=<?=$PersonID?>&amp;Action=Edit">(EDIT)</a><?
+					?> <a href="edit_user.php?PersonID=<?php echo $PersonID?>&amp;Action=Edit">(EDIT)</a><?
 				}
 				?><br /><?
 			}
 		} else {
-			?><p>There are no people whose membership number is <?=$SearchMe?>.</p><?
+			?><p>There are no people whose membership number is <?php echo $SearchMe?>.</p><?
 		}
 // end case "MemberNumber"
 		break;
@@ -141,31 +141,31 @@ else
 		FROM wAwardsGiven AG INNER JOIN wAwards A ON AG.AwardID = A.AwardID INNER JOIN wPeople P ON AG.PersonID = P.PersonID 
 		WHERE AG.Date='$SearchMe' AND AG.Visible=1 AND AG.Resigned=0 ORDER BY AG.SortRank, SearchName";
 		if ($results = $db->get_results($datequery)) {
-			?><br />People who received awards on  "<?=$SearchMe?>":<br /><br />
+			?><br />People who received awards on  "<?php echo $SearchMe?>":<br /><br />
 			<table border="0" cellpadding="3" cellspacing="3" width="560">
-			<? foreach($results as $r) { 
+			<?php foreach($results as $r) { 
 				while(list($name,$value) = each($r)) { //name all values
 					$$name = $value;
 				};
 				?>
 			<tr>
-			<td valign="middle" align="left"><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a>
-			<? if ($accessOPView== "1") {
-					?> <a href="view_person.php?PersonID=<?=$PersonID?>">(DETAILS)</a><?
+			<td valign="middle" align="left"><a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a>
+			<?php if ($accessOPView== "1") {
+					?> <a href="view_person.php?PersonID=<?php echo $PersonID?>">(DETAILS)</a><?
 				} ?>
-			<? if ($accessWimble== "1") {
-					?> <a href="edit_user.php?PersonID=<?=$PersonID?>&amp;Action=Edit">(EDIT)</a><?
+			<?php if ($accessWimble== "1") {
+					?> <a href="edit_user.php?PersonID=<?php echo $PersonID?>&amp;Action=Edit">(EDIT)</a><?
 				} ?>
 			</td>
-			<td valign="middle" align="right"><?=$AwardName?></td>
+			<td valign="middle" align="right"><?php echo $AwardName?></td>
 			</tr>
-			<? 
+			<?php 
 			};  //end foreach
 			?>
 			</table>
 			<?
 		} else {
-			?><p>There were no awards given on <?=$SearchMe?>. (that we know of - if you think this is in error, contact <?=$PRECEDENCETITLE?>!)</p><?
+			?><p>There were no awards given on <?php echo $SearchMe?>. (that we know of - if you think this is in error, contact <?php echo $PRECEDENCETITLE?>!)</p><?
 		}
 // end case "Date"
 		break;
@@ -206,12 +206,12 @@ else
 		<br /><form action="by_group.php" method="get">
 		<select name="GroupID">
 		<option value="">SELECT ONE</option>
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT GroupID, Name FROM Groups WHERE KingdomID=$MYKINGDOMID and Active=1 ORDER BY Name");
 		foreach($results as $r) {
 			$GroupID = $r->GroupID;
 			$GroupName   = $r->Name;
-			?><option value="<?=$GroupID?>"><?=$GroupName?></option><?
+			?><option value="<?php echo $GroupID?>"><?php echo $GroupName?></option><?
 		}
 		?>
 		</select>
@@ -222,13 +222,13 @@ else
 		<br /><form action="by_single_award.php" method="get">
 		<select name="AwardID">
 		<option value="">SELECT ONE</option>
-		<? 
+		<?php 
 		// tricky.  only want kingdom awards, but also "Society" awards like AoA and peerages
 		$results = $db->get_results("SELECT AwardID, Name FROM wAwards WHERE ((KingdomID=$MYKINGDOMID AND GroupID=$MYGROUPID) OR KingdomID=$SOCIETYKINGDOMID) AND Rank >= 10 AND Closed=0 ORDER BY Rank asc, Name");
 		foreach($results as $r) {
 			$AwardID = $r->AwardID;
 			$Name   = $r->Name;
-			?><option value="<?=$AwardID?>"><?=$Name?></option><?
+			?><option value="<?php echo $AwardID?>"><?php echo $Name?></option><?
 		}
 		?>
 		</select>
@@ -248,14 +248,14 @@ else
         <div class="menuheader">Search By Reign</div>
 		<br /><form action="by_reign.php" method="get">
 		<select name="ReignID">
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT ReignID, RUseName, CUseName FROM wReigns WHERE GroupID=$MYGROUPID ORDER BY ReignOrder DESC");
 		foreach($results as $r) {
 			$thisRID = $r->ReignID;
 			$Ruler   = $r->RUseName;
 			$Consort = $r->CUseName;
 			if ($ReignID == $thisRID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$thisRID?>" <?=$s?>><?=$Ruler?> and <?=$Consort?></option><?
+			?><option value="<?php echo $thisRID?>" <?php echo $s?>><?php echo $Ruler?> and <?php echo $Consort?></option><?
 		}
 		?><option value="">Unknown reign</option>
 		</select>
@@ -274,5 +274,5 @@ else
 </div>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

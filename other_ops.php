@@ -1,7 +1,7 @@
 <?
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
 <div class="bodyheader">Other Orders of Precedence</div>
@@ -57,5 +57,5 @@ include("includes/header.php");
 
 </table>
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

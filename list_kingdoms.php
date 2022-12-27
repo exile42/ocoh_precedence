@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if ($accessWimble != 1) {
         ?><p>You do not have access to this file.</p><?
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Creation Order</td></tr>
 
-	<? 
+	<?php 
 	$kingdomsquery="SELECT K.* FROM Kingdoms K ORDER BY CreationOrder";
 		
 	if ($results = $db->get_results($kingdomsquery)) {
@@ -28,8 +28,8 @@ if ($accessWimble != 1) {
 		  $Kingdom	= $r->Name;
 		  $CreationOrder	= $r->CreationOrder;
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$CreationOrder?></td>
+		  <tr><td><?php echo $Kingdom?></td>
+		  <td><?php echo $CreationOrder?></td>
 		  </tr>
 		  <?
 		} //end foreach
@@ -46,5 +46,5 @@ if ($accessWimble != 1) {
   </td></tr></table></div>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

@@ -1,21 +1,21 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
 <div class="bodyheader">News for the
-  <?=$WEAREKINGDOM?>
+  <?php echo $WEAREKINGDOM?>
   College of Heralds
-  <?=$PRECEDENCETITLE?>
+  <?php echo $PRECEDENCETITLE?>
   website</div>
 <br />
 <p>This page contains historical news, updates, and reminders for the Wimble website.</p>
 <p><b>Note</b>: This site is periodically under improvement. 
   There are some known bugs &#8211; for example, the kingdom or principality information for Counties and Viscounties did not entirely transfer
-  correctly from the previous <?=$PRECEDENCETITLE?> website. We are working to resolve these issues, but please report any 
-  errors to <a href="mailto:&<?=$PRECEDENCEEMAIL?>"><?=$PRECEDENCEEMAIL?></a>.</p>
+  correctly from the previous <?php echo $PRECEDENCETITLE?> website. We are working to resolve these issues, but please report any 
+  errors to <a href="mailto:&<?php echo $PRECEDENCEEMAIL?>"><?php echo $PRECEDENCEEMAIL?></a>.</p>
 <hr width="50%" size="1" color="black">
 
 <div class="bodyheader">2013-01-27</div>
@@ -90,5 +90,5 @@ include("includes/header.php");
 <div class="bodyheader">2005-09-01</div>
 <p>The new Wimble site went live.</p>
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

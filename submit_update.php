@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 $strTo = "wimble@outlandsheralds.org, wharrow@outlandsheralds.org"; 
 ?>
@@ -61,23 +61,23 @@ Function ShowForm() {
 		<form action="submit_update.php" method="post">
 		<input type="hidden" name="action" value="submit" />
 		<b>SCA Name:</b><br />
-		<input type="text" size="40" name="scaname" class="formfield" value="<?=htmlspecialchars($scaname)?>" /><br /><br />
+		<input type="text" size="40" name="scaname" class="formfield" value="<?php echo htmlspecialchars($scaname)?>" /><br /><br />
 		<b>Mundane Name:</b><br />
-		<input type="text" size="40" name="mkaname" class="formfield" value="<?=htmlspecialchars($mkaname)?>" /><br /><br />
+		<input type="text" size="40" name="mkaname" class="formfield" value="<?php echo htmlspecialchars($mkaname)?>" /><br /><br />
 		<b>Local Group:</b><br />
-		<input type="text" size="40" name="localgroup" class="formfield" value="<?=htmlspecialchars($localgroup)?>" /><br /><br />
+		<input type="text" size="40" name="localgroup" class="formfield" value="<?php echo htmlspecialchars($localgroup)?>" /><br /><br />
 		<b>Registered Name (if different from SCA name):</b><br />
-		<input type="text" size="40" name="regname" class="formfield" value="<?=htmlspecialchars($regname)?>" /><br /><br />
+		<input type="text" size="40" name="regname" class="formfield" value="<?php echo htmlspecialchars($regname)?>" /><br /><br />
 		<b>Date of Registration:</b><br />
-		<input type="text" size="40" name="regnamedate" class="formfield" value="<?=htmlspecialchars($regnamedate)?>" /><br /><br />
+		<input type="text" size="40" name="regnamedate" class="formfield" value="<?php echo htmlspecialchars($regnamedate)?>" /><br /><br />
 		<b>Registered Device Blazon:</b><br />
-		<input type="text" size="40" name="regblazon" class="formfield" value="<?=htmlspecialchars($regblazon)?>" /><br /><br />
+		<input type="text" size="40" name="regblazon" class="formfield" value="<?php echo htmlspecialchars($regblazon)?>" /><br /><br />
 		<b>Date of Device Registration:</b><br />
-		<input type="text" size="40" name="regdevicedate" class="formfield" value="<?=htmlspecialchars($scaname)?>" /><br /><br />
+		<input type="text" size="40" name="regdevicedate" class="formfield" value="<?php echo htmlspecialchars($scaname)?>" /><br /><br />
 		<b>Awards Received (please include dates):</b><br />
-		<textarea rows="8" name="awards" cols="40" class="formfield"><?=htmlspecialchars($awards)?></textarea><br /><br />
+		<textarea rows="8" name="awards" cols="40" class="formfield"><?php echo htmlspecialchars($awards)?></textarea><br /><br />
 		<b>Additional Notes:</b><br />
-		<textarea rows="8" name="comments" cols="40" class="formfield"><?=htmlspecialchars($comments)?></textarea><br /><br />
+		<textarea rows="8" name="comments" cols="40" class="formfield"><?php echo htmlspecialchars($comments)?></textarea><br /><br />
 		<input type="submit" class="button" value="Submit" />
 		</form>
 	</div>
@@ -86,5 +86,5 @@ Function ShowForm() {
 
 
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if (!is_null($HTTP_GET_VARS[Letter]))
 	$Letter = $HTTP_GET_VARS[Letter];
@@ -12,7 +12,7 @@ if (!is_null($HTTP_GET_VARS[Letter]))
 <div class="bodyheader">List of People and Possible Alias</div><br />
 
 <center>
-<? WriteAlpha("alias_letter.php"); ?> <a href="alias_letter.php?Letter=ALL">ALL</a> 
+<?php WriteAlpha("alias_letter.php'; ?> <a href="alias_letter.php?Letter=ALL">ALL</a> 
 </center>
 
 <p>Please click on a letter above to navigate the alphabetical list of people and their aliases, or click on a group below to view an alphabetical list of people and their aliases in that group.</p>
@@ -24,11 +24,11 @@ foreach($results as $r) {
 	while(list($name,$value) = each($r)) { //name all values
 		$$name = $value;
 	};
-	?>	<p><a href="alias_group.php?GroupID=<? echo $GroupID; ?>"><? print "$Name"; ?></a> <? if ($Active==0) print "(inactive)"; ?></p><? 
+	?>	<p><a href="alias_group.php?GroupID=<?php echo $GroupID; ?>"><?php print "$Name"; ?></a> <?php if ($Active==0) print "(inactive)"; ?></p><?php 
 };  //end foreach
 ?>
 
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

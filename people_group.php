@@ -1,11 +1,11 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
-<div class="bodyheader">People of <?=$WEAREKINGDOMCOLLECTIVE?> (By Local Group)</div><br />
+<div class="bodyheader">People of <?php echo $WEAREKINGDOMCOLLECTIVE?> (By Local Group)</div><br />
 
 <?
 	$db_query="SELECT GroupID, Name, Active FROM Groups WHERE KingdomID=$MYKINGDOMID ORDER BY Active DESC, Name";
@@ -16,11 +16,11 @@ include("includes/header.php");
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
-			?><p><a href="by_group.php?GroupID=<? echo $GroupID; ?>"><? print "$Name"; ?></a> <? if ($Active==0) print "(inactive)"; ?></p><? 
+			?><p><a href="by_group.php?GroupID=<?php echo $GroupID; ?>"><?php print "$Name"; ?></a> <?php if ($Active==0) print "(inactive)"; ?></p><?php 
 		};  //end foreach
 	}
 ?>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

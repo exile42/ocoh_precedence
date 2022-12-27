@@ -1,9 +1,9 @@
 <?
-include("../includes/constants.php");
-include("../includes/ez_sql.php");
-include("../includes/functions.php");
-include("../includes/converter.php");
-include("../includes/header.php");
+include '../includes/constants.php';
+include '../includes/ez_sql.php';
+include '../includes/functions.php';
+include '../includes/converter.php';
+include '../includes/header.php';
 ?>
 
 <div class="bodyheader">Magical Updating Thingy - updates wAwards</div><br />
@@ -27,5 +27,5 @@ IF ($results = $db->get_results("SELECT A.AwardID, A.Name, A.RankID AS ARank, R.
 	PRINT "</table>";
 }
 
-include("../includes/footer.php");
+include '../includes/footer.php';
 ?>

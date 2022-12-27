@@ -1,17 +1,17 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
-<div class="bodyheader">What <?=$PRECEDENCETITLE?> Wants in a Court Report</div>
+<div class="bodyheader">What <?php echo $PRECEDENCETITLE?> Wants in a Court Report</div>
 <br />
-<p>Court reports should be sent to the nobility who hosted the court, <?=$PRECEDENCETITLE?>,
+<p>Court reports should be sent to the nobility who hosted the court, <?php echo $PRECEDENCETITLE?>,
   the Kingdom Scribe, the local herald or the court herald (whichever one you
-  aren't), and a courtesy copy to <?=$PRINCIPALHERALD?>. <?=$PRECEDENCETITLE?> can be reached at
-  <a href="mailto:<?=$PRECEDENCEEMAIL?>"><?=$PRECEDENCEEMAIL?></a>, and <?=$PRINCIPALHERALD?> at <a href="mailto:<?=$PRINCIPALHERALDEMAIL?>"><?=$PRINCIPALHERALDEMAIL?></a>. Other updates and corrections should be
-sent to the <?=$PRECEDENCETITLERANK?> (please allow time for <?=$PRECEDENCETITLE?> to doublecheck).</p>
+  aren't), and a courtesy copy to <?php echo $PRINCIPALHERALD?>. <?php echo $PRECEDENCETITLE?> can be reached at
+  <a href="mailto:<?php echo $PRECEDENCEEMAIL?>"><?php echo $PRECEDENCEEMAIL?></a>, and <?php echo $PRINCIPALHERALD?> at <a href="mailto:<?php echo $PRINCIPALHERALDEMAIL?>"><?php echo $PRINCIPALHERALDEMAIL?></a>. Other updates and corrections should be
+sent to the <?php echo $PRECEDENCETITLERANK?> (please allow time for <?php echo $PRECEDENCETITLE?> to doublecheck).</p>
 <p>Please use &quot;Court Report&quot; and the name of the event in the subject line, so
   that I can easily find your email.</p>
 <p>When sending court reports, updates, or corrections, please include as much
@@ -28,9 +28,9 @@ of the following as possible:</p>
 <p>Thank you for your diligence - the Wimble database is only as good as the
   information you send me.</p>
 <p>If you are a baronial herald, don't be afraid to report the kingdom awards
-  as well. This makes a lovely backup for the report of <?=$COURTHERALD?>.</p>
+  as well. This makes a lovely backup for the report of <?php echo $COURTHERALD?>.</p>
 <p>Someday, I hope to have a method where you can submit Court reports through
   this website, but for now email will suffice.</p>
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

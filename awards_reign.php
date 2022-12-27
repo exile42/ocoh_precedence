@@ -1,7 +1,7 @@
 <?
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 ?>
 
 <div class="bodyheader">Awards Given Per Reign</div><br />
@@ -10,5 +10,5 @@ include("includes/header.php");
 
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-//include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+//include 'includes/header.php';
 
 //get reign information
 $reignquery = "SELECT R.ReignID, R.RUseName, R.CUseName FROM wReigns R WHERE R.ReignID='$ReignID'";
@@ -17,7 +17,7 @@ IF ($results = $db->get_results($reignquery)) {
 ?>
 <div id="content">
 
-<? switch($Type) {
+<?php switch($Type) {
 	case "Reign": 
 		// first we need to sanitize the date
 		// for now, we just ask for it in the proper format
@@ -25,10 +25,10 @@ IF ($results = $db->get_results($reignquery)) {
 		IF ($results = $db->get_results($query)) {
 		?>
 		<br />
-		People who received awards during the reign of "<? echo $RUseName;?>" and "<? echo $CUseName;?>":<br />
+		People who received awards during the reign of "<?php echo $RUseName;?>" and "<?php echo $CUseName;?>":<br />
 		<br />
 		</p>
-		<? 
+		<?php 
 		foreach($results as $r) { 
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
@@ -39,7 +39,7 @@ IF ($results = $db->get_results($reignquery)) {
 		</table>
 		<?
 		} else {
-			?><p>There were no awards given on <? echo $SearchMe1; ?>. (that we know of - if you think this is in error, contact Wimble!)</p><?
+			?><p>There were no awards given on <?php echo $SearchMe1; ?>. (that we know of - if you think this is in error, contact Wimble!)</p><?
 		}
 		break;
 		
@@ -50,7 +50,7 @@ IF ($results = $db->get_results($reignquery)) {
 		<br /> Search By Date</div>
 		<br /><form action="by_reign-printable.php" method="get">
 		<select name="ReignID">
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT ReignID, RUseName, CUseName FROM wReigns WHERE GroupID=96 ORDER BY ReignOrder DESC");
 		foreach($results as $r) {
 		  $thisRID = $r->ReignID;
@@ -72,5 +72,5 @@ IF ($results = $db->get_results($reignquery)) {
 		
 	}  // end switch
 
-//include("includes/footer.php");
+//include 'includes/footer.php';
 ?>

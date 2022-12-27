@@ -1,13 +1,13 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 
 if ($accessWimbleView != 1) {
 	?><p>You do not have access to this file.</p><?
-	include("includes/footer.php");
+	include 'includes/footer.php';
 	die;
 }
 
@@ -33,35 +33,35 @@ $LastUpdateBy 	= $db->get_var("SELECT Username FROM Users WHERE PersonID='$LastU
   <div align="center">
 	<table border="0" cellpadding="3" cellspacing="3" width="560" class="edittable">
 	<tr><td>SCAName:</td>
-		<td><?=htmlspecialchars($SCAName)?></td></tr>
+		<td><?php echo htmlspecialchars($SCAName)?></td></tr>
 
 	<tr><td>Registered Name:</td>
-		<td><? IF ($RegName == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
+		<td><?php IF ($RegName == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
 	<tr><td>Date Registered:</td>
-		<td><?=htmlspecialchars($RegNameDate)?></td></tr>
+		<td><?php echo htmlspecialchars($RegNameDate)?></td></tr>
 	<tr><td>Registered Device:</td>
-		<td><? IF ($RegDevice == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
+		<td><?php IF ($RegDevice == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
 	<tr><td>Group:</td>
 		<td>
-		<? $Group = $db->get_var("SELECT Name FROM Groups WHERE GroupID='$GroupID'");
+		<?php $Group = $db->get_var("SELECT Name FROM Groups WHERE GroupID='$GroupID'");
 		PRINT $Group;
 		?>
 		 </td></tr>
 	<tr><td>Kingdom:</td>
 		<td>
-		<? $Kingdom = $db->get_var("SELECT Name FROM Kingdoms WHERE KingdomID='$KingdomID'");
+		<?php $Kingdom = $db->get_var("SELECT Name FROM Kingdoms WHERE KingdomID='$KingdomID'");
 		PRINT $Kingdom;
 		?>
 		 </td></tr>
 
 	<tr><td>Active:</td>
-		<td><? IF ($Active == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
+		<td><?php IF ($Active == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
 	<tr><td>Deceased:</td>
-		<td><? IF ($Deceased == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
+		<td><?php IF ($Deceased == 1) { PRINT "yes"; } else { PRINT "no"; } ?></td></tr>
 	<tr><td>Modern Name:</td>
-		<td><?=htmlspecialchars($ModernName)?></td></tr>
+		<td><?php echo htmlspecialchars($ModernName)?></td></tr>
 	<tr><td>Member Number:</td>
-		<td><?=htmlspecialchars($MemberNumber)?></td></tr>
+		<td><?php echo htmlspecialchars($MemberNumber)?></td></tr>
 	<tr><td colspan="2" class="tableheader">Aliases</td></tr>
 	<tr><td valign="top">Aliases:</td>
 		<td>
@@ -80,11 +80,11 @@ $LastUpdateBy 	= $db->get_var("SELECT Username FROM Users WHERE PersonID='$LastU
 
 		<tr><td colspan="2" class="tableheader">Administration</td></tr>
 		<tr><td>Date Added:</td>
-			<td><?=$DateAdded?></td></tr>
+			<td><?php echo $DateAdded?></td></tr>
 		<tr><td>Last Update:</td>
-			<td><?=$LastUpdate?></td></tr>
+			<td><?php echo $LastUpdate?></td></tr>
 		<tr><td>Last Update By:</td>
-			<td><?=$LastUpdateBy?></td></tr>
+			<td><?php echo $LastUpdateBy?></td></tr>
 
 	</table>
 	</div>
@@ -138,5 +138,5 @@ IF ($results = $db->get_results("SELECT g.*, a.Initials as Award, r.RUseName as 
 }
 
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

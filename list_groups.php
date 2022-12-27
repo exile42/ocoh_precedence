@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if ($accessWimble != 1) {
         ?><p>You do not have access to this file.</p><?
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -19,7 +19,7 @@ if ($accessWimble != 1) {
   <table border="0" cellpadding="4" cellspacing="0" width="550">
   <tr class="tableheader"><td>Kingdom</td><td>Group</td><td>Active?</td><td>Action</td></tr>
 
-	<? 
+	<?php 
 	$ourkingdom_groupsquery="SELECT G.GroupID, G.Name AS GroupName, G.ParentGroupID, G.KingdomID, K.Name AS KingdomName, G.Designator, G.Active FROM Groups G INNER JOIN Kingdoms K ON G.KingdomID = K.KingdomID WHERE G.KingdomID = $MYKINGDOMID ORDER BY GroupName";
 		
 	if ($results = $db->get_results($ourkingdom_groupsquery)) {
@@ -31,17 +31,17 @@ if ($accessWimble != 1) {
 		  $Active	= $r->Active;
 		  if (!$Active) { $a="(inactive/disbanded)"; } else { $a=""; }
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?> (<?=$Designator?>)</td>
-		  <td><?=$a?></td>
-		  <td><a href="add_group.php?Action=Edit&GroupID=<?=$GroupID?>">EDIT</a></td>
+		  <tr><td><?php echo $Kingdom?></td>
+		  <td><?php echo $Group?> (<?php echo $Designator?>)</td>
+		  <td><?php echo $a?></td>
+		  <td><a href="add_group.php?Action=Edit&GroupID=<?php echo $GroupID?>">EDIT</a></td>
 		  </tr>
 		  <?
 		} //end foreach
 	} else {
     ?>
 	<tr><td colspan="2" align="center">
-      Bigtime error: no groups for <?=$WEAREKINGDOMCOLLECTIVE?>!
+      Bigtime error: no groups for <?php echo $WEAREKINGDOMCOLLECTIVE?>!
     </td></tr><?
 	} // end if results for outlandsawardsquery
 
@@ -57,10 +57,10 @@ if ($accessWimble != 1) {
 		  $Active	= $r->Active;
 		  if (!$Active) { $a="(inactive/disbanded)"; } else { $a=""; }
 		  ?>
-		  <tr><td><?=$Kingdom?></td>
-		  <td><?=$Group?> (<?=$Designator?>)</td>
-		  <td><?=$a?></td>
-		  <td><a href="add_group.php?Action=Edit&GroupID=<?=$GroupID?>">EDIT</a></td>
+		  <tr><td><?php echo $Kingdom?></td>
+		  <td><?php echo $Group?> (<?php echo $Designator?>)</td>
+		  <td><?php echo $a?></td>
+		  <td><a href="add_group.php?Action=Edit&GroupID=<?php echo $GroupID?>">EDIT</a></td>
 		  </tr>
 		  <?
 		} // end foreach
@@ -76,5 +76,5 @@ if ($accessWimble != 1) {
   </td></tr></table></div>
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

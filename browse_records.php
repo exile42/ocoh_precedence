@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 IF ($accessWimbleView == 0) {
         PRINT "<p>You do not have access to this file.</p>";
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -15,11 +15,11 @@ IF ($accessWimbleView == 0) {
 <div class="bodyheader">Browse Records</div><br />
 
 <center>
-<? WriteAlpha("browse_records.php");
+<?php WriteAlpha("browse_records.php';
 ?>
 </center>
 
-<? 	IF (!$Letter) {?>
+<?php 	IF (!$Letter) {?>
 <p>Please click on a letter above to navigate the alphabetical list of people in the Outlands.</p>
 <?	} else {
 		IF ($results = $db->get_results("SELECT PersonID, SCAName 
@@ -39,11 +39,11 @@ IF ($accessWimbleView == 0) {
 			PRINT "</table></div>";
 		} else {
 		?>
-			<p>There are no people that start with letter <?=$Letter?>.</p>
+			<p>There are no people that start with letter <?php echo $Letter?>.</p>
 		<?
 		}
 
 	}
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

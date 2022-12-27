@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 iif ($accessWimble == 0) {
         PRINT "<p>You do not have access to this file.</p>";
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -20,7 +20,7 @@ iif ($accessWimble == 0) {
 //if we get action=delete on the querystring and an id, then delete that user
 if ($Action == "Delete" && $ID != "") {
 	$db->query("DELETE QUICK FROM users WHERE ID='$ID'");
-	?><p class="success">You have successfully deleted <?=$Name?>.</p><?
+	?><p class="success">You have successfully deleted <?php echo $Name?>.</p><?
 }
 
 //if they didn't die above, then they have admin privs, so list all users
@@ -46,21 +46,21 @@ if ($results = $db->get_results("SELECT U.*, UT.UserType
 		$LastLoginIP= $r->LastLoginIP;
 		$UserType	= $r->UserType;
 ?>
-		<tr class="<?=$row?>"><td><?=$Name?></td>
-			<td><?=$Email?></td>
-			<td><?=$UserType?></td>
-			<td><?=$LastLogin?></td>
+		<tr class="<?php echo $row?>"><td><?php echo $Name?></td>
+			<td><?php echo $Email?></td>
+			<td><?php echo $UserType?></td>
+			<td><?php echo $LastLogin?></td>
 
-			<td><a 	href="edit_user.php?ID=<?=$ID?>&Action=Edit">EDIT</a> | 
+			<td><a 	href="edit_user.php?ID=<?php echo $ID?>&Action=Edit">EDIT</a> | 
 			
-				<a 	href="manage_users.php?Action=Delete&ID=<?=$ID?>&Name=<?=$Name?>"
-					onClick="return confirm_delete('<?=$Name?>');">DELETE</a>
+				<a 	href="manage_users.php?Action=Delete&ID=<?php echo $ID?>&Name=<?php echo $Name?>"
+					onClick="return confirm_delete('<?php echo $Name?>');">DELETE</a>
 			</td>
 		</tr>
 <?
 		IF ($row == "lightrow") { $row = "darkrow"; } else { $row = "lightrow"; } //alternates rows
 	} //end foreach loop
-?>	<tr class="<?=$row?>"><td colspan="5" align="center"><a href="edit_user.php?Action=Add">ADD USER</a></td></tr>
+?>	<tr class="<?php echo $row?>"><td colspan="5" align="center"><a href="edit_user.php?Action=Add">ADD USER</a></td></tr>
 	</table>
 <?
 } else {
@@ -71,5 +71,5 @@ if ($results = $db->get_results("SELECT U.*, UT.UserType
 
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

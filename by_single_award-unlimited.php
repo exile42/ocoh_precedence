@@ -1,8 +1,8 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if (isset($_REQUEST['AwardID']))
 	if (is_numeric($_REQUEST['AwardID']))
@@ -48,13 +48,13 @@ $results_recipients = $db->get_results($db_query_recipients);
 
 ?>
 
-<div class="bodyheader"><?=$Name?> (<?=$Initials?>)</div>
+<div class="bodyheader"><?php echo $Name?> (<?php echo $Initials?>)</div>
 
-<p>The stylization of members of this order is <?=$Stylization?>.<br /><br />
-Notes on this order: <?=$Notes?><br /><br />
-Sort: <?=$by?> | <a href="by_single_award.php?AwardID=<?=$AwardID?>&by=<?=$switchby?>"><?=$switchby?></a></p>
+<p>The stylization of members of this order is <?php echo $Stylization?>.<br /><br />
+Notes on this order: <?php echo $Notes?><br /><br />
+Sort: <?php echo $by?> | <a href="by_single_award.php?AwardID=<?php echo $AwardID?>&by=<?php echo $switchby?>"><?php echo $switchby?></a></p>
 <table border="0" cellpadding="3" cellspacing="3" width="560">
-<? foreach($results_recipients as $r) { 
+<?php foreach($results_recipients as $r) { 
 	while(list($name,$value) = each($r)) { //name all values
 		$$name = $value;
 	};
@@ -63,15 +63,15 @@ if ($Premier==1) {$p = " (premier)"; } else {$p = "";}
 if ($Reason) {$r = " ($Reason)";} else {$r = "";}
 	?>
 <tr>
-<td valign="middle" align="left"><a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a> <?=$p;?><?=$r;?></td>
-<td valign="middle" align="right"><?=$NiceDate?></td>
+<td valign="middle" align="left"><a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a> <?php echo $p;?><?php echo $r;?></td>
+<td valign="middle" align="right"><?php echo $NiceDate?></td>
 </tr>
-<? 
+<?php 
 };  //end foreach
 ?>
 </table>
 
 
 <?
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

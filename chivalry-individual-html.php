@@ -1,7 +1,7 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
 if (isset($_REQUEST['PersonID']) && is_numeric($_REQUEST['PersonID'])){
 	$PersonID = $_REQUEST['PersonID'];
 } else {

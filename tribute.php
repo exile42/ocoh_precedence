@@ -34,5 +34,5 @@ $results_award = $db->get_results($db_query_award);
 
 
 <?php
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

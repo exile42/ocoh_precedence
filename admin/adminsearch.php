@@ -1,17 +1,13 @@
-<?
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
-
+<?php
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 IF ($accessWimble == 0) {
         PRINT "<p>You do not have access to this file.</p>";
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
-
 ?>
-
-
 
 <div class="bodyheader">Search Records</div><br />
 
@@ -19,9 +15,4 @@ IF ($accessWimble == 0) {
 Will pull up an individual record (or a list of people that match the search, and then ind. records).  Ind.
 record page will show output like mocked up <a href="/individual_record.php">here</a>.</p>
 
-
-
-<?
-
-include("includes/footer.php");
-?>
+<?php include 'includes/footer.php'; ?>

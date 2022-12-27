@@ -52,7 +52,7 @@ function OPLong($kingdom, $start=0, $paged=null){
 	global $MYKINGDOMID;
 	global $cstring;
 	global $op_sql;
-	$page = 25;
+	$page = $OPPERPAGELONG;
 	$nav = null;
 		
 	if ($paged) {	
@@ -122,7 +122,7 @@ function OPShort($kingdom, $start= 0, $paged=null){
 	global $MYKINGDOMID;
 	global $cstring;
 	global $op_sql;
-	$page=40;
+	$page= $OPPERPAGESHORT;
 	$nav = null;
 	
 	if ($paged){

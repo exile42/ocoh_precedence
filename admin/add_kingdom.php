@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if ($accessWimble != 1) {        
 	?> <p>You do not have access to this file.</p> <?
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -31,7 +31,7 @@ if (isset($_REQUEST['CreationOrder']))
 
 ?>
 <div class="bodyheader">
-  <?=$Action?>
+  <?php echo $Action?>
   Kingdom</div>
 <br />
 <?
@@ -45,7 +45,7 @@ if ($Action == "Submit") { //they've submitted the form
 	// Were there any errors?
 	if ($err != "") { //we got errors, make them work for it
     	?><p class="error">
-		<?=$err?></p><?
+		<?php echo $err?></p><?
 		$KingdomIDtrue = $KingdomID;
     	ShowForm();
 
@@ -93,14 +93,14 @@ function ShowForm() {
 <div class="form">
   <form action="add_kingdom.php" method="post">
     <input type="hidden" name="Action" value="Submit" />
-    <input type="hidden" name="KingdomID" value="<?=$KingdomIDtrue?>">
+    <input type="hidden" name="KingdomID" value="<?php echo $KingdomIDtrue?>">
     <b>Kingdom Name:</b>
-    <input type="text" size="80" name="Name" class="formfield" value="<?=$Name?>" />
+    <input type="text" size="80" name="Name" class="formfield" value="<?php echo $Name?>" />
     <br />
     <br />
     <b>Creation Order:</b>
-    <input type="text" size="2" name="CreationOrder" class="formfield" value="<?=$CreationOrder?>" />
-    <br />This field is used for sorting kingdoms into their precedential order.  <strong>Start with 1 for the earliest and go up from there.</strong>  This is a required field.  The current highest Creation Order is <?=$CurrentMaxCreationOrder?>
+    <input type="text" size="2" name="CreationOrder" class="formfield" value="<?php echo $CreationOrder?>" />
+    <br />This field is used for sorting kingdoms into their precedential order.  <strong>Start with 1 for the earliest and go up from there.</strong>  This is a required field.  The current highest Creation Order is <?php echo $CurrentMaxCreationOrder?>
     <br />
     <br />
 	<input type="submit" class="button" value="Submit" />
@@ -109,5 +109,5 @@ function ShowForm() {
 <?
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

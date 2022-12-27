@@ -1,12 +1,12 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
 
 if ($accessWimble == 0) {
         PRINT "<p>You do not have access to this file.</p>";
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -25,23 +25,23 @@ if ($accessWimble == 0) {
 		<br />
 		</p>
 		<table border="1" cellpadding="3" cellspacing="3" width="560">
-		<? 
+		<?php 
 		foreach($results as $r) { 
 			while(list($name,$value) = each($r)) { //name all values
 				$$name = $value;
 			};
 				?>
 				<tr>
-				<td valign="top" align="right"><? echo $NiceDate; ?></td>
-				<td valign="top" align="left"><a href="individual_record.php?PersonID=<? echo $PersonID ; ?>"><? echo $SCAName;?></a></td>
-				<td valign="top" align="right"><a href="edit_awards.php?Action=Edit&PersonID=<? echo $PersonID ; ?>&AwardsGivenID=<? echo $AGID; ?>"><? echo $AwardName; ?></a></td>
+				<td valign="top" align="right"><?php echo $NiceDate; ?></td>
+				<td valign="top" align="left"><a href="individual_record.php?PersonID=<?php echo $PersonID ; ?>"><?php echo $SCAName;?></a></td>
+				<td valign="top" align="right"><a href="edit_awards.php?Action=Edit&PersonID=<?php echo $PersonID ; ?>&AwardsGivenID=<?php echo $AGID; ?>"><?php echo $AwardName; ?></a></td>
 				</tr>
-				<? 
+				<?php 
 		}; // end foreach
 		?>
 		</table>
 		<?
 		} 
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>

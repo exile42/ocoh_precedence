@@ -1,13 +1,13 @@
 <?
-include("includes/constants.php");
-include("includes/ez_sql.php");
-include("includes/functions.php");
-include("includes/header.php");
-include("includes/converter.php");
+include 'includes/constants.php';
+include 'includes/ez_sql.php';
+include 'includes/functions.php';
+include 'includes/header.php';
+include 'includes/converter.php';
 
 if ($accessWimble != 1) {
         ?><p>You do not have access to this file.</p><?
-        include("includes/footer.php");
+        include 'includes/footer.php';
         die;
 }
 
@@ -19,7 +19,7 @@ else
 	$Delete = "NOPE";
 ?>
 
-<div class="bodyheader"><?=$Action?> Person</div>
+<div class="bodyheader"><?php echo $Action?> Person</div>
 <br />
 <br />
 <?
@@ -47,7 +47,7 @@ if ($Delete == "DeleteAlias") {
 		
 		$query = "DELETE QUICK FROM wAliases WHERE AliasID='$AliasID' AND PersonID='$PersonID'";
 		$db->query($query);
-		?><p class="success">You have successfully deleted <?=$Alias?> from the profile.</p><?
+		?><p class="success">You have successfully deleted <?php echo $Alias?> from the profile.</p><?
 		$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'deleted an alias $Alias for $Name u: $Username', '$IPAddress')");
 	} // end if err
 	
@@ -108,7 +108,7 @@ if ($Action == "Submit") { //they've submitted the form
 
 	//first check for errors
 	if ($err != "") { //we got errors, make them work for it
-		?><p class="error"><?=$err?></p><?
+		?><p class="error"><?php echo $err?></p><?
 		ShowForm();
 	} else { //no errors, insert or update as needed
 	
@@ -126,12 +126,12 @@ if ($Action == "Submit") { //they've submitted the form
 			//echo $insertquery;
 			// Do the insert
 			if ($results = $db->query($insertquery)) {
-				?><p class="success">You have successfully added <?=$SCAName?>.<?
+				?><p class="success">You have successfully added <?php echo $SCAName?>.<?
 				$PersonID = $db->get_var("SELECT MAX(PersonID) FROM wPeople WHERE SCAName='$SCAName'");
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added new Person $SCAName u: $Username', '$IPAddress')");
-				?><p><a href="view_person.php?PersonID=<?=$PersonID?>">VIEW DETAILS</a><?
-				?> | <a href="edit_user.php?PersonID=<?=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-				<a href="edit_awards.php?PersonID=<?=$PersonID?>">EDIT AWARDS</a> </p><?
+				?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?
+				?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+				<a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?
 			} else {
 				?> Something went wrong and the person wasn't added. :( <?
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED added new Person $SCAName u: $Username', '$IPAddress')");
@@ -158,11 +158,11 @@ if ($Action == "Submit") { //they've submitted the form
 			//echo $updatequery;
 			//Do the update
 			if ($results = $db->query($updatequery)) {
-				?><p class="success">You have successfully updated <?=$SCAName?>.<?
+				?><p class="success">You have successfully updated <?php echo $SCAName?>.<?
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'edited Person $SCAName u: $Username', '$IPAddress')");
-				?><p><a href="view_person.php?PersonID=<?=$PersonID?>">VIEW DETAILS</a><?
-   	    		?> | <a href="edit_user.php?PersonID=<?=$PersonID?>&Action=Edit">EDIT PERSON</a> |
-	            <a href="edit_awards.php?PersonID=<?=$PersonID?>">EDIT AWARDS</a> </p><?
+				?><p><a href="view_person.php?PersonID=<?php echo $PersonID?>">VIEW DETAILS</a><?
+   	    		?> | <a href="edit_user.php?PersonID=<?php echo $PersonID?>&Action=Edit">EDIT PERSON</a> |
+	            <a href="edit_awards.php?PersonID=<?php echo $PersonID?>">EDIT AWARDS</a> </p><?
 			} else {
 				?> Something went wrong and the person wasn't updated. :( <?
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'FAILED edited Person $SCAName u: $Username', '$IPAddress')");
@@ -184,8 +184,8 @@ if ($Action == "Submit") { //they've submitted the form
 				ENDWHILE;
 			} //end if AliasCount
 			
-			?><p class="success">You have successfully edited <?=$SCAName?>.</p>
-			<p>Go back to <a href="individual_record.php?PersonID=<?=$PersonID?>"><?=$SCAName?></a>.</p><?
+			?><p class="success">You have successfully edited <?php echo $SCAName?>.</p>
+			<p>Go back to <a href="individual_record.php?PersonID=<?php echo $PersonID?>"><?php echo $SCAName?></a>.</p><?
 		}
 		
 		//for both add and edit
@@ -198,7 +198,7 @@ if ($Action == "Submit") { //they've submitted the form
 			//echo $query;
 			//Do the update
 			if ($results = $db->query($aliasquery)) {
-				?><p class="success">You have successfully added the alias <?=$AddAlias?> to <?=$SCAName?>.<?
+				?><p class="success">You have successfully added the alias <?php echo $AddAlias?> to <?php echo $SCAName?>.<?
 				$db->query("INSERT INTO ActivityLog (WhenDone, UserID, Activity, IPAddress) VALUES  ('$Now', '$UserID', 'added new alias $AddAlias to $SCAName u: $Username', '$IPAddress')");
 			} else {
 				?> Something went wrong and the new alias wasn't added. :( <?
@@ -235,37 +235,37 @@ Function ShowForm() {
 	<div align="center">
 	<form action="edit_user.php" method="post">
 	<input type="hidden" name="Action" value="Submit">
-	<input type="hidden" name="PersonID" value="<?=$PersonID?>">
+	<input type="hidden" name="PersonID" value="<?php echo $PersonID?>">
 	<table border="0" cellpadding="4" cellspacing="0" width="550" class="edittable">
-	<tr><td colspan="2" class="tableheader"><?=$Action?> Person</td></tr>
+	<tr><td colspan="2" class="tableheader"><?php echo $Action?> Person</td></tr>
 	<tr><td>SCA Name:</td>
-		<td><input type="text" name="SCAName" value="<?=htmlspecialchars($SCAName)?>" size="50" maxlength="80"></td></tr>
+		<td><input type="text" name="SCAName" value="<?php echo htmlspecialchars($SCAName)?>" size="50" maxlength="80"></td></tr>
 	<tr><td>Registered Name:</td>
-		<td><? WriteYNDropDown($RegName, "RegName"); ?></td></tr>
+		<td><?php WriteYNDropDown($RegName, "RegName"); ?></td></tr>
 	<tr><td>Date Registered:</td>
-		<td><input type="text" name="RegNameDate" value="<?=htmlspecialchars($RegNameDate)?>" size="10" maxlength="10"></td></tr>
+		<td><input type="text" name="RegNameDate" value="<?php echo htmlspecialchars($RegNameDate)?>" size="10" maxlength="10"></td></tr>
 	<tr><td></td>
 		<td><span class="small">(YYYY-MM)</span></td></tr>
 	<tr><td>Registered Device:</td>
-		<td><? WriteYNDropDown($RegDevice, "RegDevice"); ?></td></tr>
+		<td><?php WriteYNDropDown($RegDevice, "RegDevice"); ?></td></tr>
 	<tr><td>Group:</td>
 		<td>
 		<select name="GroupID">
 		<option value="">SELECT ONE</option>
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT GroupID, Name, KingdomID FROM Groups WHERE KingdomID = $MYKINGDOMID ORDER BY Name");
 		foreach($results as $r) {
 			$thisGroupID = $r->GroupID;
 			$GroupName   = $r->Name;
 			if ($GroupID == $thisGroupID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$thisGroupID?>" <?=$s?>><?=$GroupName?></option><?
+			?><option value="<?php echo $thisGroupID?>" <?php echo $s?>><?php echo $GroupName?></option><?
 		}
 		$results = $db->get_results("SELECT GroupID, Name, KingdomID FROM Groups WHERE KingdomID != $MYKINGDOMID ORDER BY KingdomID, Name");
 		foreach($results as $r) {
 			$thisGroupID = $r->GroupID;
 			$GroupName   = $r->Name;
 			if ($GroupID == $thisGroupID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$thisGroupID?>" <?=$s?>><?=$GroupName?></option><?
+			?><option value="<?php echo $thisGroupID?>" <?php echo $s?>><?php echo $GroupName?></option><?
 		}
 		 ?>
 		 </select>
@@ -274,26 +274,26 @@ Function ShowForm() {
 		<td>
 		<select name="KingdomID">		
 		<option value="">SELECT ONE</option>
-		<? 
+		<?php 
 		$results = $db->get_results("SELECT KingdomID, Name FROM Kingdoms ORDER BY Name");
 		foreach($results as $r) {
 			$thisKID = $r->KingdomID;
 			$KName   = $r->Name;
 			if ($KingdomID == $thisKID) { $s = "selected"; } else { $s = ""; }
-			?><option value="<?=$thisKID?>" <?=$s?> ><?=$KName?></option><?
+			?><option value="<?php echo $thisKID?>" <?php echo $s?> ><?php echo $KName?></option><?
 		}
 		 ?>
 		 </select>
 		 </td></tr>
 
 	<tr><td>Active:</td>
-		<td><? WriteYNDropDown($Active, "Active"); ?></td></tr>
+		<td><?php WriteYNDropDown($Active, "Active"); ?></td></tr>
 	<tr><td>Deceased:</td>
-		<td><? WriteYNDropDown($Deceased, "Deceased"); ?></td></tr>
+		<td><?php WriteYNDropDown($Deceased, "Deceased"); ?></td></tr>
 	<tr><td>Modern Name:</td>
-		<td><input type="text" name="ModernName" value="<?=htmlspecialchars($ModernName)?>" size="50" maxlength="150"></td></tr>
+		<td><input type="text" name="ModernName" value="<?php echo htmlspecialchars($ModernName)?>" size="50" maxlength="150"></td></tr>
 	<tr><td>Member Number:</td>
-		<td><input type="text" name="MemberNumber" value="<?=htmlspecialchars($MemberNumber)?>" size="10" maxlength="10"></td></tr>
+		<td><input type="text" name="MemberNumber" value="<?php echo htmlspecialchars($MemberNumber)?>" size="10" maxlength="10"></td></tr>
 	<tr><td colspan="2" class="tableheader">Aliases</td></tr>
 	<tr><td valign="top">Aliases:</td>
 		<td>
@@ -305,11 +305,11 @@ Function ShowForm() {
 				$AliasID = $r->AliasID;
 				$Alias 	  = $r->Alias;
 				?>
-				<input type="hidden" name="AliasID-<?=$count?>" value="<?=$AliasID?>">
-				<input type="text" name="Alias-<?=$count?>" value="<?=htmlspecialchars($Alias)?>" size="40" maxlength="80">
-				<a 	href="edit_user.php?Delete=DeleteAlias&Action=Edit&PersonID=<?=$PersonID?>&Alias=<?=$Alias?>&AliasID=<?=$AliasID?>"
-					onClick="return confirm_delete('<?=$Alias?>')">Delete?</a><br>
-				<? 
+				<input type="hidden" name="AliasID-<?php echo $count?>" value="<?php echo $AliasID?>">
+				<input type="text" name="Alias-<?php echo $count?>" value="<?php echo htmlspecialchars($Alias)?>" size="40" maxlength="80">
+				<a 	href="edit_user.php?Delete=DeleteAlias&Action=Edit&PersonID=<?php echo $PersonID?>&Alias=<?php echo $Alias?>&AliasID=<?php echo $AliasID?>"
+					onClick="return confirm_delete('<?php echo $Alias?>')">Delete?</a><br>
+				<?php 
 				$count++;
 			} //end foreach
 			?></td></tr><?
@@ -318,27 +318,27 @@ Function ShowForm() {
 		}
 		?>	
 		<tr><td>Add Alias:</td>
-			<td><input type="text" name="AddAlias" value="<?=htmlspecialchars($AddAlias)?>" size="40" maxlength="80"></td></tr>
+			<td><input type="text" name="AddAlias" value="<?php echo htmlspecialchars($AddAlias)?>" size="40" maxlength="80"></td></tr>
 
-		<input type="hidden" name="AliasCount" value="<?=$count?>">
+		<input type="hidden" name="AliasCount" value="<?php echo $count?>">
 
 
 
 <?	if ($Action == "Edit") {
 ?>			<tr><td colspan="2" class="tableheader">Administration</td></tr>
 		<tr><td>Date Added:</td>
-			<td><?=$DateAdded?></td></tr>
+			<td><?php echo $DateAdded?></td></tr>
 		<tr><td>Last Update:</td>
-			<td><?=$LastUpdate?></td></tr>
+			<td><?php echo $LastUpdate?></td></tr>
 		<tr><td>Last Update By:</td>
-			<td><?=$LastUpdateBy?></td></tr>
+			<td><?php echo $LastUpdateBy?></td></tr>
 
 <?
 	}
 
 ?>	
 	<tr><td></td>
-		<td><input type="submit" name="submit" value="<?=$Action?> Person"></td></tr>
+		<td><input type="submit" name="submit" value="<?php echo $Action?> Person"></td></tr>
 	</table>
 	</form>
 	</div>
@@ -347,5 +347,5 @@ Function ShowForm() {
 <?
 }
 
-include("includes/footer.php");
+include 'includes/footer.php';
 ?>
